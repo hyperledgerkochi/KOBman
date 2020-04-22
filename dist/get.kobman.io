@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo dpkg --configure -a
+#sudo dpkg --configure -a
 #Install: stable
 
 # Global variables
@@ -60,7 +60,8 @@ case "$(uname)" in
         freebsd=true
 esac
 
-sudo apt install figlet -y
+#sudo apt install figlet -y
+apt install figlet -y
 
 
 figlet KOB Utility -f small
@@ -187,7 +188,7 @@ echo "kobman_colour_enable=true" >> "$kobman_config_file"
 echo "Download script archive..."
 
 # once move to kobman namespace needs to update kobman-latest.zip 
-curl --location --progress-bar "${KOBMAN_SERVICE}/${KOBMAN_NAMESPACE}/KOBman/master/dist/kobman-latest.zip" > "$kobman_zip_file"
+curl --location --progress-bar "${KOBMAN_SERVICE}/${KOBMAN_NAMESPACE}/KOBman/RF-1.0.0.3.1/dist/kobman-latest.zip" > "$kobman_zip_file"
 
 ARCHIVE_OK=$(unzip -qt "$kobman_zip_file" | grep 'No errors detected in compressed data')
 if [[ -z "$ARCHIVE_OK" ]]; then
@@ -212,7 +213,7 @@ unzip -qo "$kobman_zip_file" -d "$kobman_stage_folder"
 echo "Install scripts..."
 
 mv "${kobman_stage_folder}/kobman-init.sh" "$kobman_bin_folder"
-sudo chmod +x "${kobman_stage_folder}/kobman-test.sh"
+#sudo chmod +x "${kobman_stage_folder}/kobman-test.sh"
 mv "${kobman_stage_folder}/kobman-test.sh" "$kobman_bin_folder"
 mv "$kobman_stage_folder"/kobman-[kt]* "$kobman_env_folder"
 mv "$kobman_stage_folder"/kobman-* "$kobman_src_folder"
@@ -244,10 +245,16 @@ if [[ -z $(grep 'kobman-init.sh' "$kobman_zshrc") ]]; then
     echo "Updated existing ${kobman_zshrc}"
 fi
 
-sudo chmod a+rwx .
-sudo chmod u+xr ${KOBMAN_DIR}/candidates 
-sudo chmod go+x /
-sudo chmod go+x /root
+#sudo chmod a+rwx .
+#sudo chmod u+xr ${KOBMAN_DIR}/candidates 
+#sudo chmod go+x /
+#sudo chmod go+x /root
+
+chmod a+rwx .
+chmod u+xr ${KOBMAN_DIR}/candidates 
+chmod go+x /
+chmod go+x /root
+
 echo -e "\n\n\nAll done!\n\n"
 
 echo "Please open a new terminal, or run the following in the existing one:"
