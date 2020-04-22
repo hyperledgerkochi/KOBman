@@ -27,47 +27,48 @@ function __kobman_environment_version {
 	if [ "$DEPLOYMENT_TYPE" == "--environment" ] 
 	then	
 	
-		case "$ENVIRONMENT_TYPE" in
-		tobvon)
-			__kobman_version_tobvon 
-
-		;;	
-		tob)
-			__kobman_version_tob 
-
-		;;	
-		greenlight)
-			__kobman_version_greenlight 
-		;;	
-		kobman)
-			__kobman_version_kobman 
-
-		;;	
-		kobvon)
-			echo "invoking kobman version"
-			__kobman_version_kobvon 
-
-		;;	
-		kob)
-			__kobman_version_kob 
-
-		;;	
-		kobdflow)
-			__kobman_version_kobdflow 
-
-		;;	
-		kobconnect)
-			__kobman_version_kobconnect 
-
-		;;	
-		kobregistery)
-			__kobman_version_kobregistery
-
-		;;
-		"")
-			echo "verify your command &  try again"	
-
-		;;	
-	esac
+		__kobman_version_${ENVIRONMENT_TYPE} 
+#		case "$ENVIRONMENT_TYPE" in
+#		tobvon)
+#			__kobman_version_tobvon 
+#
+#		;;	
+#		tob)
+#			__kobman_version_tob 
+#
+#		;;	
+#		greenlight)
+#			__kobman_version_greenlight 
+#		;;	
+#		kobman)
+#			__kobman_version_kobman 
+#
+#		;;	
+#		kobvon)
+#			echo "invoking kobman version"
+#			__kobman_version_kobvon 
+#
+#		;;	
+#		kob)
+#			__kobman_version_kob 
+#
+#		;;	
+#		kobdflow)
+#			__kobman_version_kobdflow 
+#
+#		;;	
+#		kobconnect)
+#			__kobman_version_kobconnect 
+#
+#		;;	
+#		kobregistery)
+#			__kobman_version_kobregistery
+#
+#		;;
+#		"")
+#			echo "verify your command &  try again"	
+#
+#		;;	
+#	esac
 	fi
 }
