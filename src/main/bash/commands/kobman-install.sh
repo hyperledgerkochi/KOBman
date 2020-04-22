@@ -22,7 +22,7 @@ function __kob_install {
 				else
 					echo "Try with parameter '--namespace'"		
 				fi
-
+		;;
                 *)
                         if [ -z $deployment_type ]
                         then
