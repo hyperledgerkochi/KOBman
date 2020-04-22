@@ -7,12 +7,9 @@ export KOBMAN_VERSION="0.01"
 KOBMAN_PLATFORM=$(uname)
 export KOBMAN_SERVICE="https://raw.githubusercontent.com"
 
-KOBMAN_NAMESPACE="EtricKombat"
-export KOBMAN_NAMESPACE=${KOBMAN_NAMESPACE:-hyperledgerkochi}
+KOBMAN_NAMESPACE=${KOBMAN_NAMESPACE:-hyperledgerkochi}
+KOBMAN_DIST_BRANCH=${KOBMAN_DIST_BRANCH:-REL-${KOBMAN_VERSION}}
 
-
-KOBMAN_BRANCH="RF-1.0.0.3.1" 
-export KOBMAN_BRANCH=${KOBMAN_BRANCH:-master}
 
 if [ -z "$KOBMAN_DIR" ]; then
     KOBMAN_DIR="$HOME/.kobman"
@@ -187,7 +184,7 @@ echo "kobman_colour_enable=true" >> "$kobman_config_file"
 echo "Download script archive..."
 
 # once move to kobman namespace needs to update kobman-latest.zip 
-curl --location --progress-bar "${KOBMAN_SERVICE}/${KOBMAN_NAMESPACE}/KOBman/${KOBMAN_BRANCH}/dist/kobman-latest.zip" > "$kobman_zip_file"
+curl --location --progress-bar "${KOBMAN_SERVICE}/${KOBMAN_NAMESPACE}/KOBman/${KOBMAN_DIST_BRANCH}/dist/kobman-latest.zip" > "$kobman_zip_file"
 
 ARCHIVE_OK=$(unzip -qt "$kobman_zip_file" | grep 'No errors detected in compressed data')
 if [[ -z "$ARCHIVE_OK" ]]; then
