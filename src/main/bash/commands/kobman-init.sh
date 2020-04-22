@@ -115,7 +115,7 @@ fi
 export KOBMAN_CANDIDATES_DIR=$HOME
 
 
-sudo chmod 777 ${KOBMAN_CANDIDATES_DIR}
+# sudo chmod 777 ${KOBMAN_CANDIDATES_DIR}
 
 #for candidate_name in "${KOBMAN_CANDIDATES[@]}"; do
 #	candidate_dir="${KOBMAN_CANDIDATES_DIR}/${candidate_name}/current"
