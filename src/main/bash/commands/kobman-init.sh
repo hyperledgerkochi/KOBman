@@ -95,4 +95,4 @@ export KOBMAN_CANDIDATES_DIR=$HOME
 #	fi
 #done
 #unset OLD_IFS candidate_name candidate_dir
-$ export PATH
+#$ export PATH
