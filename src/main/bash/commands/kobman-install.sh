@@ -125,16 +125,16 @@ function __kobman_validate_zip {
 function __kobman_vim_fix {
 	
 	__kobman_echo_yellow "Configuring VIM" 
-	sudo cd
-        sudo echo "set nocompatible" > /root/.vimrc
+	cd
+        echo "set nocompatible" > /root/.vimrc
 
 }
 
 function __kobman_ubuntu_update_upgrade {
+
 	__kobman_echo_yellow "Upgrading/Updating Ubuntu"
 	apt-get -y install build-essential nghttp2 libnghttp2-dev libssl-dev -y
-	apt-get update -y
-        apt-get dist-upgrade -y
+	aptdcon --safe-upgrade
 }
 
 function __kobman_proxy_environment {
@@ -169,45 +169,45 @@ function __kobman_check_proxy {
         if [ "$reply" = "y" ] || [ "$reply" = "Y" ] || [ "$reply" = "yes" ] || [ "$reply" = "YES" ] 
 	then
 		proxychk=1
-		sudo dpkg --configure -a
+	#	sudo dpkg --configure -a
 		__kobman_echo_red "By passing proxy server requires listed values\n"
 		read -p "Enter the proxy?[eg: Kochin.dummy.com..etc] : " prox
-        	sudo echo -e "\n"
+        	echo -e "\n"
          	read -p "Enter the port?[eg :8980,443..etc]          : " port
-         	sudo echo -e "\n"
+         	echo -e "\n"
          	read -p "Enter proxy user name                       : " uname
-         	sudo echo -e "\n"
+         	echo -e "\n"
          	read  -p "Enter proxy password?[your login password] : " pword
          	__kobman_echo_red "Configure github username/email"
          	read -p "Enter github user name                      : " git_uname
-         	sudo echo -e "\n"
+         	echo -e "\n"
          	read -p "Enter github email ID?                      : " emil
-         	sudo echo -e "\n"
+         	echo -e "\n"
          	__kobman_proxy_environment
         for proto in http https ftp socks;
         do
                 if [ "$proto" = "https" ];
                 then
-                  	sudo printf 'Acquire::%s::proxy "http://%s:%s@%s:%u/";\n' "$proto" "$uname" "$pword" "$prox" "$port"
+                  	printf 'Acquire::%s::proxy "http://%s:%s@%s:%u/";\n' "$proto" "$uname" "$pword" "$prox" "$port"
                 else
-                        sudo printf 'Acquire::%s::proxy "%s://%s:%s@%s:%u/";\n' "$proto" "$proto" "$uname" "$pword" "$prox" "$port"
+                        printf 'Acquire::%s::proxy "%s://%s:%s@%s:%u/";\n' "$proto" "$proto" "$uname" "$pword" "$prox" "$port"
                 fi
 
-        done | sudo tee -a /etc/apt/apt.conf > /dev/null
-        sudo mkdir -p /etc/systemd/system/docker.service.d/
-        sudo touch /etc/systemd/system/docker.service.d/https-proxy.conf
-        sudo chmod 777 /etc/systemd/system/docker.service.d/https-proxy.conf
-        sudo echo -e "[Service]\nEnvironment="HTTPS_PROXY=http://${uname}:${pword}@${prox}:${port}"">>/etc/systemd/system/docker.service.d/https-proxy.conf
+        done | tee -a /etc/apt/apt.conf > /dev/null
+        mkdir -p /etc/systemd/system/docker.service.d/
+        touch /etc/systemd/system/docker.service.d/https-proxy.conf
+        chmod 777 /etc/systemd/system/docker.service.d/https-proxy.conf
+        echo -e "[Service]\nEnvironment="HTTPS_PROXY=http://${uname}:${pword}@${prox}:${port}"">>/etc/systemd/system/docker.service.d/https-proxy.conf
 
-        sudo echo "**********************"
-        sudo git config --global user.name "${git_uname}"
-        sudo git config --global user.email "${emil}"
-	sudo apt install ca-certificates -y
-        sudo git config --global http.sslVerify false
-        sudo git config --global http.proxy http://${uname}:${pword}@${prox}:${port}
+        echo "**********************"
+        git config --global user.name "${git_uname}"
+        git config --global user.email "${emil}"
+	apt install ca-certificates -y
+        git config --global http.sslVerify false
+        git config --global http.proxy http://${uname}:${pword}@${prox}:${port}
 
 else 
-       sudo echo "Skipping the proxy settings"
+        echo "Skipping the proxy settings"
 fi
 
 }
@@ -217,62 +217,62 @@ fi
 
 function __kobman_git_install {
 
-__kobman_echo_yellow "Installing Git"
-sudo apt install git -y
+	__kobman_echo_yellow "Installing Git"
+	apt install git -y
 
 }
 
 function __kobman_python_install {
 	
 	__kobman_echo_yellow "Installing Python"
-	sudo apt install software-properties-common -y
-        sudo apt install Python3.7 -y
-        sudo apt install python-pip -y
+	apt install software-properties-common -y
+        apt install Python3.7 -y
+        apt install python-pip -y
 	pip install --upgrade pip
-	sudo ln -sfn /usr/bin/python3.7 /usr/bin/python
+	ln -sfn /usr/bin/python3.7 /usr/bin/python
 }
 
 function __kobman_docker_install {
 
-          sudo apt-get remove docker docker-engine docker-ce docker-ce-cli docker.io -y
+        apt-get remove docker docker-engine docker-ce docker-ce-cli docker.io -y
 	__kobman_echo_yellow "Installing Docker"	
-	sudo apt-get update -y
-        sudo apt install docker.io -y
+	apt-get update -y
+        apt install docker.io -y
 	__kobman_echo_yellow "Package permission : Allowing apt to use repository over HTTPS"
 
-        sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common -y
+        apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common -y
 
 	__kobman_echo_yellow "Adding docker official key"
-	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 	__kobman_echo_yellow "Verifying apt key fingerprint"
-	sudo apt-key fingerprint 0EBFCD88
+	apt-key fingerprint 0EBFCD88
 
 	__kobman_echo_yellow "Setting up $(lsb_release -is) $(lsb_release -cs) docker-stable repository"
-        sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs) stable"
+        add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs) stable"
 	__kobman_echo_yellow "Installing Docker-Engine"
-	sudo apt-get update -y
-        sudo apt-get install docker-ce docker-ce-cli containerd.io -y
-        sudo docker run hello-world
+	apt-get update -y
+        apt-get install docker-ce docker-ce-cli containerd.io -y
+        docker run hello-world
 	__kobman_echo_yellow "Installing Docker-Compose"
-	sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+	curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
-        sudo chmod +x /usr/local/bin/docker-compose
-        sudo systemctl start docker
-        sudo systemctl enable docker
+        chmod +x /usr/local/bin/docker-compose
+        systemctl start docker
+        systemctl enable docker
 	__kobman_echo_yellow "Docker Version"
-        sudo docker --version
+        docker --version
 	__kobman_echo_yellow "Docker-Compose Version"
-        sudo docker-compose --version
+        docker-compose --version
 	__kobman_echo_red "Docker Login"
-	sudo rm -rf /root/.docker/
+	rm -rf /root/.docker/
         >/etc/systemd/system/docker.service.d/https-proxy.conf > /dev/null
-	sudo docker login
+	docker login
 
         if [[ "$proxychk" -eq 1 ]]
         then
 		__kobman_echo_red "Docker proxy setting up @ /root/.docker/config.json"
-                sudo sed -i '$ d' /root/.docker/config.json
-                sudo echo -e ",\n "\""proxies"\"": {\n\t "\""default"\"": {\n\t\t "\""httpProxy"\"": "\""http://${uname}:${pword}@${prox}:${port}"\"",\n\t\t "\""httpsProxy"\"": "\""https://${uname}:${pword}@${prox}:${port}"\"",\n\t\t "\""noProxy"\"": "\""localhost,127.0.0.0/8,*.local,host.docker.internal"\"" \n\t\t}\n\t}\n}">>/root/.docker/config.json
+                sed -i '$ d' /root/.docker/config.json
+                echo -e ",\n "\""proxies"\"": {\n\t "\""default"\"": {\n\t\t "\""httpProxy"\"": "\""http://${uname}:${pword}@${prox}:${port}"\"",\n\t\t "\""httpsProxy"\"": "\""https://${uname}:${pword}@${prox}:${port}"\"",\n\t\t "\""noProxy"\"": "\""localhost,127.0.0.0/8,*.local,host.docker.internal"\"" \n\t\t}\n\t}\n}">>/root/.docker/config.json
 
 	fi
 }
@@ -289,10 +289,10 @@ function __kobman_npm_install {
         npm config rm registry
         npm cache clean
 
-        sudo sudo apt-get remove nodejs nodejs-dev node-gyp libssl1.0-dev npm -y
+        apt-get remove nodejs nodejs-dev node-gyp libssl1.0-dev npm -y
  
 	__kobman_echo_yellow "Installing NPM"
-        sudo sudo apt-get install nodejs nodejs-dev node-gyp libssl1.0-dev npm -y
+        apt-get install nodejs nodejs-dev node-gyp libssl1.0-dev npm -y
 
         npm config set https-proxy http://${uname}:${pword}@${prox}:${port}--global
         npm config set https-proxy http://${uname}:${pword}@${prox}:${port}
@@ -310,9 +310,9 @@ function __kobman_npm_install {
 function __kobman_visual_studio_install {
 
 	__kobman_echo_yellow "Installing Visual-Studio"	
-	sudo apt install software-properties-common apt-transport-https wget
-	wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
-	sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-	sudo apt install code
+	apt install software-properties-common apt-transport-https wget
+	wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | apt-key add -
+	add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+	apt install code
 
 }
