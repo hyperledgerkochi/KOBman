@@ -14,7 +14,7 @@ function __kobman_uninstall_kobregistery
 {
 	__kobman_echo_cyan "KochiOrgBook-Registory - Uninstalling..."	
 	cd $HOME
-	sudo rm -rf KOBRegistry/
+	rm -rf KOBRegistry/
 	cd $HOME
 
 }

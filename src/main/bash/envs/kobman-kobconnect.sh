@@ -14,7 +14,7 @@ function __kobman_uninstall_kobconnect
 {
 	__kobman_echo_yellow "KochiOrgBook-Connect - Uninstalling..."
 	cd $HOME	
-	sudo rm -rf KOBConnect/
+	rm -rf KOBConnect/
 
 }
 
