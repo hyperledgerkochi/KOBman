@@ -9,7 +9,7 @@ fi
 
 
 export KOBMAN_SERVICE="https://raw.githubusercontent.com"
-export KOBMAN_NAMESPACE="EtricKombat"
+# export KOBMAN_NAMESPACE="EtricKombat"
 
 #if [ -z "$KOBMAN_CANDIDATES_API" ]; then
 #	export KOBMAN_CANDIDATES_API="@KOBMAN_CANDIDATES_API@"
@@ -81,36 +81,6 @@ if [ -f "${KOBMAN_DIR}/etc/config" ]; then
 	source "${KOBMAN_DIR}/etc/config"
 fi
 
-## Create upgrade delay file if it doesn't exist
-#if [[ ! -f "${KOBMAN_DIR}/var/delay_upgrade" ]]; then
-#	touch "${KOBMAN_DIR}/var/delay_upgrade"
-#fi
-#
-## set curl connect-timeout and max-time
-#if [[ -z "$kobman_curl_connect_timeout" ]]; then kobman_curl_connect_timeout=7; fi
-#if [[ -z "$kobman_curl_max_time" ]]; then kobman_curl_max_time=10; fi
-#
-## set curl retry
-#if [[ -z "${kobman_curl_retry}" ]]; then kobman_curl_retry=0; fi
-#
-## set curl retry max time in seconds
-#if [[ -z "${kobman_curl_retry_max_time}" ]]; then kobman_curl_retry_max_time=60; fi
-#
-## set curl to continue downloading automatically
-#if [[ -z "${kobman_curl_continue}" ]]; then kobman_curl_continue=true; fi
-#
-## Read list of candidates and set array
-#KOBMAN_CANDIDATES_CACHE="${KOBMAN_DIR}/var/candidates"
-#KOBMAN_CANDIDATES_CSV=$(<"$KOBMAN_CANDIDATES_CACHE")
-#__kobman_echo_debug "Setting candidates csv: $KOBMAN_CANDIDATES_CSV"
-#if [[ "$zsh_shell" == 'true' ]]; then
-#	KOBMAN_CANDIDATES=(${(s:,:)KOBMAN_CANDIDATES_CSV})
-#else
-#	OLD_IFS="$IFS"
-#	IFS=","
-#        KOBMAN_CANDIDATES=(${KOBMAN_CANDIDATES_CSV})
-#	IFS="$OLD_IFS"
-#fi
 
 export KOBMAN_CANDIDATES_DIR=$HOME
 
@@ -124,5 +94,5 @@ export KOBMAN_CANDIDATES_DIR=$HOME
 #		__kobman_prepend_candidate_to_path "$candidate_dir"
 #	fi
 #done
-unset OLD_IFS candidate_name candidate_dir
-export PATH
+#unset OLD_IFS candidate_name candidate_dir
+$ export PATH

@@ -1,13 +1,15 @@
 #!/bin/bash
 
-#sudo dpkg --configure -a
 #Install: stable
 
 # Global variables
 export KOBMAN_VERSION="0.01"
 KOBMAN_PLATFORM=$(uname)
 export KOBMAN_SERVICE="https://raw.githubusercontent.com"
-export KOBMAN_NAMESPACE="EtricKombat"
+
+KOBMAN_NAMESPACE="EtricKombat"
+export KOBMAN_NAMESPACE=${KOBMAN_NAMESPACE:-hyperledgerkochi}
+
 
 KOBMAN_BRANCH="RF-1.0.0.3.1" 
 export KOBMAN_BRANCH=${KOBMAN_BRANCH:-master}
@@ -22,14 +24,11 @@ kobman_src_folder="${KOBMAN_DIR}/src"
 kobman_tmp_folder="${KOBMAN_DIR}/tmp"
 kobman_stage_folder="${kobman_tmp_folder}/stage"
 kobman_zip_file="${kobman_tmp_folder}/kobman-${KOBMAN_VERSION}.zip"
-kobman_zip_tests="${kobman_tmp_folder}/kobman-test.zip"
-kobman_tests_folder="${KOBMAN_DIR}/tests"
 kobman_env_folder="${KOBMAN_DIR}/envs"
 kobman_stage_folder="${kobman_tmp_folder}/stage"
 kobman_etc_folder="${KOBMAN_DIR}/etc"
 kobman_var_folder="${KOBMAN_DIR}/var"
 kobman_archives_folder="${KOBMAN_DIR}/archives"
-kobman_candidates_folder="${KOBMAN_DIR}/candidates"
 kobman_config_file="${kobman_etc_folder}/config"
 kobman_bash_profile="${HOME}/.bash_profile"
 kobman_profile="${HOME}/.profile"
@@ -62,7 +61,6 @@ case "$(uname)" in
         freebsd=true
 esac
 
-#sudo apt install figlet -y
 apt install figlet -y
 
 
@@ -173,7 +171,6 @@ mkdir -p "$kobman_env_folder"
 mkdir -p "$kobman_etc_folder"
 mkdir -p "$kobman_var_folder"
 mkdir -p "$kobman_archives_folder"
-mkdir -p "$kobman_candidates_folder"
 
 
 echo "Prime the config file..."
@@ -215,8 +212,6 @@ unzip -qo "$kobman_zip_file" -d "$kobman_stage_folder"
 echo "Install scripts..."
 
 mv "${kobman_stage_folder}/kobman-init.sh" "$kobman_bin_folder"
-#sudo chmod +x "${kobman_stage_folder}/kobman-test.sh"
-mv "${kobman_stage_folder}/kobman-test.sh" "$kobman_bin_folder"
 mv "$kobman_stage_folder"/kobman-[kt]* "$kobman_env_folder"
 mv "$kobman_stage_folder"/kobman-* "$kobman_src_folder"
 
@@ -247,13 +242,8 @@ if [[ -z $(grep 'kobman-init.sh' "$kobman_zshrc") ]]; then
     echo "Updated existing ${kobman_zshrc}"
 fi
 
-#sudo chmod a+rwx .
-#sudo chmod u+xr ${KOBMAN_DIR}/candidates 
-#sudo chmod go+x /
-#sudo chmod go+x /root
 
 chmod a+rwx .
-chmod u+xr ${KOBMAN_DIR}/candidates 
 chmod go+x /
 chmod go+x /root
 
