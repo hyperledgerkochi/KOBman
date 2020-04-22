@@ -6,7 +6,7 @@ function __kobman_install_kob
 
 		
 	kobman_namespace="$1"
- 	__kobman_echo_cyan "Building KOB from $(kobman_namespace)"
+ 	__kobman_echo_cyan "Building KOB from ${kobman_namespace}"
 	cd $HOME
 	git clone https://github.com/${kobman_namespace}/KochiOrgBook
 

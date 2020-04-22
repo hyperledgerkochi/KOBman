@@ -132,9 +132,9 @@ function __kobman_vim_fix {
 
 function __kobman_ubuntu_update_upgrade {
 	__kobman_echo_yellow "Upgrading/Updating Ubuntu"
-	sudo apt-get update -y
-        sudo apt-get dist-upgrade -y
-	sudo apt-get -y install build-essential nghttp2 libnghttp2-dev libssl-dev -y
+	apt-get -y install build-essential nghttp2 libnghttp2-dev libssl-dev -y
+	apt-get update -y
+        apt-get dist-upgrade -y
 }
 
 function __kobman_proxy_environment {
