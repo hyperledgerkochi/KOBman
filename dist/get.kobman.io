@@ -240,9 +240,9 @@ if [[ -z $(grep 'kobman-init.sh' "$kobman_zshrc") ]]; then
 fi
 
 
-chmod a+rwx .
-chmod go+x /
-chmod go+x /root
+#chmod a+rwx .
+#chmod go+x /
+#chmod go+x /root
 
 echo -e "\n\n\nAll done!\n\n"
 
