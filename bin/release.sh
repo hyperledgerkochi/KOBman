@@ -2,48 +2,44 @@
 
 kob_version="$1"
 
-branch="REL-taggin"
+branch="release"
 
-kob_archive_download_repo="KOBman_target_repo"
+#kob_archive_download_repo="KOBman_target_repo"
+# kob_namespace=${KOBMAN_NAMESPACE:-hyperledgerkochi}
 
-kob_namespace= ${KOB_NAMESPACE:-hyperledgerkochi}
+source $HOME/$USR/KOBman/bin/release_var_setup.sh
 
 #sanityls
-if [[ -z "$VERSION" ]]; 
-    then
-        echo "Usage: release.sh <version>"
- 	    exit 0
-fi
+# if [[ -z "$kob_version" ]]; 
+#     then
+#         echo "Usage: release.sh <version>"
+#  	    exit 0
+# fi
 
-echo "$kob_version"
-#prepare branch
-# echo "prepare branch"
-# #git fetch
-git checkout Dev
-git branch -D "$branch"
-git checkout -b "$branch"
 
-#copy the tmpl file to /scripts
-echo "copying tmpl file to scripts"
-cp /$HOME/$USR/KOBman/scripts/tmpl/get.kobman.io.tmpl /$HOME/$USR/KOBman/scripts/
+git checkout master
 
-mv /$HOME/$USR/KOBman/scripts/get.kobman.io.tmpl /$HOME/$USR/KOBman/scripts/get.kobman.io
-
+#copy the tmpl file to /scripts and rename it
+cp $KOBMAN_DIR/scripts/tmpl/get.kobman.io.tmpl $KOBMAN_DIR/scripts/
+mv $KOBMAN_DIR/scripts/get.kobman.io.tmpl $KOBMAN_DIR/scripts/get.kobman.io
+cp $KOBMAN_DIR/scripts/tmpl/README.md.tmpl $KOBMAN_DIR/scripts/
+mv $KOBMAN_DIR/scripts/README.md.tmpl $KOBMAN_DIR/scripts/README.md
 #replacing variables with actual values
-echo "updating variables"
-sed -i "s/@KOB_VERSION@/$kob_version/g" /$HOME/$USR/KOBman/scripts/get.kobman.io
-sed -i "s/@KOB_ARCHIVE_DOWNLOAD_REPO@/$kob_archive_download_repo/g" /$HOME/$USR/KOBman/scripts/get.kobman.io
-sed -i "s/@KOB_NAMESPACE@/$kob_namespace/g" /$HOME/$USR/KOBman/scripts/get.kobman.io
+sed -i "s/@KOB_VERSION@/$kob_version/g" $KOBMAN_DIR/scripts/get.kobman.io
+sed -i "s/@KOB_ARCHIVE_DOWNLOAD_REPO@/$KOB_ARCHIVE_DOWNLOAD_REPO/g" $KOBMAN_DIR/scripts/get.kobman.io
+sed -i "s/@KOB_NAMESPACE@/$KOB_NAMESPACE/g" $KOBMAN_DIR/scripts/get.kobman.io
+sed -i "s/@KOB_ARCHIVE_DOWNLOAD_REPO@/$KOB_ARCHIVE_DOWNLOAD_REPO/g" $KOBMAN_DIR/scripts/README.md
+sed -i "s/@KOB_NAMESPACE@/$KOB_NAMESPACE/g" $KOBMAN_DIR/scripts/README.md
 
-#Tagging 
-echo "tagging"
-git tag -a "$kob_version" -m "Releasing version $kob_version"
-echo "pushing version"
+sudo git add .
+sudo git commit -m "Variables replaced with originals"
+
+#Tagging and pushing 
+sudo git tag -a "$kob_version" -m "Releasing version $kob_version"
 git push origin $kob_version
-git checkout Dev
-git branch -D $branch
-#pushing get.kobman.io to repo
-# sudo git add /$HOME/$USR/KOBman/scripts/get.kobman.io
-# sudo git commit -m "variables updated"
-# sudo git push dev Dev
+
+git checkout -b $branch
+git checkout $branch
+git merge master
+
 
