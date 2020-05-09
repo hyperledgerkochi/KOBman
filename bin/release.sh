@@ -38,7 +38,7 @@ git checkout $branch
 
 cp $KOB_DIR/scripts/tmpl/* $KOB_DIR/scripts/
 echo "a"
-for file in $KOB_DIR/scripts/*.tmpl;
+for file in $KOB_DIR/scripts/;
 do
     echo "b"
     for v in $vars;
