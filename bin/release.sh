@@ -38,7 +38,7 @@ git checkout $branch
 
 cp $KOB_DIR/scripts/tmpl/* $KOB_DIR/scripts/
 echo "a"
-for file in $KOB_DIR/scripts;
+for file in $KOB_DIR/scripts/*.tmpl;
 do
     echo "b"
     for v in $vars;
@@ -49,8 +49,7 @@ do
     echo "d"
     mv "$file" "${file//.tmpl/}"
     echo "e"
-    git add $file
-    echo "f"
+    
 
 done
 
