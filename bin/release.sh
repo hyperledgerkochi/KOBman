@@ -35,7 +35,7 @@ git checkout -b $branch
 git checkout $branch
 
 #copy the tmpl file to /scripts and rename it
-
+cd KOB_DIR
 cp $KOB_DIR/scripts/tmpl/* $KOB_DIR/scripts/
 echo "a"
 for file in $KOB_DIR/scripts/*.tmpl;
