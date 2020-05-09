@@ -24,7 +24,7 @@ for file in $KOB_DIR/scripts/*.tmpl;
 do
     for v in $vars;
     do
-        sed -i "s/@v@/${v}/g" $file
+        sed -i "s/@v@/$v/g" $file
     done
     mv "$file" "${file//.tmpl/}"
     
