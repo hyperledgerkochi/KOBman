@@ -4,7 +4,7 @@ kob_version="$1"
 
 branch="Release"
 
-sanityls
+# sanityls
 if [[ -z "$kob_version" ]]; 
     then
         echo "Usage: release.sh <version>"
