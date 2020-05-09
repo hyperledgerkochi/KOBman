@@ -30,12 +30,12 @@ echo $KOB_DIR
 
 variables = "$kob_version $KOB_ARCHIVE_DOWNLOAD_REPO $KOB_NAMESPACE"
 
-git checkout dev
+git checkout master
 git checkout -b $branch
 git checkout $branch
 
 #copy the tmpl file to /scripts and rename it
-cd KOB_DIR
+cd ~/KOBman
 cp $KOB_DIR/scripts/tmpl/* $KOB_DIR/scripts/
 echo "a"
 for file in $KOB_DIR/scripts/*.tmpl;
