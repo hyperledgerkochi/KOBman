@@ -1,7 +1,5 @@
 #!/bin/bash
 
 export KOB_NAMESPACE=asa1997
-export KOB_ARCHIVE_DOWNLOAD_REPO=KOBman_target_repo
-export LINK_TO_DOWNLOAD_REPO="https://github.com/$KOB_NAMESPACE/$KOB_ARCHIVE_DOWNLOAD_REPO"
-export KOBMAN_DIR=~/KOBman
-#export TARGET_REPO_DIR="$HOME/$USR/tmp/$KOB_ARCHIVE_DOWNLOAD_REPO"
+export KOB_ARCHIVE_DOWNLOAD_REPO=hyperledgerkochi
+export KOB_DIR=~/KOBman
