@@ -30,7 +30,7 @@ echo $KOB_DIR
 
 vars="$kob_version $KOB_ARCHIVE_DOWNLOAD_REPO $KOB_NAMESPACE"
 cd ~/KOBman
-git checkout master
+git checkout dev
 git checkout -b $branch
 git checkout $branch
 
@@ -50,6 +50,8 @@ do
     mv "$file" "${file//.tmpl/}"
     echo "e"
     git add $file
+    echo "f"
+
 done
 
 exit 0
