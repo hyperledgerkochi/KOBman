@@ -48,6 +48,7 @@ do
     done
     echo "d"
     mv "$file" "${file//.tmpl/}"
+    echo "e"
     git add $file
 done
 
