@@ -11,7 +11,7 @@ if [[ -z "$kob_version" ]];
  	    exit 0
 fi
 
-vars="$kob_version $KOB_ARCHIVE_DOWNLOAD_REPO $KOB_NAMESPACE"
+vars="KOB_VERSION KOB_ARCHIVE_DOWNLOAD_REPO KOB_NAMESPACE"
 cd ~/KOBman
 git checkout dev
 git checkout -b $branch
@@ -24,6 +24,7 @@ for file in $KOB_DIR/scripts/*.tmpl;
 do
     for v in $vars;
     do
+        echo $v
         sed -i "s/@v@/$v/g" $file
     done
     mv "$file" "${file//.tmpl/}"
