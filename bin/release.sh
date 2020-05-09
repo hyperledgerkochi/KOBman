@@ -44,7 +44,7 @@ do
     for v in $vars;
     do
         echo "c"
-        sed -i "s/@v@/$v/g" $file
+        sed -i "s/@v@/${v}/g" $file
     done
     echo "d"
     mv "$file" "${file//.tmpl/}"
