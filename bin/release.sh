@@ -29,7 +29,7 @@ fi
 echo $KOB_DIR
 
 vars="$kob_version $KOB_ARCHIVE_DOWNLOAD_REPO $KOB_NAMESPACE"
-
+cd ~/KOBman
 git checkout master
 git checkout -b $branch
 git checkout $branch
