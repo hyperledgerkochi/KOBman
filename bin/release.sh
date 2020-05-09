@@ -19,7 +19,7 @@ git checkout $branch
 
 #copy the tmpl file to /scripts and rename it
 
-cp $KOB_DIR/scripts/tmpl/* $KOB_DIR/scripts/
+cp $KOB_DIR/scripts/tmpl/*.tmpl $KOB_DIR/scripts/
 for file in $KOB_DIR/scripts/*.tmpl;
 do
     for v in $vars;
