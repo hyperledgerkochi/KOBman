@@ -35,17 +35,22 @@ git checkout -b $branch
 git checkout $branch
 
 #copy the tmpl file to /scripts and rename it
+
 cp $KOB_DIR/scripts/tmpl/* $KOB_DIR/scripts/
+echo "a"
 for file in $KOB_DIR/scripts/*.tmpl;
 do
+    echo "b"
     for v in $variables;
     do
+        echo "c"
         sed -i "s/@v@/$v/g" $file
     done
+    echo "d"
     mv "$file" "${file//.tmpl/}" 
 done
 
-
+exit 0
 
 git add .
 git commit -m "Update version of $branch to $kob_version"
