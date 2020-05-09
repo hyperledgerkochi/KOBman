@@ -33,7 +33,7 @@ do
 
 done
 
-
+exit 0
 git add .
 git commit -m "Update version of $branch to $kob_version"
 
