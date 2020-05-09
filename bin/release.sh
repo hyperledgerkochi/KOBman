@@ -28,26 +28,27 @@ if  [ -z "$KOB_DIR" ];
 fi
 echo $KOB_DIR
 
-variables = "$kob_version $KOB_ARCHIVE_DOWNLOAD_REPO $KOB_NAMESPACE"
+vars="$kob_version $KOB_ARCHIVE_DOWNLOAD_REPO $KOB_NAMESPACE"
 
 git checkout master
 git checkout -b $branch
 git checkout $branch
 
 #copy the tmpl file to /scripts and rename it
-cd ~/KOBman
+
 cp $KOB_DIR/scripts/tmpl/* $KOB_DIR/scripts/
 echo "a"
 for file in $KOB_DIR/scripts/*.tmpl;
 do
     echo "b"
-    for v in $variables;
+    for v in $vars;
     do
         echo "c"
         sed -i "s/@v@/$v/g" $file
     done
     echo "d"
-    mv "$file" "${file//.tmpl/}" 
+    mv "$file" "${file//.tmpl/}"
+    git add $file
 done
 
 exit 0
