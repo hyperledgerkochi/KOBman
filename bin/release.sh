@@ -19,8 +19,8 @@ git checkout -b $branch
 
 #copy the tmpl file to /scripts and rename it
 cp ~/KOBman/scripts/tmpl/*.tmpl ~/KOBman/scripts/
-mv ~/KOBman/scripts/*.tmpl *.tmpl//.tmpl/
-exit 0
+# mv ~/KOBman/scripts/*.tmpl *.tmpl//.tmpl/
+# exit 0
 for file in $KOB_DIR/scripts/*.tmpl;
 do
     sed -i "s/@KOB_VERSION@/$kob_version/g" $file
@@ -29,7 +29,9 @@ do
     mv "$file" "${file//.tmpl/}"
 done
 
-git add .
+git add ~/KOBman/scripts/*.*
+echo "After add"
+exit
 git commit -m "Update version of $branch to $kob_version"
 
 #push release branch
