@@ -5,11 +5,11 @@ kob_version="$1"
 branch="Release"
 
 # sanityls
-if [[ -z "$kob_version" ]]; 
-    then
-        echo "Usage: release.sh <version>"
-        exit 0
-fi
+# if [[ -z "$kob_version" ]]; 
+#     then
+#         echo "Usage: release.sh <version>"
+#         exit 0
+# fi
 
 cd ~/KOBman
 git checkout dev
@@ -18,8 +18,9 @@ git checkout -b $branch
 
 
 #copy the tmpl file to /scripts and rename it
-echo $KOB_ARCHIVE_DOWNLOAD_REPO $KOB_NAMESPACE
-cp $KOB_DIR/scripts/tmpl/*.tmpl $KOB_DIR/scripts/
+cp ~/KOBman/scripts/tmpl/*.tmpl ~/KOBman/scripts/
+mv ~/KOBman/scripts/*.tmpl ~/KOBman/scripts/{*.tmpl//.tmpl/}
+exit 0
 for file in $KOB_DIR/scripts/*.tmpl;
 do
     sed -i "s/@KOB_VERSION@/$kob_version/g" $file
