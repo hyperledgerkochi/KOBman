@@ -4,12 +4,12 @@ kob_version="$1"
 
 branch="Release"
 
-# sanityls
-# if [[ -z "$kob_version" ]]; 
-#     then
-#         echo "Usage: release.sh <version>"
-#         exit 0
-# fi
+sanityls
+if [[ -z "$kob_version" ]]; 
+    then
+        echo "Usage: release.sh <version>"
+        exit 0
+fi
 
 cd ~/KOBman
 git checkout dev
@@ -30,8 +30,6 @@ do
 done
 
 git add ~/KOBman/scripts/*.*
-echo "After add"
-exit
 git commit -m "Update version of $branch to $kob_version"
 
 #push release branch
