@@ -19,7 +19,7 @@ git checkout -b $branch
 
 #copy the tmpl file to /scripts and rename it
 cp ~/KOBman/scripts/tmpl/*.tmpl ~/KOBman/scripts/
-mv ~/KOBman/scripts/*.tmpl ~/KOBman/scripts/{*.tmpl//.tmpl/}
+mv ~/KOBman/scripts/*.tmpl *.tmpl//.tmpl/
 exit 0
 for file in $KOB_DIR/scripts/*.tmpl;
 do
