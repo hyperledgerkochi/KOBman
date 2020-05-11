@@ -5,11 +5,11 @@ kob_version="$1"
 branch="Release"
 
 # sanityls
-if [[ -z "$kob_version" ]]; 
-    then
-        echo "Usage: release.sh <version>"
- 	    exit 0
-fi
+# if [[ -z "$kob_version" ]]; 
+#     then
+#         echo "Usage: release.sh <version>"
+#  	    exit 0
+# fi
 
 vars="KOB_VERSION KOB_ARCHIVE_DOWNLOAD_REPO KOB_NAMESPACE"
 cd ~/KOBman
@@ -24,8 +24,8 @@ for file in $KOB_DIR/scripts/*.tmpl;
 do
     for v in $vars;
     do
-        echo ${v}
-        sed -i "s/@v@/$v/g" $file
+        echo "${v}"
+        sed -i "s/@v@/"${v}"/g" $file
     done
     mv "$file" "${file//.tmpl/}"
     
