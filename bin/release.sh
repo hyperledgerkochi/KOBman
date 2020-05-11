@@ -21,9 +21,9 @@ git checkout $branch
 cp $KOB_DIR/scripts/tmpl/*.tmpl $KOB_DIR/scripts/
 for file in $KOB_DIR/scripts/*.tmpl;
 do
-    sed -i "s/@KOB_VERSION@/"$KOB_VERSION"/g" $file
-    sed -i "s/@KOB_ARCHIVE_DOWNLOAD_REPO@/"$KOB_ARCHIVE_DOWNLOAD_REPO"/g" $file
-    sed -i "s/@KOB_NAMESPACE@/"$KOB_NAMESPACE"/g" $file
+    sed -i "s/@KOB_VERSION@/$kob_version/g" $file
+    sed -i "s/@KOB_ARCHIVE_DOWNLOAD_REPO@/$KOB_ARCHIVE_DOWNLOAD_REPO/g" $file
+    sed -i "s/@KOB_NAMESPACE@/$KOB_NAMESPACE/g" $file
     mv "$file" "${file//.tmpl/}"
 done
 
@@ -34,7 +34,7 @@ git commit -m "Update version of $branch to $kob_version"
 git push -f origin $branch
 
 #Push tag 
-git tag -a "$kob_version" -m "Releasing version $kob_version"
+git tag -a $kob_version -m "Releasing version $kob_version"
 git push origin $kob_version
 
 
