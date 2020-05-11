@@ -5,11 +5,11 @@ kob_version="$1"
 branch="Release"
 
 # sanityls
-if [[ -z "$kob_version" ]]; 
-    then
-        echo "Usage: release.sh <version>"
-        exit 0
-fi
+# if [[ -z "$kob_version" ]]; 
+#     then
+#         echo "Usage: release.sh <version>"
+#         exit 0
+# fi
 
 cd ~/KOBman
 git checkout dev
