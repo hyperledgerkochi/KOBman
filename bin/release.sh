@@ -8,7 +8,7 @@ branch="Release"
 if [[ -z "$kob_version" ]]; 
     then
         echo "Usage: release.sh <version>"
- 	    exit 0
+        exit 0
 fi
 
 cd ~/KOBman
@@ -27,7 +27,6 @@ do
     mv "$file" "${file//.tmpl/}"
 done
 
-exit 0
 git add .
 git commit -m "Update version of $branch to $kob_version"
 
