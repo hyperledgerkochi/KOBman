@@ -13,8 +13,9 @@ fi
 
 cd ~/KOBman
 git checkout dev
+git branch -D $branch
 git checkout -b $branch
-git checkout $branch
+
 
 #copy the tmpl file to /scripts and rename it
 echo $KOB_ARCHIVE_DOWNLOAD_REPO $KOB_NAMESPACE
