@@ -17,7 +17,7 @@ git checkout -b $branch
 git checkout $branch
 
 #copy the tmpl file to /scripts and rename it
-
+echo $KOB_ARCHIVE_DOWNLOAD_REPO $KOB_NAMESPACE
 cp $KOB_DIR/scripts/tmpl/*.tmpl $KOB_DIR/scripts/
 for file in $KOB_DIR/scripts/*.tmpl;
 do
