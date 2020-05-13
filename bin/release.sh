@@ -11,6 +11,17 @@ if [[ -z "$kob_version" ]];
         exit 0
 fi
 
+#setting up environment variables
+if [ -z $KOB_ARCHIVE_DOWNLOAD_REPO ];
+    then
+        KOB_ARCHIVE_DOWNLOAD_REPO={KOB_ARCHIVE_DOWNLOAD_REPO:-KOBman}
+fi
+
+if [ -z $KOBMAN_NAMESPACE ];
+    then
+        KOBMAN_NAMESPACE={KOBMAN_NAMESPACE:-hyperledgerkochi}
+fi
+
 # prepare branch
 cd ~/KOBman
 git checkout dev
@@ -20,8 +31,8 @@ git checkout -b $branch
 
 #copy the tmpl file to /scripts 
 cp ~/KOBman/scripts/tmpl/*.tmpl ~/KOBman/scripts/
+
 # replacing @xxx@ variables with acutal values. 
-# Actual values are exported in the terminal except kob_version
 for file in $KOB_DIR/scripts/*.tmpl;
 do
     sed -i "s/@KOB_VERSION@/$kob_version/g" $file
