@@ -34,7 +34,7 @@ mv ~/KOBman/scripts/get.kobman.io ~/KOBman/dist/
 # moving into dist branch
 git checkout dist
 
-git checkout $kob_rel_version -- ~/KOBman/dist/
+git checkout $branch -- ~/KOBman/dist/
 
 
 echo "saving changes and pushing"
@@ -45,7 +45,7 @@ git push origin dist
 
 git checkout dev
 
-git branch -D $kob_rel_version
+
 
 
 
