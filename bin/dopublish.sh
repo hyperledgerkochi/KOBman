@@ -30,7 +30,7 @@ cp ~/KOBman/dist/kobman-latest.tar ~/KOBman/dist/kobman-$kob_rel_version.tar
 
 # moving get.kobman.io to dist
 mv ~/KOBman/scripts/get.kobman.io ~/KOBman/dist/
-
+ls ~/KOBman/dist/
 # moving into dist branch
 git checkout dist
 

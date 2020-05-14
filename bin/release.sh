@@ -19,7 +19,7 @@ fi
 
 if [ -z $KOBMAN_NAMESPACE ];
     then
-        KOBMAN_NAMESPACE={KOBMAN_NAMESPACE:-hyperledgerkochi}
+        KOB_NAMESPACE={KOB_NAMESPACE:-hyperledgerkochi}
 fi
 
 # prepare branch
