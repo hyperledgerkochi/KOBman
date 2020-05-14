@@ -4,11 +4,10 @@
 #Install: stable
 
 # Global variables
-KOBMAN_VERSION="test-tag33"
+KOBMAN_VERSION="test-tag37"
 KOB_ARCHIVE_DOWLOAD_REPO="{KOB_ARCHIVE_DOWNLOAD_REPO:-KOBman}"
 KOBMAN_PLATFORM=$(uname)
 KOBMAN_SERVICE="https://raw.githubusercontent.com"
-# KOBMAN_NAMESPACE="EtricKombat"
 KOBMAN_NAMESPACE=""
 
 
@@ -63,7 +62,7 @@ esac
 sudo apt install figlet -y
 
 figlet KOB-Setup ...
-figlet EtricKombat repo 
+figlet $KOBMAN_NAMESPACE repo 
 
 # Sanity checks
 
@@ -171,7 +170,7 @@ mkdir -p "$kobman_archives_folder"
 mkdir -p "$kobman_candidates_folder"
 
 echo "Getting available candidates..."
-KOBMAN_CANDIDATES_CSV=$(curl -s "${KOBMAN_SERVICE}/EtricKombat/KOBDevOps/master/all")
+KOBMAN_CANDIDATES_CSV=$(curl -s "${KOBMAN_SERVICE}/$KOBMAN_NAMESPACE/$KOB_ARCHIVE_DOWLOAD_REPO/master/all")
 echo "$KOBMAN_CANDIDATES_CSV" > "${KOBMAN_DIR}/var/candidates"
 
 echo "Prime the config file..."
@@ -187,7 +186,7 @@ echo "kobman_colour_enable=true" >> "$kobman_config_file"
 
 echo "Download script archive..."
 
-curl --location --progress-bar "${KOBMAN_SERVICE}/EtricKombat/KOBDevOps/master/kobman_zip_file.zip" > "$kobman_zip_file"
+curl --location --progress-bar "${KOBMAN_SERVICE}/$KOBMAN_NAMESPACE/$KOB_ARCHIVE_DOWLOAD_REPO/dist/kobman-latest.tar" > "$kobman_zip_file"
 
 ARCHIVE_OK=$(unzip -qt "$kobman_zip_file" | grep 'No errors detected in compressed data')
 if [[ -z "$ARCHIVE_OK" ]]; then
@@ -195,7 +194,7 @@ if [[ -z "$ARCHIVE_OK" ]]; then
 	echo ""
 	echo "If problems persist, please ask for help on our Github:"
 	echo "* easy sign up: https://github.com/"
-	echo "https://github.com/EtricKombat/KOBDevOps/issues"
+	echo "https://github.com/$KOBMAN_NAMESPACE/$KOB_ARCHIVE_DOWLOAD_REPO/issues"
 	rm -rf "$KOBMAN_DIR"
 	exit 2
 fi
