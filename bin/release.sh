@@ -41,6 +41,7 @@ do
     # renaming to remove .tmpl extension
     mv "$file" "${file//.tmpl/}"
 done
+
 # committing the changes
 git add ~/KOBman/scripts/*.*
 git commit -m "Update version of $branch to $kob_version"
