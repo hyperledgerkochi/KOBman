@@ -29,7 +29,7 @@ cp ~/KOBman/tmp/dist/kobman-latest.tar kobman-$kob_rel_version.tar
 
 git checkout dist
 
-git checkout $kob_rel_version -- ~/KOBman/tmp/dist
+git checkout $kob_rel_version -- ~/KOBman/dist/
 #Moving necessary files to the target repo
 # mv ~/KOBman/scripts/get.kobman.io ~/KOBman/tmp/$KOB_ARCHIVE_DOWNLOAD_REPO/dist
 # mv ~/KOBman/scripts/README.md ~/KOBman/tmp/$KOB_ARCHIVE_DOWNLOAD_REPO/dist
