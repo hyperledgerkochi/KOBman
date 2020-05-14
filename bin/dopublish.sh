@@ -34,7 +34,7 @@ mv ~/KOBman/scripts/get.kobman.io ~/KOBman/dist/
 # moving into dist branch
 git checkout dist
 
-git checkout $branch -- ~/KOBman/dist/
+git checkout $branch -- ~/KOBman/dist/ &> /dev/null
 
 
 echo "saving changes and pushing"
