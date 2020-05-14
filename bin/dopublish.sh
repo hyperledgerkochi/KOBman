@@ -1,5 +1,6 @@
 #!/bin/bash
 
+branch=Release
 kob_rel_version=$1
 
 
@@ -18,8 +19,8 @@ fi
 # echo $KOB_NAMESPACE
 
 #Checkout latest tag
-git checkout tags/$kob_rel_version -b $kob_rel_version
-
+# git checkout tags/$kob_rel_version -b $kob_rel_version
+git checkout $branch
 
 mkdir -p ~/KOBman/dist
 
