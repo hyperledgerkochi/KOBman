@@ -21,18 +21,19 @@ fi
 git checkout tags/$kob_rel_version -b $kob_rel_version
 
 
-mkdir -p ~/KOBman/tmp/dist
+mkdir -p ~/KOBman/dist
 
 echo "making the tar files..."
-tar -cvf ~/KOBman/tmp/dist/kobman-latest.tar ~/KOBman/src/ 
-cp ~/KOBman/tmp/dist/kobman-latest.tar kobman-$kob_rel_version.tar
+tar -cvf ~/KOBman/dist/kobman-latest.tar ~/KOBman/src/ 
+cp ~/KOBman/dist/kobman-latest.tar ~/KOBman/dist/kobman-$kob_rel_version.tar
 
+# moving get.kobman.io to dist
+mv ~/KOBman/scripts/get.kobman.io ~/KOBman/dist/
+
+# moving into dist branch
 git checkout dist
 
 git checkout $kob_rel_version -- ~/KOBman/dist/
-#Moving necessary files to the target repo
-# mv ~/KOBman/scripts/get.kobman.io ~/KOBman/tmp/$KOB_ARCHIVE_DOWNLOAD_REPO/dist
-# mv ~/KOBman/scripts/README.md ~/KOBman/tmp/$KOB_ARCHIVE_DOWNLOAD_REPO/dist
 
 
 echo "saving changes and pushing"
