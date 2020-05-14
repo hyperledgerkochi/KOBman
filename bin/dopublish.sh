@@ -20,9 +20,11 @@ mv ~/KOBman/scripts/get.kobman.io ~/KOBman/dist/
 ls ~/KOBman/dist/
 # moving into dist branch
 git checkout $dist_branch
+for file in ~/KOBman/dist/*;
+do
+    git checkout $branch -- $file &> /dev/null
 
-git checkout $branch -- ~/KOBman/dist/* &> /dev/null
-
+done
 
 echo "saving changes and pushing"
 git add .
