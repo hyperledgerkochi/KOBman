@@ -5,3 +5,4 @@ tests/
 .travis.yml
 Dockerfile
 list
+tmp/
