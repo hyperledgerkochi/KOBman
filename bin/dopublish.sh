@@ -1,15 +1,22 @@
 #!/bin/bash
 
-branch=Release
 kob_rel_version=$1
+branch=release
 dist_branch=dist
 
+#sanity
+if [[ -z "$kob_rel_version" ]]; then
+	echo "Usage: dopublish.sh <version>"
+	exit 0
+fi
 
 #Checkout latest tag
 # git checkout tags/$kob_rel_version -b $kob_rel_version
 git checkout $branch
 
+
 # temporary folder for storing tar files. folder also added in .gitignore
+# TODO FIX  ~/KOBman may not be require 
 mkdir -p ~/KOBman/tmp
 
 # making of tar files
