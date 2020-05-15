@@ -32,6 +32,7 @@ git checkout $dist_branch
 # collecting files from Release branch tmp/ folder to dist branch
 git checkout $branch -- ~/KOBman/build/tmp/* &> /dev/null
 
+mkdir dist
 # moving of latest files from tmp/ to dist/
 mv build/tmp/* dist/
 

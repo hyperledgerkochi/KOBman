@@ -17,7 +17,7 @@ if [[ -z $KOB_ARCHIVE_DOWNLOAD_REPO ]];
         KOB_ARCHIVE_DOWNLOAD_REPO={KOB_ARCHIVE_DOWNLOAD_REPO:-KOBman}
 fi
 
-if [[ -z $KOBMAN_NAMESPACE ]];
+if [[ -z $KOB_NAMESPACE ]];
     then
         KOB_NAMESPACE={KOB_NAMESPACE:-hyperledgerkochi}
 fi
