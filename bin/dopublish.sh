@@ -20,8 +20,11 @@ git checkout $branch
 mkdir -p build/tmp
 
 # making of tar files
-tar -cvf build/tmp/kobman-latest.tar ~/KOBman/src/ 
-cp build/tmp/kobman-latest.tar build/tmp/kobman-$kob_rel_version.tar
+# tar -cvf build/tmp/kobman-latest.tar ~/KOBman/src/ 
+# cp build/tmp/kobman-latest.tar build/tmp/kobman-$kob_rel_version.tar
+
+zip -r build/tmp/kobman-latest.zip ~/KOBman/src/
+cp build/tmp/kobman-latest.zip build/tmp/kobman-$kob_rel_version.zip
 
 # moving get.kobman.io to tmp/
 mv ~/KOBman/scripts/get.kobman.io build/tmp/

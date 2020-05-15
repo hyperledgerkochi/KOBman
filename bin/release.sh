@@ -31,7 +31,6 @@ git checkout -b $branch
 
 #copy the tmpl file to /scripts 
 cp ~/KOBman/scripts/tmpl/*.tmpl ~/KOBman/scripts/
-cat ~/KOBman/scripts/get.kobman.io.tmpl
 # replacing @xxx@ variables with acutal values. 
 for file in ~/KOBman/scripts/*.tmpl;
 do
@@ -41,8 +40,7 @@ do
     # renaming to remove .tmpl extension
     mv "$file" "${file//.tmpl/}"
 done
-cat ~/KOBman/scripts/get.kobman.io
-exit 0
+
 # committing the changes
 git add ~/KOBman/scripts/*.*
 git commit -m "Update version of $branch to $kob_version"
