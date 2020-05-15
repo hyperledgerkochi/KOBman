@@ -16,13 +16,9 @@ git checkout $branch
 
 
 # temporary folder for storing tar files. folder also added in .gitignore
-# TODO FIX  ~/KOBman may not be the suitable folder name as there would be name clash, use build instead. 
 mkdir -p build/tmp
 
-# making of tar files
-# tar -cvf build/tmp/kobman-latest.tar ~/KOBman/src/ 
-# cp build/tmp/kobman-latest.tar build/tmp/kobman-$kob_rel_version.tar
-
+# making of zip files
 zip -r build/tmp/kobman-latest.zip ~/KOBman/src/
 cp build/tmp/kobman-latest.zip build/tmp/kobman-$kob_rel_version.zip
 
@@ -35,7 +31,7 @@ git checkout $dist_branch
 # collecting files from Release branch tmp/ folder to dist branch
 git checkout $branch -- ~/KOBman/build/tmp/* &> /dev/null
 
-mkdir dist
+mkdir dist &> /dev/null
 # moving of latest files from tmp/ to dist/
 mv build/tmp/* dist/
 

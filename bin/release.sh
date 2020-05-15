@@ -4,12 +4,12 @@ kob_version="$1"
 
 branch="Release"
 
-# # sanity check
-# if [[ -z "$kob_version" ]]; 
-#     then
-#         echo "Usage: release.sh <version>"
-#         exit 0
-# fi
+# sanity check
+if [[ -z "$kob_version" ]]; 
+    then
+        echo "Usage: release.sh <version>"
+        exit 0
+fi
 
 #setting up environment variables
 if [[ -z $KOB_ARCHIVE_DOWNLOAD_REPO ]];
