@@ -4,20 +4,20 @@ kob_version="$1"
 
 branch="Release"
 
-# sanity check
-if [[ -z "$kob_version" ]]; 
-    then
-        echo "Usage: release.sh <version>"
-        exit 0
-fi
+# # sanity check
+# if [[ -z "$kob_version" ]]; 
+#     then
+#         echo "Usage: release.sh <version>"
+#         exit 0
+# fi
 
 #setting up environment variables
-if [ -z $KOB_ARCHIVE_DOWNLOAD_REPO ];
+if [[ -z $KOB_ARCHIVE_DOWNLOAD_REPO ]];
     then
         KOB_ARCHIVE_DOWNLOAD_REPO={KOB_ARCHIVE_DOWNLOAD_REPO:-KOBman}
 fi
 
-if [ -z $KOBMAN_NAMESPACE ];
+if [[ -z $KOBMAN_NAMESPACE ]];
     then
         KOB_NAMESPACE={KOB_NAMESPACE:-hyperledgerkochi}
 fi
@@ -31,7 +31,7 @@ git checkout -b $branch
 
 #copy the tmpl file to /scripts 
 cp ~/KOBman/scripts/tmpl/*.tmpl ~/KOBman/scripts/
-
+cat ~/KOBman/scripts/get.kobman.io.tmpl
 # replacing @xxx@ variables with acutal values. 
 for file in ~/KOBman/scripts/*.tmpl;
 do
@@ -41,7 +41,8 @@ do
     # renaming to remove .tmpl extension
     mv "$file" "${file//.tmpl/}"
 done
-
+cat ~/KOBman/scripts/get.kobman.io
+exit 0
 # committing the changes
 git add ~/KOBman/scripts/*.*
 git commit -m "Update version of $branch to $kob_version"
