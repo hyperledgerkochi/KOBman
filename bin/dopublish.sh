@@ -1,8 +1,8 @@
 #!/bin/bash
 
 kob_rel_version=$1
-branch=release
-dist_branch=dist
+branch="Release"
+dist_branch="dist"
 
 #sanity
 if [[ -z "$kob_rel_version" ]]; then
@@ -17,23 +17,23 @@ git checkout $branch
 
 # temporary folder for storing tar files. folder also added in .gitignore
 # TODO FIX  ~/KOBman may not be the suitable folder name as there would be name clash, use build instead. 
-mkdir -p ~/KOBman/tmp
+mkdir -p build/tmp
 
 # making of tar files
-tar -cvf ~/KOBman/tmp/kobman-latest.tar ~/KOBman/src/ 
-cp ~/KOBman/tmp/kobman-latest.tar ~/KOBman/tmp/kobman-$kob_rel_version.tar
+tar -cvf build/tmp/kobman-latest.tar ~/KOBman/src/ 
+cp build/tmp/kobman-latest.tar build/tmp/kobman-$kob_rel_version.tar
 
 # moving get.kobman.io to tmp/
-mv ~/KOBman/scripts/get.kobman.io ~/KOBman/tmp/
+mv ~/KOBman/scripts/get.kobman.io build/tmp/
 
 # moving into dist branch
 git checkout $dist_branch
 
 # collecting files from Release branch tmp/ folder to dist branch
-git checkout $branch -- ~/KOBman/tmp/* &> /dev/null
+git checkout $branch -- ~/KOBman/build/tmp/* &> /dev/null
 
 # moving of latest files from tmp/ to dist/
-mv tmp/* dist/
+mv build/tmp/* dist/
 
 # saving changes and pushing
 git add dist/*
