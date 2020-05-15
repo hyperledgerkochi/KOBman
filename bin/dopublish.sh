@@ -16,7 +16,7 @@ git checkout $branch
 
 
 # temporary folder for storing tar files. folder also added in .gitignore
-# TODO FIX  ~/KOBman may not be require 
+# TODO FIX  ~/KOBman may not be the suitable folder name as there would be name clash, use build instead. 
 mkdir -p ~/KOBman/tmp
 
 # making of tar files
