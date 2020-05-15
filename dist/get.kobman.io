@@ -4,11 +4,11 @@
 #Install: stable
 
 # Global variables
-KOBMAN_VERSION="test-tag39"
+KOBMAN_VERSION="test-tag40"
 KOB_ARCHIVE_DOWLOAD_REPO="{KOB_ARCHIVE_DOWNLOAD_REPO:-KOBman}"
 KOBMAN_PLATFORM=$(uname)
 KOBMAN_SERVICE="https://raw.githubusercontent.com"
-KOBMAN_NAMESPACE=""
+KOBMAN_NAMESPACE="{KOB_NAMESPACE:-hyperledgerkochi}"
 
 
 
@@ -186,7 +186,7 @@ echo "kobman_colour_enable=true" >> "$kobman_config_file"
 
 echo "Download script archive..."
 
-curl --location --progress-bar "${KOBMAN_SERVICE}/$KOBMAN_NAMESPACE/$KOB_ARCHIVE_DOWLOAD_REPO/dist/kobman-latest.tar" > "$kobman_zip_file"
+curl --location --progress-bar "${KOBMAN_SERVICE}/$KOBMAN_NAMESPACE/$KOB_ARCHIVE_DOWLOAD_REPO/dist/kobman-latest.zip" > "$kobman_zip_file"
 
 ARCHIVE_OK=$(unzip -qt "$kobman_zip_file" | grep 'No errors detected in compressed data')
 if [[ -z "$ARCHIVE_OK" ]]; then
