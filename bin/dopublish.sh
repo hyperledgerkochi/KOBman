@@ -26,7 +26,7 @@ cp build/tmp/kobman-latest.zip build/tmp/kobman-$kob_rel_version.zip
 mv ~/KOBman/scripts/get.kobman.io build/tmp/
 
 # moving into dist branch
-git checkout $dist_branch
+git checkout -b $dist_branch
 
 # collecting files from Release branch tmp/ folder to dist branch
 git checkout $branch -- ~/KOBman/build/tmp/* &> /dev/null
@@ -38,10 +38,10 @@ mv build/tmp/* dist/
 # saving changes and pushing
 git add dist/*
 git commit -m "Released the version $kob_rel_version"
-git push origin $dist_branch
+git push origin -f -u $dist_branch
 
 
-git checkout dev
+git checkout master
 
 
 
