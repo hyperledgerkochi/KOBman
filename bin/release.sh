@@ -46,7 +46,7 @@ git add ~/KOBman/scripts/*.*
 git commit -m "Update version of $branch to $kob_version"
 
 #push release branch
-git push -f origin $branch
+git push -f -u origin $branch
 
 #Push tag 
 git tag -a $kob_version -m "Releasing version $kob_version"
