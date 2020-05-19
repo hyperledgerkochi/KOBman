@@ -3,12 +3,12 @@
 function __kobman_development_tob_dir {
 
 	cd ~	
-	sudo mkdir -p Dev_TOB
+	mkdir -p Dev_TOB
 	cd Dev_TOB
 	export KOBMAN_TOB_DEV_DIR=$PWD
-	sudo chmod 777 ${KOBMAN_TOB_DEV_DIR}
+	#do chmod 777 ${KOBMAN_TOB_DEV_DIR}
 	cd ${KOBMAN_TOB_DEV_DIR}
-	sudo mkdir -p test/ dependency/
+	mkdir -p test/ dependency/
 	if [ ! -d "${KOBMAN_VON_DEV_DIR}/von-network" ]
 	then
 		__kobman_install_dependancies
@@ -21,13 +21,13 @@ function __kobman_install_tob
         __kobman_echo_cyan "${kobman_namespace}"
 	cd ${KOBMAN_CANDIDATES_DIR}
        	__kobman_development_tob_dir 
-	sudo git clone https://github.com/${kobman_namespace}/TheOrgBook.git
-        sudo wget --no-proxy https://github.com/openshift/source-to-image/releases/download/v1.1.14/source-to-image-v1.1.14-874754de-linux-amd64.tar.gz
-        sudo tar -xvzf source-to-image-v1.1.14-874754de-linux-amd64.tar.gz
-        sudo mv s2i sti /usr/local/bin/
-        sudo TheOrgBook/docker/manage rm
-        sudo TheOrgBook/docker/manage build
-        sudo sed -i -e 's/- 3000/- 3100/g' TheOrgBook/docker/docker-compose.yml
+	git clone https://github.com/${kobman_namespace}/TheOrgBook.git
+        wget --no-proxy https://github.com/openshift/source-to-image/releases/download/v1.1.14/source-to-image-v1.1.14-874754de-linux-amd64.tar.gz
+        tar -xvzf source-to-image-v1.1.14-874754de-linux-amd64.tar.gz
+        mv s2i sti /usr/local/bin/
+        TheOrgBook/docker/manage rm
+        TheOrgBook/docker/manage build
+         sed -i -e 's/- 3000/- 3100/g' TheOrgBook/docker/docker-compose.yml
 	__kobman_echo_cyan "TOB Development Environment is installed."	
 	cd ~
 }
@@ -38,7 +38,7 @@ function __kobman_start_tob
 	__kobman_echo_cyan "${kobman_namespace}"	
 #	sudo chmod a+rwx ${KOBMAN_TOB_DEV_DIR}
 	cd ${KOBMAN_TOB_DEV_DIR}
-	sudo TheOrgBook/docker/manage start seed=the_org_book_0000000000000000000
+	TheOrgBook/docker/manage start seed=the_org_book_0000000000000000000
 }
 
 function __kobman_uninstall_tob
