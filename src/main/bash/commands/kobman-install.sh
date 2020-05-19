@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 namespace_value=""
 version_value=""
 
