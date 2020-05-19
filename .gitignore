@@ -1,5 +1,4 @@
 libs/
-scripts/
 src/
 tests/
 .travis.yml
