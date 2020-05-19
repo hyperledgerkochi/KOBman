@@ -143,7 +143,9 @@ function __kobman_create_environment_directory
                 
       		cp "${KOBMAN_DIR}/envs/kobman-${environment_name}.sh" .
                 source "${KOBMAN_DIR}/envs/kob_env_${environment_name}/${version_id}/kobman-${environment_name}.sh"
-		__kobman_echo_no_colour "${environment_name} installation has been completed -> SUCCESSFULLY"		
+		__kobman_install_kobman "$name_space"
+#		__kobman_install_"${environment_type}" "$name_space"
+		__kobman_echo_no_colour "${environment_name} installation has been completed -> SUCCESSFULLY"	
 		cd ~
 }
 

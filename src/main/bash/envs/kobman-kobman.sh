@@ -12,21 +12,13 @@ function __kobman_development_kobman_dir {
 
 function __kobman_install_kobman
 {
-	cd "${KOBMAN_DIR}/envs"
-	mkdir kobman
-	cd kobman
-	touch current
-	cat "${KOBMAN_DIR}/var/version.txt" > current	
-	echo "displaying kobman current"
-	cat current	
 	kobman_namespace="$1"
  	__kobman_echo_green "Building kobman from"	
  	__kobman_echo_green "${kobman_namespace}"	
-	cd ${KOBMAN_CANDIDATES_DIR}
+	cd ~
        	__kobman_development_kobman_dir 
 	sudo git clone https://github.com/${kobman_namespace}/KOBman.git
 	cd ~
-	cd ${KOBMAN_CANDIDATES_DIR}
 	__kobman_echo_green "KOBman Development Environment is installed."	
 }
 
