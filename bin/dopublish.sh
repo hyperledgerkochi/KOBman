@@ -36,7 +36,7 @@ mkdir dist &> /dev/null
 mv build/tmp/* dist/
 
 # saving changes and pushing
-git add -f dist/*
+git add dist/*
 git commit -m "Released the version $kob_rel_version"
 git push origin -f $dist_branch
 
