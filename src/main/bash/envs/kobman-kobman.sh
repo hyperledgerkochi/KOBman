@@ -6,31 +6,30 @@ function __kobman_development_kobman_dir {
 	cd Dev_KOBman
 	export KOBMAN_KOBMAN_DEV_DIR=$PWD
 	cd ${KOBMAN_KOBMAN_DEV_DIR}
-	sudo mkdir -p test/ dependency/
+	mkdir -p test/ dependency/
 }
 
 function __kobman_install_kobman
 {
 	kobman_namespace="$1"
- 	__kobman_echo_green "Building kobman from"	
+ 	__kobman_echo_white "Downloading KOBman environment from Github namespace : "	
  	__kobman_echo_green "${kobman_namespace}"	
 	cd ~
        	__kobman_development_kobman_dir 
-	sudo git clone https://github.com/${kobman_namespace}/KOBman.git
+	git clone https://github.com/${kobman_namespace}/KOBman.git
 	cd ~
-	__kobman_echo_green "KOBman Development Environment is installed."	
 }
 
 function __kobman_uninstall_kobman
 {
- 	__kobman_echo_green "KOBman - Uninstalling..."
+ 	__kobman_echo_white "Removing KOBman environment..."
 	cd ${KOBMAN_KOBMAN_DEV_DIR} 
-	sudo rm -rf KOBman/ 2> /dev/null	
+	rm -rf KOBman/ 2> /dev/null	
 	cd ~
-	sudo rm -rf Dev_KOBman/ 2> /dev/null	
-	sudo rm -rf ${KOBMAN_KOBMAN_DEV_DIR} 2> /dev/null	
+	rm -rf Dev_KOBman/ 2> /dev/null	
+	rm -rf ${KOBMAN_KOBMAN_DEV_DIR} 2> /dev/null	
         cd ~
-	__kobman_echo_green "KOBman Development Environment is un-installed."	
+	__kobman_echo_red "KOBman environment removed !!"	
 }
 
 function __kobman_version_kobman
@@ -45,7 +44,7 @@ function __kobman_version_kobman
                 cat version.txt
                 cd ~
 	else
- 		__kobman_echo_green "KOBman is not installed"	
+ 		__kobman_echo_red "KOBman Environment is not installed in the Local system !"	
 fi
 
 }

@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
 
+namespace_value=""
+version_value=""
+
 function __kob_install {
 
 #Latest version check and assignment should happen here (if latest has been released )
@@ -71,8 +74,6 @@ function __kobman_validate_set_environment
 {
 	curl -sL "https://raw.githubusercontent.com/${KOBMAN_NAMESPACE}/KOBman/master/dist/list" | grep -i "$1" > /dev/null
 }
-
-
 function __kobman_setting_global_variables
 {
      	namespace_value=$1
@@ -123,7 +124,7 @@ function __kobman_create_environment_directory
 		version_id=$2 
         	namespace_name=$3
 		
-		__kobman_echo_red "Directory Structure creation of :"  
+		__kobman_echo_green "Directory structure creating for :"  
                	__kobman_echo_white "Environment 		: ${environment_name} " 
                	__kobman_echo_white "Version 		: ${version_id}" 
                	__kobman_echo_white "Namespace		: ${namespace_name}" 
@@ -138,13 +139,13 @@ function __kobman_create_environment_directory
                 	__kobman_echo_no_colour "$version_id" > "$destdir"
                 fi
                 mkdir -p $version_id
-                cd $version_id
-      #Needs to be refactored identify the latest version 
+                cd $version_id                                          # Needs to be refactored identify the latest version 
+
                 
       		cp "${KOBMAN_DIR}/envs/kobman-${environment_name}.sh" .
                 source "${KOBMAN_DIR}/envs/kob_env_${environment_name}/${version_id}/kobman-${environment_name}.sh"
 		__kobman_install_"${environment_name}" "${namespace_name}"
-		__kobman_echo_no_colour "${environment_name} installation has been completed -> SUCCESSFULLY"	
+		__kobman_echo_blue "Installation of ${environment_name} has been completed !! "	
 		cd ~
 }
 
