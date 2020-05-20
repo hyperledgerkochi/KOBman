@@ -65,16 +65,16 @@ if [ -z "${argument_[1]}" ];
                         __kobman_echo_red "Environemt not available ."
                 return  
                 fi
-   		_kobman_variable_cleanup
+#   		_kobman_variable_cleanup
  
         fi
 }
 
-function _kobman_variable_cleanup
-{
-	namespace_value=""
-	version_value=""
-}
+#function _kobman_variable_cleanup
+#{
+#	namespace_value=""
+#	version_value=""
+#}
 
 function __kobman_validate_set_environment
 {
