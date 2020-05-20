@@ -65,14 +65,22 @@ if [ -z "${argument_[1]}" ];
                         __kobman_echo_red "Environemt not available ."
                 return  
                 fi
-    
+   		_kobman_variable_cleanup
+ 
         fi
+}
+
+function _kobman_variable_cleanup
+{
+	namespace_value=""
+	version_value=""
 }
 
 function __kobman_validate_set_environment
 {
 	curl -sL "https://raw.githubusercontent.com/${KOBMAN_NAMESPACE}/KOBman/master/dist/list" | grep -i "$1" > /dev/null
 }
+
 function __kobman_setting_global_variables
 {
      	namespace_value=$1
@@ -112,9 +120,7 @@ function __kobman_validate_version_format
 function __kobman_check_and_confirm_existing_version
 {
        	git ls-remote --tags "https://github.com/${1}/KOBman" | grep -w 'refs/tags/[0-9]*\.[0-9]*\.[0-9]*' | sort -r | head | grep -o '[^\/]*$' | grep -w "$2" > /dev/null
-
 }
-
 
 function __kobman_create_environment_directory
 {
@@ -140,12 +146,9 @@ function __kobman_create_environment_directory
                 mkdir -p $version_id
                 cd $version_id                                          # Needs to be refactored identify the latest version 
 
-                
       		cp "${KOBMAN_DIR}/envs/kobman-${environment_name}.sh" .
                 source "${KOBMAN_DIR}/envs/kob_env_${environment_name}/${version_id}/kobman-${environment_name}.sh"
 		__kobman_install_"${environment_name}" "${namespace_name}"
 		__kobman_echo_blue "Installation of ${environment_name} has been completed !! "	
 		cd ~
 }
-
-
