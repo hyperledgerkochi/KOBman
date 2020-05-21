@@ -2,7 +2,7 @@
 
 function __kob_help {
 
-	__kobman_echo_no_colour "KOBman Manual"
+	__kobman_echo_violet "KOBman - Help"
 	__kobman_echo_no_colour "-----------------------------"
 	__kobman_echo_no_colour " $ kob <command> <qualifier> <environment> <namespace>"   
 	__kobman_echo_no_colour ""
