@@ -18,7 +18,7 @@ if [ -z "${argument_[1]}" ];
                 then
                       	environment_value=${argument_[2]}
 			
-			case "${argument_[3]}" in
+			case "${argument_[3]}" in    # kob install --environment kobman  <3> 
 			--version)
                                 if [[ "${argument_[5]}" == "--namespace" && $version_value != "" ]]; 
                                 then    
@@ -65,16 +65,15 @@ if [ -z "${argument_[1]}" ];
                         __kobman_echo_red "Environemt not available ."
                 return  
                 fi
-#   		_kobman_variable_cleanup
- 
+   		 
         fi
 }
 
-#function _kobman_variable_cleanup
-#{
-#	namespace_value=""
-#	version_value=""
-#}
+function __kobman_variable_cleanup
+{
+	namespace_value=""
+	version_value=""
+}
 
 function __kobman_validate_set_environment
 {
@@ -148,7 +147,9 @@ function __kobman_create_environment_directory
 
       		cp "${KOBMAN_DIR}/envs/kobman-${environment_name}.sh" .
                 source "${KOBMAN_DIR}/envs/kob_env_${environment_name}/${version_id}/kobman-${environment_name}.sh"
-		__kobman_install_"${environment_name}" "${namespace_name}"
+	#	__kobman_install_"${environment_name}" "${namespace_name}"
+
 		__kobman_echo_blue "Installation of ${environment_name} has been completed !! "	
+#		__kobman_variable_cleanup
 		cd ~
 }
