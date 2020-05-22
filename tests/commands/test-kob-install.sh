@@ -1,33 +1,65 @@
 #!/bin/bash
 
-function kob_init {
+STATUS=True
+PATH_TO_KOB_ENV="${KOBMAN_DIR}/envs"
+PATH_TO_KOB_ENV_TEST="/home/user/KOBman/tests/envs"
+KOBMAN_ENV_NAME=${KOBMAN_ENV_NAME:-dummyenv}
+
+if [[-z KOBMAN_NAMESPACE ]]; then
+  
+  KOBMAN_NAMESPACE=${KOBMAN_NAMESPACE:-hyperledgerkochi}
+
+fi
+function __test-kob-install
+{
+  __kob_init
+  __kob_execute
+  __kob_validate
+  __kob_cleanup
+}
+
+function __kob_init 
+{
 
   #TODO:- Initialization of KOBman environment variables.(e.g- KOB_DIR ).
   #TODO:- Set path_to_kob_env_tests(e.g - src/tests/envs), kob_environment_under_test, kob_test_namespace.
-  PATH_TO_KOB_ENV="${KOBMAN_DIR}/envs"
-  PATH_TO_KOB_ENV_TEST="/home/user/KOBman/tests/envs"
-  KOBMAN_ENV_NAME=${KOBMAN_ENV_NAME:-dummyenv}
-  KOBMAN_NAMESPACE=${KOBMAN_NAMESPACE:-hyperledgerkochi}
+  
   # echo $KOBMAN_ENV_NAME
   # echo $KOBMAN_NAMESPACE
   #TODO:- Check $kob command (e.g - $kob --version or $kob).
-  curl -L https://raw.githubusercontent.com/${KOBMAN_NAMESPACE}/KOBman/master/get.kobman.io | bash > /dev/null 2>&1
-  source "${KOBMAN_DIR}/bin/kobman-init.sh"
-  kob | grep -i "KOBman" >/dev/null
-  if [ $? -eq 0 ];
-        then echo "kob found"
-  else
-        echo "kob not found"
+  # curl -L https://raw.githubusercontent.com/${KOBMAN_NAMESPACE}/KOBman/master/get.kobman.io | bash > /dev/null 2>&1
+  # source "${KOBMAN_DIR}/bin/kobman-init.sh"
+  # kob | grep -i "KOBman" >/dev/null
+  # if [ $? -eq 0 ];
+  #       then echo "kob found"
+  # else
+  #       echo "kob not found"
+  # fi
+  echo "Checking for kobman......."
+  if [ ! -d ${KOBMAN_DIR} ];
+      then
+          echo ".kobman not found"
+          echo "Installing .kobman........"
+          curl -s -L https://raw.githubusercontent.com/${namespace}/KOBman/master/get.kobman.io | bash &> /dev/null
+          echo "Sourcing files to memory......."
+          source "/${KOBMAN_DIR}/bin/kobman-init.sh"
+      else
+          echo ".kobman found"
+          echo "Sourcing files to memory......."
+          source "/${KOBMAN_DIR}/bin/kobman-init.sh"
   fi
 
   #TODO:- Load function to test kob_environment_under_test(i.e source $path_to_kob_env_tests/test-$(kob_environment_under_test).sh).
-  source "$PATH_TO_KOB_ENV/kobman-${KOBMAN_ENV_NAME}.sh"
-  source "$PATH_TO_KOB_ENV_TEST/test-kob-${KOBMAN_ENV_NAME}.sh"
+  # source "$PATH_TO_KOB_ENV/kobman-${KOBMAN_ENV_NAME}.sh"
+  # source "$PATH_TO_KOB_ENV_TEST/test-kob-${KOBMAN_ENV_NAME}.sh"
+  __kob_create_env ${KOBMAN_ENV_NAME}
+  __kob_validate_env 
 
 
 }
 
-function kob_execute {
+function __kob_execute 
+{
 
   #TODO:- kob install --environment ${ kob_environment_under_test } --namespace ${ kob_test_namespace }. ---> output file.
   kob install --environment ${KOBMAN_ENV_NAME} --namespace ${KOBMAN_NAMESPACE} &> output.txt
@@ -36,7 +68,8 @@ function kob_execute {
 
 }
 
-function kob_verify {
+function __kob_validate
+{
    cat output.txt
    param= $(cat output.txt)
   # echo $param
