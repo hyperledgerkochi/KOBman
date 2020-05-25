@@ -3,10 +3,24 @@
 
 function __kob_status {
 
-sudo rm ${KOBMAN_CANDIDATES_DIR}/*.tar.gz 2> /dev/null
-sudo rm ${KOBMAN_CANDIDATES_DIR}/source-to-image-v1.1.14-874754de-linux-amd64.tar.gz.* 2> /dev/null
-__kobman_echo_cyan "=========STATUS========="
-cd ${KOBMAN_CANDIDATES_DIR} 
-sudo ls -d Dev_* 2> /dev/null
+cd $KOBMAN_DIR/envs
+file=($(find -name "kob_env_*" -print))
+echo "Installed environments and their version"
+echo "---------------------------------------------"
+for f in "${file[@]}"; do
+	# echo "$f"
+    n=${f##*_}
+    cd $KOBMAN_DIR/envs/kob_env_$n
 
+
+    echo $n $(ls $KOBMAN_DIR/envs/kob_env_$n | grep -v $(cat current)) $(cat current)"*" > tmp.txt
+    sed 's/current//g' $KOBMAN_DIR/envs/kob_env_$n/tmp.txt
+    rm tmp.txt
+    
+done
+# echo $file
+
+# cat tmp.txt
+
+unset n file f 
 }
