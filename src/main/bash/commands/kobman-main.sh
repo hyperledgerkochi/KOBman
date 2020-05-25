@@ -75,9 +75,75 @@ function kob {
 	# Execute the requested command
 	if [ -n "$CMD_FOUND" ]; then
 		# It's available as a shell function
-		__kob_"$CONVERTED_CMD_NAME" "$DEPLOYMENT_TYPE" "$3" "$4"
-		final_rc=$?
+		if [ "$CONVERTED_CMD_NAME" = "install" ]; then
+			__kobman_identify_parameter
+		else	
+			__kob_"$CONVERTED_CMD_NAME" "$2" "$3" "$4"
+			final_rc=$?
+		fi	
 	fi
 
 
 }
+
+function __kobman_identify_parameter
+{
+
+if [ -z "${argument_[1]}" ];
+        then
+                __kobman_echo_red "Invalid command : Try with --environment/-env "
+                return  
+        elif [ "${argument_[1]}" == "--environment" ] || [ "${argument_[1]}" == "-env"  ];  
+        then    
+		__kobman_validate_set_environment "${argument_[2]}"
+                if [ "$?" -eq "0" ]   
+                then
+			case "${argument_[3]}" in    # kob install --environment kobman  <3> 
+			--version)
+                                if [[ "${argument_[5]}" == "--namespace" ]]; 
+                                then    
+                                        __kobman_setting_global_variables "${argument_[2]}" "${argument_[4]}" "${argument_[6]}"
+					__kobman_validate_and_set_version "${argument_[2]}" "${argument_[4]}" "${argument_[6]}"
+					if [ "$?" -eq "0" ];
+					then	
+						echo  "${argument_[2]}" "${argument_[4]}" "${argument_[6]}" 
+						__kob_"$CONVERTED_CMD_NAME" "${argument_[2]}" "${argument_[4]}" "${argument_[6]}" 
+					fi	
+                                elif [[ "${argument_[5]}" == "" ]]; 
+                                then    
+                                        __kobman_setting_global_variables "${argument_[2]}" "${argument_[4]}" "${KOBMAN_NAMESPACE}" 
+					__kobman_validate_and_set_version "${argument_[2]}" "${argument_[4]}" "${KOBMAN_NAMESPACE}" 
+					if [ "$?" -eq "0" ];
+					then	
+						echo "no namespace" "${argument_[2]}" "${argument_[4]}" "${KOBMAN_NAMESPACE}" 
+						__kob_"$CONVERTED_CMD_NAME" "${argument_[2]}" "${argument_[4]}" "${KOBMAN_NAMESPACE}" 
+					fi	
+                                else    
+                                        return  
+                                fi
+			;;
+
+			"")
+                               # assign value to variables version_value,namespace_value fo??  
+				__kobman_setting_global_variables "${argument_[2]}" "${KOBMAN_VERSION}" "${KOBMAN_NAMESPACE}" 
+				__kobman_validate_and_set_version "${argument_[2]}" "${KOBMAN_VERSION}" "${KOBMAN_NAMESPACE}" 
+				if [ "$?" -eq "0" ];
+				then	
+					echo "NO version , namespace " "${argument_[2]}" "${KOBMAN_VERSION}" "${KOBMAN_NAMESPACE}" 
+					__kob_"$CONVERTED_CMD_NAME" "${argument_[2]}" "${KOBMAN_VERSION}" "${KOBMAN_NAMESPACE}" 
+				fi	
+			;;
+		
+			esac  
+                else
+                        __kobman_echo_red "Environemt not available ."
+                return  
+                fi
+   		 
+        fi
+}
+
+
+
+
+

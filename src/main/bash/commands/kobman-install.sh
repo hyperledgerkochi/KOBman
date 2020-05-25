@@ -1,79 +1,86 @@
 #!/usr/bin/env bash
 
-namespace_value=""
-version_value=""
 
 function __kob_install {
 
+	environment_value=$1
+ 	version_value=$2
+	namespace_value=$3 
+
+	__kobman_create_environment_directory "$environment_value" "$version_value" "$namespace_value" 
+
+
+
 #Latest version check and assignment should happen here (if latest has been released )
 
-if [ -z "${argument_[1]}" ];
-        then
-                __kobman_echo_red "Invalid command : Try with --environment/-env "
-                return  
-        elif [ "${argument_[1]}" == "--environment" ] || [ "${argument_[1]}" == "-env"  ];  
-        then    
-		__kobman_validate_set_environment "${argument_[2]}"
-                if [ "$?" -eq "0" ]   
-                then
-                      	environment_value=${argument_[2]}
-			
-			case "${argument_[3]}" in    # kob install --environment kobman  <3> 
-			--version)
-                                if [[ "${argument_[5]}" == "--namespace" && $version_value != "" ]]; 
-                                then    
-                                        __kobman_setting_global_variables "${argument_[6]}" "${argument_[4]}"
-					__kobman_validate_and_set_version "${version_value}" "${namespace_value}"
-					if [ "$?" -eq "0" ];
-					then	
-						__kobman_create_environment_directory "$environment_value" "$version_value" "$namespace_value" 
-					fi	
-                                elif [[ "${argument_[5]}" == "" && $version_value != "" ]]; 
-                                then    
-                                        __kobman_setting_global_variables "${KOBMAN_NAMESPACE}" "${argument_[4]}"
-					__kobman_validate_and_set_version "${version_value}" "${namespace_value}"
-					if [ "$?" -eq "0" ];
-					then	
-						__kobman_create_environment_directory "$environment_value" "$version_value" "$namespace_value" 
-					fi	
-					
-                                else    
-                                        return  
-                                fi
-			;;
-			--namespace)
-                                __kobman_setting_global_variables "${argument_[4]}" "${KOBMAN_VERSION}" 
-				__kobman_validate_and_set_version "${version_value}" "${namespace_value}"
-				if [ "$?" -eq "0" ];
-				then	
-					__kobman_create_environment_directory "$environment_value" "$version_value" "$namespace_value" 
-				fi	
-			;;
+#if [ -z "${argument_[1]}" ];
+#        then
+#                __kobman_echo_red "Invalid command : Try with --environment/-env "
+#                return  
+#        elif [ "${argument_[1]}" == "--environment" ] || [ "${argument_[1]}" == "-env"  ];  
+#        then    
+#		__kobman_validate_set_environment "${argument_[2]}"
+#                if [ "$?" -eq "0" ]   
+#                then
+#                      	environment_value=${argument_[2]}
+#			
+#			case "${argument_[3]}" in    # kob install --environment kobman  <3> 
+#			--version)
+#                                if [[ "${argument_[5]}" == "--namespace" && $version_value != "" ]]; 
+#                                then    
+#                                        __kobman_setting_global_variables "${argument_[6]}" "${argument_[4]}"
+#					__kobman_validate_and_set_version "${version_value}" "${namespace_value}"
+#					if [ "$?" -eq "0" ];
+#					then	
+#						__kobman_create_environment_directory "$environment_value" "$version_value" "$namespace_value" 
+#					fi	
+#                                elif [[ "${argument_[5]}" == "" && $version_value != "" ]]; 
+#                                then    
+#                                        __kobman_setting_global_variables "${KOBMAN_NAMESPACE}" "${argument_[4]}"
+#					__kobman_validate_and_set_version "${version_value}" "${namespace_value}"
+#					if [ "$?" -eq "0" ];
+#					then	
+#						__kobman_create_environment_directory "$environment_value" "$version_value" "$namespace_value" 
+#					fi	
+#					
+#                                else    
+#                                        return  
+#                                fi
+#			;;
+#			--namespace)
+#                                __kobman_setting_global_variables "${argument_[4]}" "${KOBMAN_VERSION}" 
+#				__kobman_validate_and_set_version "${version_value}" "${namespace_value}"
+#				if [ "$?" -eq "0" ];
+#				then	
+#					__kobman_create_environment_directory "$environment_value" "$version_value" "$namespace_value" 
+#				fi	
+#			;;
+#
+#
+#			"")
+#                               # assign value to variables version_value,namespace_value fo??  
+#				__kobman_setting_global_variables "${KOBMAN_NAMESPACE}" "${KOBMAN_VERSION}" 
+#				__kobman_validate_and_set_version "${version_value}" "${namespace_value}"
+#				if [ "$?" -eq "0" ];
+#				then	
+#					__kobman_create_environment_directory "$environment_value" "$version_value" "$namespace_value" 
+#				fi	
+#			;;
+#		
+#			esac  
+#                else
+#                        __kobman_echo_red "Environemt not available ."
+#                return  
+#                fi
+#   		 
+#        fi
 
-
-			"")
-                               # assign value to variables version_value,namespace_value fo??  
-				__kobman_setting_global_variables "${KOBMAN_NAMESPACE}" "${KOBMAN_VERSION}" 
-				__kobman_validate_and_set_version "${version_value}" "${namespace_value}"
-				if [ "$?" -eq "0" ];
-				then	
-					__kobman_create_environment_directory "$environment_value" "$version_value" "$namespace_value" 
-				fi	
-			;;
-		
-			esac  
-                else
-                        __kobman_echo_red "Environemt not available ."
-                return  
-                fi
-   		 
-        fi
 }
 
 function __kobman_variable_cleanup
 {
-	namespace_value=""
 	version_value=""
+	namespace_value=""
 }
 
 function __kobman_validate_set_environment
@@ -83,16 +90,16 @@ function __kobman_validate_set_environment
 
 function __kobman_setting_global_variables
 {
-     	namespace_value=$1
+	environment_value=$1
         version_value=$2
+     	namespace_value=$3
 }
 
 function __kobman_validate_and_set_version
 {
-	# assigned in wrong order $1-environemnt,$2-version,$3-namespace
-	version=$1
-	namespace=$2	
-	enviroment=$3
+	enviroment=$1
+	version=$2
+	namespace=$3	
 	__kobman_validate_version_format "${version}" 
 	if [ "$?" -eq "0" ];
 	then
