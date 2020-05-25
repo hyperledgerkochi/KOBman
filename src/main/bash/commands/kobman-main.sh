@@ -99,6 +99,18 @@ if [ -z "${argument_[1]}" ];
                 if [ "$?" -eq "0" ]   
                 then
 			case "${argument_[3]}" in    # kob install --environment kobman  <3> 
+	
+			"")
+                               # assign value to variables version_value,namespace_value fo??  
+				__kobman_setting_global_variables "${argument_[2]}" "${KOBMAN_VERSION}" "${KOBMAN_NAMESPACE}" 
+				__kobman_validate_and_set_version "${argument_[2]}" "${KOBMAN_VERSION}" "${KOBMAN_NAMESPACE}" 
+				if [ "$?" -eq "0" ];
+				then	
+					echo "NO version , namespace " "${argument_[2]}" "${KOBMAN_VERSION}" "${KOBMAN_NAMESPACE}" 
+					__kob_"$CONVERTED_CMD_NAME" "${argument_[2]}" "${KOBMAN_VERSION}" "${KOBMAN_NAMESPACE}" 
+					unset argument_	
+			fi	
+			;;
 			--version)
                                 if [[ "${argument_[5]}" == "--namespace" ]]; 
                                 then    
@@ -108,6 +120,7 @@ if [ -z "${argument_[1]}" ];
 					then	
 						echo  "${argument_[2]}" "${argument_[4]}" "${argument_[6]}" 
 						__kob_"$CONVERTED_CMD_NAME" "${argument_[2]}" "${argument_[4]}" "${argument_[6]}" 
+						unset argument_	
 					fi	
                                 elif [[ "${argument_[5]}" == "" ]]; 
                                 then    
@@ -117,22 +130,13 @@ if [ -z "${argument_[1]}" ];
 					then	
 						echo "no namespace" "${argument_[2]}" "${argument_[4]}" "${KOBMAN_NAMESPACE}" 
 						__kob_"$CONVERTED_CMD_NAME" "${argument_[2]}" "${argument_[4]}" "${KOBMAN_NAMESPACE}" 
+						unset argument_	
 					fi	
                                 else    
                                         return  
                                 fi
 			;;
 
-			"")
-                               # assign value to variables version_value,namespace_value fo??  
-				__kobman_setting_global_variables "${argument_[2]}" "${KOBMAN_VERSION}" "${KOBMAN_NAMESPACE}" 
-				__kobman_validate_and_set_version "${argument_[2]}" "${KOBMAN_VERSION}" "${KOBMAN_NAMESPACE}" 
-				if [ "$?" -eq "0" ];
-				then	
-					echo "NO version , namespace " "${argument_[2]}" "${KOBMAN_VERSION}" "${KOBMAN_NAMESPACE}" 
-					__kob_"$CONVERTED_CMD_NAME" "${argument_[2]}" "${KOBMAN_VERSION}" "${KOBMAN_NAMESPACE}" 
-				fi	
-			;;
 		
 			esac  
                 else
