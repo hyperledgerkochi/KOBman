@@ -88,11 +88,11 @@ function kob {
 function __kobman_identify_parameter
 {
 
-if [ -z "${argument_[1]}" ];
-        then
-                __kobman_echo_red "Invalid command : Try with --environment/-env "
-                return  
-        elif [ "${argument_[1]}" == "--environment" ] || [ "${argument_[1]}" == "-env"  ];  
+	if [ -z "${argument_[1]}" ];
+	then
+		__kobman_echo_red "Invalid command : Try with --environment/-env "
+        	return  
+	elif [ "${argument_[1]}" == "--environment" ] || [ "${argument_[1]}" == "-env"  ];  
         then    
 		__kobman_validate_set_environment "${argument_[2]}"
                 if [ "$?" -eq "0" ]   
@@ -100,52 +100,26 @@ if [ -z "${argument_[1]}" ];
 			case "${argument_[3]}" in    # kob install --environment kobman  <3> 
 	
 			"")
-                               # assign value to variables version_value,namespace_value fo??  
-				__kobman_setting_global_variables "${argument_[2]}" "${KOBMAN_VERSION}" "${KOBMAN_NAMESPACE}" 
-				__kobman_validate_and_set_version "${argument_[2]}" "${KOBMAN_VERSION}" "${KOBMAN_NAMESPACE}" 
-				if [ "$?" -eq "0" ];
-				then	
-					__kob_"$CONVERTED_CMD_NAME" "${argument_[2]}" "${KOBMAN_VERSION}" "${KOBMAN_NAMESPACE}" 
-					unset argument_	
-				fi	
+				__kobman_pass_parameter "${argument_[2]}" "${KOBMAN_VERSION}" "${KOBMAN_NAMESPACE}" 
 			;;
 		
 			--namespace)
 				
-				__kobman_setting_global_variables "${argument_[2]}" "${KOBMAN_VERSION}" "${argument_[4]}" 
-				__kobman_validate_and_set_version "${argument_[2]}" "${KOBMAN_VERSION}" "${argument_[4]}"  
-				if [ "$?" -eq "0" ];
-				then	
-					__kob_"$CONVERTED_CMD_NAME" "${argument_[2]}" "${KOBMAN_VERSION}" "${argument_[4]}"  
-					unset argument_	
-				fi	
+				__kobman_pass_parameter "${argument_[2]}" "${KOBMAN_VERSION}" "${argument_[4]}" 
 			;;
 	
 			--version)
                                 if [[ "${argument_[5]}" == "--namespace" ]]; 
                                 then    
-                                        __kobman_setting_global_variables "${argument_[2]}" "${argument_[4]}" "${argument_[6]}"
-					__kobman_validate_and_set_version "${argument_[2]}" "${argument_[4]}" "${argument_[6]}"
-					if [ "$?" -eq "0" ];
-					then	
-						__kob_"$CONVERTED_CMD_NAME" "${argument_[2]}" "${argument_[4]}" "${argument_[6]}" 
-						unset argument_	
-					fi	
+                                        __kobman_pass_parameter "${argument_[2]}" "${argument_[4]}" "${argument_[6]}"
                                 elif [[ "${argument_[5]}" == "" ]]; 
                                 then    
-                                        __kobman_setting_global_variables "${argument_[2]}" "${argument_[4]}" "${KOBMAN_NAMESPACE}" 
-					__kobman_validate_and_set_version "${argument_[2]}" "${argument_[4]}" "${KOBMAN_NAMESPACE}" 
-					if [ "$?" -eq "0" ];
-					then	
-						__kob_"$CONVERTED_CMD_NAME" "${argument_[2]}" "${argument_[4]}" "${KOBMAN_NAMESPACE}" 
-						unset argument_	
-					fi	
+                                        __kobman_pass_parameter "${argument_[2]}" "${argument_[4]}" "${KOBMAN_NAMESPACE}" 
                                 else    
                                         return  
                                 fi
 			;;
 
-		
 			esac  
                 else
                         __kobman_echo_red "Environment name you have entered is not available, please try again!"
@@ -156,4 +130,14 @@ if [ -z "${argument_[1]}" ];
 }
 
 
+function __kobman_pass_parameter
+{
+	__kobman_setting_global_variables "$1" "$2" "$3" 
+	__kobman_validate_and_set_version "$1" "$2" "$3" 
+	if [ "$?" -eq "0" ];
+	then	
+		__kob_"$CONVERTED_CMD_NAME" "$1" "$2" "$3" 
+		unset argument_	
+	fi	
 
+}

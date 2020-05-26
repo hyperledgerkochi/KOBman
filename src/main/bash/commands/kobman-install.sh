@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
+confirmed_environment=""
+
 function __kob_install {
 
 	environment_value=$1
  	version_value=$2
 	namespace_value=$3 
-
 	__kobman_create_environment_directory "$environment_value" "$version_value" "$namespace_value" 
-
 }
 
 function __kobman_validate_set_environment
@@ -27,6 +27,7 @@ function __kobman_validate_and_set_version
 	enviroment=$1
 	version=$2
 	namespace=$3	
+
 	__kobman_validate_version_format "${version}" 
 	if [ "$?" -eq "0" ];
 	then
@@ -36,7 +37,7 @@ function __kobman_validate_and_set_version
                 	version_value=$1
         		return 0	
 		else
-                	__kobman_echo_white "Inside ->  https://github.com/${namespace}/${environment}"
+                	__kobman_echo_white "https://github.com/${namespace}/${confirmed_environment}"
                 	__kobman_echo_red "Version : ${version} is not available "
 			return 1 
 		fi
@@ -60,6 +61,16 @@ function __kobman_check_and_confirm_existing_version
 	env=$1
 	version=$2
 	namespace=$3	
+	__kobman_environment_name_align "$env"
+
+	git ls-remote --tags "https://github.com/${namespace}/${confirmed_environment}" | grep -w 'refs/tags/[0-9]*\.[0-9]*\.[0-9]*' | sort -r | head | grep -o '[^\/]*$' | grep -w "${version}" > /dev/null
+							# version check is happening only for KOBman , need to create case statement for mapping kobman environemnts 
+}
+
+function __kobman_environment_name_align
+{
+
+	
       	case "$env" in 
 		tob)
 			confirmed_environment="TheOrgBook"		
@@ -70,13 +81,11 @@ function __kobman_check_and_confirm_existing_version
 		greenlight)
 			confirmed_environment="greenlight"		
 		;;
-		KOBman)
+		kobman)
 			confirmed_environment="KOBman"		
 		;;
 	esac	
 
-	git ls-remote --tags "https://github.com/${namespace}/${confirmed_environment}" | grep -w 'refs/tags/[0-9]*\.[0-9]*\.[0-9]*' | sort -r | head | grep -o '[^\/]*$' | grep -w "${version}" > /dev/null
-							# version check is happening only for KOBman , need to create case statement for mapping kobman environemnts 
 }
 
 function __kobman_create_environment_directory
@@ -86,9 +95,8 @@ function __kobman_create_environment_directory
 		version_id=$2 
         	namespace_name=$3
 		
-		__kobman_echo_blue "Installing :"  
-               	__kobman_echo_white "Repo/Namespace	: https://github.com/${namespace_name}/${environment_name}" 
-               	__kobman_echo_white "Version		: ${version_id}" 
+               	__kobman_echo_white "https://github.com/${namespace_name}/${confirmed_environment}" 
+               	__kobman_echo_white "Version : ${version_id} is available" 
 		
 		cd "${KOBMAN_DIR}/envs"
                 mkdir -p kob_env_"${environment_name}"
@@ -106,6 +114,6 @@ function __kobman_create_environment_directory
                 source "${KOBMAN_DIR}/envs/kob_env_${environment_name}/${version_id}/kobman-${environment_name}.sh"
 	#	__kobman_install_"${environment_name}" "${namespace_name}"
 
-		__kobman_echo_blue "Installed from ->  https://github.com/${namespace_name}/${environment_name}"	
+		__kobman_echo_cyan "Installation Completed !!"
 		cd ~
 }

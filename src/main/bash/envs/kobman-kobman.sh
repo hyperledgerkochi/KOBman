@@ -1,5 +1,5 @@
 #!/bin/bash
-function __kobman_development_KOBman_dir { 
+function __kobman_development_kobman_dir { 
 	cd ~
 	mkdir -p Dev_KOBman
 	cd Dev_KOBman
@@ -8,7 +8,7 @@ function __kobman_development_KOBman_dir {
 	mkdir -p test/ dependency/
 }
 
-function __kobman_install_KOBman
+function __kobman_install_kobman
 {
 	kobman_namespace="$1"
  	__kobman_echo_white "Downloading KOBman environment from Github namespace : "	
@@ -19,7 +19,7 @@ function __kobman_install_KOBman
 	cd ~
 }
 
-function __kobman_uninstall_KOBman
+function __kobman_uninstall_kobman
 {
  	__kobman_echo_white "Removing KOBman environment..."
 	cd ${KOBMAN_KOBMAN_DEV_DIR} 
@@ -31,7 +31,7 @@ function __kobman_uninstall_KOBman
 	__kobman_echo_red "KOBman environment removed !!"	
 }
 
-function __kobman_version_KOBman
+function __kobman_version_kobman
 {
 	if [ -d "${KOBMAN_KOBMAN_DEV_DIR}" ]; then 
 #		kobman_namespace="$1"
