@@ -120,6 +120,7 @@ function __kobman_create_environment_directory
 			__kobman_echo_cyan "Installation Completed !!"
 			cd ~
 		else
-               		__kobman_echo_red "Version : ${version_id} is already existing in your local system ! " 
+			cd ~
+               		__kobman_echo_red "Environment :${confirmed_environment}, Version : ${version_id} is already existing in your local system ! " 
 		fi
 }
