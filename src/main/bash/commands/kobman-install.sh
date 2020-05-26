@@ -12,6 +12,7 @@ function __kob_install {
 
 function __kobman_validate_set_environment
 {
+	echo $1 > $KOBMAN_DIR/var/current	
 	curl -sL "https://raw.githubusercontent.com/${KOBMAN_NAMESPACE}/KOBman/master/dist/list" | grep -i "$1" > /dev/null
 }
 
@@ -107,13 +108,18 @@ function __kobman_create_environment_directory
                 then
                 	__kobman_echo_no_colour "$version_id" > "$destdir"
                 fi
-                mkdir -p $version_id
-                cd $version_id                                          # Needs to be refactored identify the latest version 
+               	if [ ! -d "$version_id" ] 
+		then	
+			mkdir -p $version_id
+                	cd $version_id                                          # Needs to be refactored identify the latest version 
 
-      		cp "${KOBMAN_DIR}/envs/kobman-${environment_name}.sh" .
-                source "${KOBMAN_DIR}/envs/kob_env_${environment_name}/${version_id}/kobman-${environment_name}.sh"
-	#	__kobman_install_"${environment_name}" "${namespace_name}"
+      			cp "${KOBMAN_DIR}/envs/kobman-${environment_name}.sh" .
+                	source "${KOBMAN_DIR}/envs/kob_env_${environment_name}/${version_id}/kobman-${environment_name}.sh"
+			__kobman_install_"${environment_name}" "${namespace_name}"
 
-		__kobman_echo_cyan "Installation Completed !!"
-		cd ~
+			__kobman_echo_cyan "Installation Completed !!"
+			cd ~
+		else
+               		__kobman_echo_red "Version : ${version_id} is already existing in your local system ! " 
+		fi
 }

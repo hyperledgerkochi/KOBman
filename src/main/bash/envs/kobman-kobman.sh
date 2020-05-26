@@ -1,11 +1,15 @@
 #!/bin/bash
 function __kobman_development_kobman_dir { 
 	cd ~
-	mkdir -p Dev_KOBman
-	cd Dev_KOBman
-	export KOBMAN_KOBMAN_DEV_DIR=$PWD
-	cd ${KOBMAN_KOBMAN_DEV_DIR}
-	mkdir -p test/ dependency/
+	if [ ! -d "${KOBMAN_KOBMAN_DEV_DIR}" ]; then 
+		mkdir -p Dev_KOBman
+		cd Dev_KOBman
+		export KOBMAN_KOBMAN_DEV_DIR=$PWD
+		cd ${KOBMAN_KOBMAN_DEV_DIR}
+		mkdir -p test/ dependency/
+	else
+		__kobman_echo_red "KOBman environment already installed !!"	
+	fi
 }
 
 function __kobman_install_kobman
