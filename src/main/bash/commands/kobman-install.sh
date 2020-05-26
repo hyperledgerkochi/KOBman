@@ -57,10 +57,25 @@ function __kobman_validate_version_format
 
 function __kobman_check_and_confirm_existing_version
 {
-	enviroment=$1
+	env=$1
 	version=$2
 	namespace=$3	
-      	git ls-remote --tags "https://github.com/${namespace}/KOBman" | grep -w 'refs/tags/[0-9]*\.[0-9]*\.[0-9]*' | sort -r | head | grep -o '[^\/]*$' | grep -w "${version}" > /dev/null
+      	case "$env" in 
+		tob)
+			confirmed_environment="TheOrgBook"		
+		;;
+		tobvon)
+			confirmed_environment="von-network"		
+		;;
+		greenlight)
+			confirmed_environment="greenlight"		
+		;;
+		KOBman)
+			confirmed_environment="KOBman"		
+		;;
+	esac	
+
+	git ls-remote --tags "https://github.com/${namespace}/${confirmed_environment}" | grep -w 'refs/tags/[0-9]*\.[0-9]*\.[0-9]*' | sort -r | head | grep -o '[^\/]*$' | grep -w "${version}" > /dev/null
 							# version check is happening only for KOBman , need to create case statement for mapping kobman environemnts 
 }
 
