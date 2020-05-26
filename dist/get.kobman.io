@@ -59,7 +59,7 @@ esac
 sudo apt install figlet -y
 
 
-figlet KOB Utility -f small
+figlet KOBman -f small
 figlet Setting up -f small
 
 
@@ -207,7 +207,6 @@ unzip -qo "$kobman_zip_file" -d "$kobman_stage_folder"
 echo "Install scripts..."
 
 mv "${kobman_stage_folder}/kobman-init.sh" "$kobman_bin_folder"
-sudo chmod +x "${kobman_stage_folder}/kobman-test.sh"
 mv "${kobman_stage_folder}/kobman-test.sh" "$kobman_bin_folder"
 mv "$kobman_stage_folder"/kobman-[kt]* "$kobman_env_folder"
 mv "$kobman_stage_folder"/kobman-* "$kobman_src_folder"
@@ -239,10 +238,6 @@ if [[ -z $(grep 'kobman-init.sh' "$kobman_zshrc") ]]; then
     echo "Updated existing ${kobman_zshrc}"
 fi
 
-#sudo chmod a+rwx .
-#sudo chmod u+xr ${KOBMAN_DIR}/candidates 
-#sudo chmod go+x /
-#sudo chmod go+x /root
 echo -e "\n\n\nAll done!\n\n"
 
 echo "Please open a new terminal, or run the following in the existing one:"

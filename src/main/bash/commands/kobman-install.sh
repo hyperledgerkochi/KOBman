@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 function __kob_install {
 
 	environment_value=$1
@@ -9,78 +8,6 @@ function __kob_install {
 
 	__kobman_create_environment_directory "$environment_value" "$version_value" "$namespace_value" 
 
-
-
-#Latest version check and assignment should happen here (if latest has been released )
-
-#if [ -z "${argument_[1]}" ];
-#        then
-#                __kobman_echo_red "Invalid command : Try with --environment/-env "
-#                return  
-#        elif [ "${argument_[1]}" == "--environment" ] || [ "${argument_[1]}" == "-env"  ];  
-#        then    
-#		__kobman_validate_set_environment "${argument_[2]}"
-#                if [ "$?" -eq "0" ]   
-#                then
-#                      	environment_value=${argument_[2]}
-#			
-#			case "${argument_[3]}" in    # kob install --environment kobman  <3> 
-#			--version)
-#                                if [[ "${argument_[5]}" == "--namespace" && $version_value != "" ]]; 
-#                                then    
-#                                        __kobman_setting_global_variables "${argument_[6]}" "${argument_[4]}"
-#					__kobman_validate_and_set_version "${version_value}" "${namespace_value}"
-#					if [ "$?" -eq "0" ];
-#					then	
-#						__kobman_create_environment_directory "$environment_value" "$version_value" "$namespace_value" 
-#					fi	
-#                                elif [[ "${argument_[5]}" == "" && $version_value != "" ]]; 
-#                                then    
-#                                        __kobman_setting_global_variables "${KOBMAN_NAMESPACE}" "${argument_[4]}"
-#					__kobman_validate_and_set_version "${version_value}" "${namespace_value}"
-#					if [ "$?" -eq "0" ];
-#					then	
-#						__kobman_create_environment_directory "$environment_value" "$version_value" "$namespace_value" 
-#					fi	
-#					
-#                                else    
-#                                        return  
-#                                fi
-#			;;
-#			--namespace)
-#                                __kobman_setting_global_variables "${argument_[4]}" "${KOBMAN_VERSION}" 
-#				__kobman_validate_and_set_version "${version_value}" "${namespace_value}"
-#				if [ "$?" -eq "0" ];
-#				then	
-#					__kobman_create_environment_directory "$environment_value" "$version_value" "$namespace_value" 
-#				fi	
-#			;;
-#
-#
-#			"")
-#                               # assign value to variables version_value,namespace_value fo??  
-#				__kobman_setting_global_variables "${KOBMAN_NAMESPACE}" "${KOBMAN_VERSION}" 
-#				__kobman_validate_and_set_version "${version_value}" "${namespace_value}"
-#				if [ "$?" -eq "0" ];
-#				then	
-#					__kobman_create_environment_directory "$environment_value" "$version_value" "$namespace_value" 
-#				fi	
-#			;;
-#		
-#			esac  
-#                else
-#                        __kobman_echo_red "Environemt not available ."
-#                return  
-#                fi
-#   		 
-#        fi
-
-}
-
-function __kobman_variable_cleanup
-{
-	version_value=""
-	namespace_value=""
 }
 
 function __kobman_validate_set_environment
@@ -109,12 +36,13 @@ function __kobman_validate_and_set_version
                 	version_value=$1
         		return 0	
 		else
-                	__kobman_echo_red "Not available "
-                	__kobman_echo_white "https://github.com/${namespace}/${environment_name} -> version : ${version} "
+                	__kobman_echo_white "Inside ->  https://github.com/${namespace}/${environment}"
+                	__kobman_echo_red "Version : ${version} is not available "
 			return 1 
 		fi
 	else
-        	__kobman_echo_red "invalid version format"
+        	__kobman_echo_red "Version format you have entered is incorrect"
+        	__kobman_echo_green "Correct format -> 0.0.0 [eg: 0.0.2]"
 		return 2  
 	fi
 	
@@ -164,6 +92,5 @@ function __kobman_create_environment_directory
 	#	__kobman_install_"${environment_name}" "${namespace_name}"
 
 		__kobman_echo_blue "Installed from ->  https://github.com/${namespace_name}/${environment_name}"	
-#		__kobman_variable_cleanup
 		cd ~
 }

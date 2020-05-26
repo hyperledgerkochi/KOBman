@@ -83,7 +83,6 @@ function kob {
 		fi	
 	fi
 
-
 }
 
 function __kobman_identify_parameter
@@ -106,11 +105,22 @@ if [ -z "${argument_[1]}" ];
 				__kobman_validate_and_set_version "${argument_[2]}" "${KOBMAN_VERSION}" "${KOBMAN_NAMESPACE}" 
 				if [ "$?" -eq "0" ];
 				then	
-					echo "NO version , namespace " "${argument_[2]}" "${KOBMAN_VERSION}" "${KOBMAN_NAMESPACE}" 
 					__kob_"$CONVERTED_CMD_NAME" "${argument_[2]}" "${KOBMAN_VERSION}" "${KOBMAN_NAMESPACE}" 
 					unset argument_	
-			fi	
+				fi	
 			;;
+		
+			--namespace)
+				
+				__kobman_setting_global_variables "${argument_[2]}" "${KOBMAN_VERSION}" "${argument_[4]}" 
+				__kobman_validate_and_set_version "${argument_[2]}" "${KOBMAN_VERSION}" "${argument_[4]}"  
+				if [ "$?" -eq "0" ];
+				then	
+					__kob_"$CONVERTED_CMD_NAME" "${argument_[2]}" "${KOBMAN_VERSION}" "${argument_[4]}"  
+					unset argument_	
+				fi	
+			;;
+	
 			--version)
                                 if [[ "${argument_[5]}" == "--namespace" ]]; 
                                 then    
@@ -118,7 +128,6 @@ if [ -z "${argument_[1]}" ];
 					__kobman_validate_and_set_version "${argument_[2]}" "${argument_[4]}" "${argument_[6]}"
 					if [ "$?" -eq "0" ];
 					then	
-						echo  "${argument_[2]}" "${argument_[4]}" "${argument_[6]}" 
 						__kob_"$CONVERTED_CMD_NAME" "${argument_[2]}" "${argument_[4]}" "${argument_[6]}" 
 						unset argument_	
 					fi	
@@ -128,7 +137,6 @@ if [ -z "${argument_[1]}" ];
 					__kobman_validate_and_set_version "${argument_[2]}" "${argument_[4]}" "${KOBMAN_NAMESPACE}" 
 					if [ "$?" -eq "0" ];
 					then	
-						echo "no namespace" "${argument_[2]}" "${argument_[4]}" "${KOBMAN_NAMESPACE}" 
 						__kob_"$CONVERTED_CMD_NAME" "${argument_[2]}" "${argument_[4]}" "${KOBMAN_NAMESPACE}" 
 						unset argument_	
 					fi	
@@ -140,14 +148,12 @@ if [ -z "${argument_[1]}" ];
 		
 			esac  
                 else
-                        __kobman_echo_red "Environemt not available ."
+                        __kobman_echo_red "Environment name you have entered is not available, please try again!"
                 return  
                 fi
    		 
         fi
 }
-
-
 
 
 
