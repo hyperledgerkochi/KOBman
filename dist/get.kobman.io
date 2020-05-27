@@ -59,8 +59,8 @@ esac
 sudo apt install figlet -y
 
 
-figlet KOBman -f small
-figlet Setting up -f small
+echo "KOBman "
+echo "Setting up "
 
 
 # Sanity checks
