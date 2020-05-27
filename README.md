@@ -28,7 +28,7 @@ See documentation on the [KOBMAN! website](https://kobman.github.io).
 
 Open your favourite terminal and enter the following:
 
-    $ curl -L https://raw.githubusercontent.com/kobman/KOBman/master/dist/get.kobman.io | bash
+    $ curl -L https://raw.githubusercontent.com/kobman/KOBman/RF-1.0.1.3.1/dist/get.kobman.io | bash
 
 If the environment needs tweaking for KOBMAN to be installed, the installer will prompt you accordingly and ask you to restart.
 
@@ -46,43 +46,73 @@ To install KOBMAN locally running against your local server, run the following c
 
 Run the following commands on the terminal to manage respective environments.
 	
-	Development environement setup commands:
-       
-        kob install --dev tobvon       [name_space]       
-        kob install --dev tob          [name_space]
-        kob install --dev greenlight   [name_space]
-        kob install --dev kobvon       [name_space]
-        kob install --dev kob          [name_space]
-        kob install --dev kobdflow     [name_space]
-        kob install --dev kobconnect   [name_space]        
-        kob install --dev kobregistory [name_space]
+###Development environement setting up commands:
 
-        Example   :
-            kob install --dev tob hyperledgerkochi
-        
-Deployment commands:
-        
-        kob install --deploy tobvon       [name_space]       
-        kob install --deploy tob          [name_space]
-        kob install --deploy greenlight   [name_space]
-        kob install --deploy kobvon       [name_space]
-        kob install --deploy kob          [name_space]
-        kob install --deploy kobdflow     [name_space]
-        kob install --deploy kobconnect   [name_space]        
-        kob install --deploy kobregistory [name_space]
-        
-	Example   :
-            kob install --deploy tob bcgov
+I) Install Commands
+
+a.	kob install --environment kobman [--version version_id] [--namespace name_value]       
+             eg:
+             	kob install --environment kobman --version 0.0.2 --namespace asa1997
+
+> This command will install versin :'0.0.2' of the environment 'KOBman' from the one of the github contributer's  namespace 'asa1997' 
+> KOBman namespace -> "https://github.com/asa1997/KOBman  
+> KOBman version -> '0.0.2'  
+
+_________________
+	
+b.	kob install --environment kobman [--version version_id]     
+             eg:
+             	kob install --environment kobman --version 0.0.3 
+
+> This command will install versin :'0.0.3' of the environment 'kobman' from the **default github namespace 'hyperlederkochi'** 
+> KOBman namespace -> "https://github.com/hyperledgerkochi/KOBman  
+> KOBman version -> '0.0.3'  
+_________________
+	
+
+c.	kob install --environment kobman [--namespace namespace_value]     
+             eg:
+             	kob install --environment kobman --namespace EtricKombat
+
+> This command will install **default versin :0.0.1** of the environment 'kobman' from one of the github contiruber's  namespace 'EtricKombat' 
+
+> KOBman namespace -> "https://github.com/EtricKombat/KOBman  
+> KOBman version -> '0.0.1'  
+	
+_________________
+	
+
+d.	kob install --environment kobman      
+             eg:
+             	kob install --environment kobman 
+
+> This command will install **default versin :0.0.1** of the environment 'kobman' from the **default github namespace 'hyperlederkochi'** 
+
+> KOBman namespace -> "https://github.com/hyperledgerkochi/KOBman  
+> KOBman version -> '0.0.1' 
+_____________
+
+e.	Other available hyperledgerkochi environment's 
+       
+- tobvon	-> von-network		-> https://github.com/hyperledgerkochi/von-network
+- tob		-> TheOrgBook
+- greenlight	-> greenlight		-> https://github.com/hyperledgerkochi/greenlight
+
+##### Work in progress
+- kobvon	-> KochiOrgBook- VON		-> https://github.com/hyperledgerkochi/KOBVON
+- kob		-> KochiOrgBook			-> https://github.com/hyperledgerkochi/KochiOrgBook
+- kobdflow	-> KochiOrgBook- Dflow		-> https://github.com/hyperledgerkochi/KOB_GreenLight
+- kobregistory	-> KochiOrgBook- Registry	-> https://github.com/hyperledgerkochi/KOBRegistry
+- kobconnect	-> KochiOrgBook- Connect	-> https://github.com/hyperledgerkochi/KOBConnect
+
+_____________
+
+II) Unnstall Commands
+
+
 Uninstall environement  commands:
        
-        kob uninstall tobvon             
-        kob uninstall tob         
-        kob uninstall greenlight  
-        kob uninstall kobvon       
-        kob uninstall kob          
-        kob uninstall kobdflow     
-        kob uninstall kobconnect           
-        kob uninstall kobregistory 
+       kob uninstall --environment kobman
 
                 
         
