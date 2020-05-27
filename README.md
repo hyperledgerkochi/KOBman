@@ -51,9 +51,10 @@ Run the following commands on the terminal to manage respective environments.
 I) Install Commands
 
 a.	
+kob install --environment kobman [--version version_id] [--namespace name_value]       
 
              eg:
-             	kob install --environment kobman --version 0.0.2 --namespace asa1997
+             	
 
 > This command will install versin :'0.0.2' of the environment 'KOBman' from the one of the github contributer's  namespace 'asa1997' 
 > KOBman namespace -> "https://github.com/asa1997/KOBman  
@@ -61,7 +62,7 @@ a.
 
 <table>
 	<tr><th>Syntax/Example</th><th>command</th></tr>
-	<tr><td>Syntax</td><td> </t</tr>
+	<tr><td>Syntax</td><td>kob install --environment kobman [--version version_id] [--namespace name_value]</td></tr>
 	<tr><td>Example</td><td></td></tr>
 </table>
 
