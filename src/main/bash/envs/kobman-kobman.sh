@@ -7,19 +7,18 @@ function __kobman_development_kobman_dir {
 		export KOBMAN_KOBMAN_DEV_DIR=$PWD
 		cd ${KOBMAN_KOBMAN_DEV_DIR}
 		mkdir -p test/ dependency/
+               	__kobman_echo_cyan "Copying source code  of https://github.com/${kobman_namespace}/${confirmed_environment} to your local system ! "
 	else
-		__kobman_echo_red "KOBman environment already installed !!"	
+               	__kobman_echo_red "Source code of https://github.com/${kobman_namespace}/${confirmed_environment} already existing in your local system ! "
 	fi
 }
 
 function __kobman_install_kobman
 {
 	kobman_namespace="$1"
- 	__kobman_echo_white "Downloading KOBman environment from Github namespace : "	
- 	__kobman_echo_green "${kobman_namespace}"	
 	cd ~
        	__kobman_development_kobman_dir 
-	git clone https://github.com/${kobman_namespace}/KOBman.git
+	git clone https://github.com/${kobman_namespace}/KOBman.git 2> /dev/null	
 	cd ~
 }
 

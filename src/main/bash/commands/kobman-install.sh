@@ -38,8 +38,7 @@ function __kobman_validate_and_set_version
                 	version_value=$1
         		return 0	
 		else
-                	__kobman_echo_white "https://github.com/${namespace}/${confirmed_environment}"
-                	__kobman_echo_red "Version : ${version} is not available "
+                	__kobman_echo_red "Version : ${version} of  https://github.com/${namespace}/${confirmed_environment} not available "
 			return 1 
 		fi
 	else
@@ -96,8 +95,8 @@ function __kobman_create_environment_directory
 		version_id=$2 
         	namespace_name=$3
 		
-               	__kobman_echo_white "https://github.com/${namespace_name}/${confirmed_environment}" 
-               	__kobman_echo_white "Version : ${version_id} is available" 
+#               	__kobman_echo_white "https://github.com/${namespace_name}/${confirmed_environment}" 
+#               	__kobman_echo_white "Version : ${version_id} is available" 
 		
 		cd "${KOBMAN_DIR}/envs"
                 mkdir -p kob_env_"${environment_name}"
@@ -117,10 +116,10 @@ function __kobman_create_environment_directory
                 	source "${KOBMAN_DIR}/envs/kob_env_${environment_name}/${version_id}/kobman-${environment_name}.sh"
 			__kobman_install_"${environment_name}" "${namespace_name}"
 
-			__kobman_echo_cyan "Installation Completed !!"
+#			__kobman_echo_cyan "Installation Completed !!"
 			cd ~
 		else
 			cd ~
-               		__kobman_echo_red "Environment :${confirmed_environment}, Version : ${version_id} is already existing in your local system ! " 
+                	__kobman_echo_red "Version : ${version} of  https://github.com/${namespace}/${confirmed_environment} already existing in your local system ! "
 		fi
 }
