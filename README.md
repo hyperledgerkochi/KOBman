@@ -42,13 +42,24 @@ To install KOBMAN locally running against your local server, run the following c
 
 
 
-### Local Environment Installation
+### Environment installation on local system
 
 Run the following commands on the terminal to manage respective environments.
 	
-### Development environement setting up commands:
+### I) help
 
-I) Install Commands
+a)This command will display help of  KOBman . 
+
+<table>
+	<tr><th>Example</th><th>command</th></tr>
+	<tr><td>Example1</td><td>kob help</td></tr>
+	<tr><td>Example2</td><td>kob -h</td></tr>
+</table>
+
+__________________________
+
+
+### II) install
 
 a)This command will install versin :'0.0.2' of the environment 'KOBman' from the one of the github contributer's  namespace 'asa1997' 
 
@@ -133,10 +144,10 @@ e.	Other available hyperledgerkochi environment's
 
 _____________
 
-II) Unnstall Commands
+### III) uninstall 
 
 
-Uninstall environement  commands:
+uninstall environments from the local system:
        
        kob uninstall --environment kobman
 
