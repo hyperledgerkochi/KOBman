@@ -51,10 +51,6 @@ Run the following commands on the terminal to manage respective environments.
 I) Install Commands
 
 a.	
-kob install --environment kobman [--version version_id] [--namespace name_value]       
-
-             eg:
-             	
 
 > This command will install versin :'0.0.2' of the environment 'KOBman' from the one of the github contributer's  namespace 'asa1997' 
 > KOBman namespace -> "https://github.com/asa1997/KOBman  
@@ -63,14 +59,12 @@ kob install --environment kobman [--version version_id] [--namespace name_value]
 <table>
 	<tr><th>Syntax/Example</th><th>command</th></tr>
 	<tr><td>Syntax</td><td>kob install --environment kobman [--version version_id] [--namespace name_value]</td></tr>
-	<tr><td>Example</td><td></td></tr>
+	<tr><td>Example</td><td>kob install --environment kobman --version 0.0.2 --namespace asa1997</td></tr>
 </table>
 
 _________________
 	
-b.	kob install --environment kobman [--version version_id]     
-             eg:
-             	kob install --environment kobman --version 0.0.3 
+b.	                 	
 
 > This command will install versin :'0.0.3' of the environment 'kobman' from the **default github namespace 'hyperlederkochi'** 
 > KOBman namespace -> "https://github.com/hyperledgerkochi/KOBman  
@@ -78,16 +72,14 @@ b.	kob install --environment kobman [--version version_id]
 
 <table>
 	<tr><th>Syntax/Example</th><th>command</th></tr>
-	<tr><td>Syntax</td><td></td></tr>
-	<tr><td>Example</td><td></td></tr>
+	<tr><td>Syntax</td><td>kob install --environment kobman [--version version_id]</td>kob install --environment kobman [--version version_id]</tr>
+	<tr><td>Example</td><td>kob install --environment kobman --version 0.0.3 </td></tr>
 </table>
 _________________
 	
 
-c.	kob install --environment kobman [--namespace namespace_value]     
-             eg:
-             	kob install --environment kobman --namespace EtricKombat
-
+c.	     
+   
 > This command will install **default versin :0.0.1** of the environment 'kobman' from one of the github contiruber's  namespace 'EtricKombat' 
 
 > KOBman namespace -> "https://github.com/EtricKombat/KOBman  
@@ -95,16 +87,14 @@ c.	kob install --environment kobman [--namespace namespace_value]
 
 <table>
 	<tr><th>Syntax/Example</th><th>command</th></tr>
-	<tr><td>Syntax</td><td></td></tr>
-	<tr><td>Example</td><td></td></tr>
+	<tr><td>Syntax</td><td>kob install --environment kobman [--namespace namespace_value]</td></tr>
+	<tr><td>Example</td><td>kob install --environment kobman --namespace EtricKombat</td></tr>
 </table>
 	
 _________________
 	
 
-d.	kob install --environment kobman      
-             eg:
-             	kob install --environment kobman 
+d.	      
 
 > This command will install **default versin :0.0.1** of the environment 'kobman' from the **default github namespace 'hyperlederkochi'** 
 
@@ -113,23 +103,37 @@ d.	kob install --environment kobman
 
 <table>
 	<tr><th>Syntax/Example</th><th>command</th></tr>
-	<tr><td>Syntax</td><td></td></tr>
-	<tr><td>Example</td><td></td></tr>
+	<tr><td>Syntax</td><td>kob install --environment kobman</td></tr>
+	<tr><td>Example</td><td>kob install --environment kobman</td></tr>
 </table>
 _____________
 
+
+
 e.	Other available hyperledgerkochi environment's 
        
-- tobvon	-> von-network		-> https://github.com/hyperledgerkochi/von-network
-- tob		-> TheOrgBook
-- greenlight	-> greenlight		-> https://github.com/hyperledgerkochi/greenlight
+<table>
+	<tr><th>keyword</th><th>environment name</th><th>github namespace</th></tr>
+	<tr><td>tobvon</td><td>von-network</td><td>https://github.com/hyperledgerkochi/von-network</td></tr>
+	<tr><td></td><td>TheOrgBook</td><td>https://github.com/hyperledgerkochi/TheOrgBook</td></tr>
+	<tr><td>tob</td><td>greenlight</td><td>https://github.com/hyperledgerkochi/greenlight</td></tr>
+	<tr><td>kobman</td><td>KOBman</td><td></td></tr>
+</table>
+
 
 ##### Work in progress
-- kobvon	-> KochiOrgBook- VON		-> https://github.com/hyperledgerkochi/KOBVON
-- kob		-> KochiOrgBook			-> https://github.com/hyperledgerkochi/KochiOrgBook
-- kobdflow	-> KochiOrgBook- Dflow		-> https://github.com/hyperledgerkochi/KOB_GreenLight
-- kobregistory	-> KochiOrgBook- Registry	-> https://github.com/hyperledgerkochi/KOBRegistry
-- kobconnect	-> KochiOrgBook- Connect	-> https://github.com/hyperledgerkochi/KOBConnect
+
+
+<table>
+	<tr><th>keyword</th><th>environment name</th><th>github namespace</th></tr>
+	<tr><td>kobvon</td><td>KochiOrgBook- VON</td><td>https://github.com/hyperledgerkochi/KOBVON</td></tr>
+	<tr><td>kob</td><td>KochiOrgBook</td><td>https://github.com/hyperledgerkochi/KochiOrgBook</td></tr>
+	<tr><td>kobdflow</td><td>KochiOrgBook- Dflow</td><td>https://github.com/hyperledgerkochi/KOB_GreenLight</td></tr>
+	<tr><td>kobregistory</td><td>KochiOrgBook- Registry</td><td>https://github.com/hyperledgerkochi/KOBRegistry</td></tr>
+	<tr><td>kobconnect</td><td>KochiOrgBook- Connect</td><td>https://github.com/hyperledgerkochi/KOBConnect</td></tr>
+</table>
+
+
 
 _____________
 
