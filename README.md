@@ -50,11 +50,10 @@ Run the following commands on the terminal to manage respective environments.
 
 I) Install Commands
 
-a.	
+a.This command will install versin :'0.0.2' of the environment 'KOBman' from the one of the github contributer's  namespace 'asa1997' 
 
-> This command will install versin :'0.0.2' of the environment 'KOBman' from the one of the github contributer's  namespace 'asa1997' 
-> KOBman namespace -> "https://github.com/asa1997/KOBman  
-> KOBman version -> '0.0.2'  
+> KOBman namespace 	-> "https://github.com/asa1997/KOBman  
+> KOBman version 	-> '0.0.2'  
 
 <table>
 	<tr><th>Syntax/Example</th><th>command</th></tr>
@@ -64,23 +63,20 @@ a.
 
 _________________
 	
-b.	                 	
+b.This command will install versin :'0.0.3' of the environment 'kobman' from the **default github namespace 'hyperlederkochi'** 
 
-> This command will install versin :'0.0.3' of the environment 'kobman' from the **default github namespace 'hyperlederkochi'** 
 > KOBman namespace -> "https://github.com/hyperledgerkochi/KOBman  
 > KOBman version -> '0.0.3'  
 
 <table>
 	<tr><th>Syntax/Example</th><th>command</th></tr>
-	<tr><td>Syntax</td><td>kob install --environment kobman [--version version_id]</td>kob install --environment kobman [--version version_id]</tr>
+	<tr><td>Syntax</td><td>kob install --environment kobman [--version version_id]</td></tr>
 	<tr><td>Example</td><td>kob install --environment kobman --version 0.0.3 </td></tr>
 </table>
 _________________
 	
 
-c.	     
-   
-> This command will install **default versin :0.0.1** of the environment 'kobman' from one of the github contiruber's  namespace 'EtricKombat' 
+c.This command will install **default versin :0.0.1** of the environment 'kobman' from one of the github contiruber's  namespace 'EtricKombat' 
 
 > KOBman namespace -> "https://github.com/EtricKombat/KOBman  
 > KOBman version -> '0.0.1'  
