@@ -50,13 +50,20 @@ Run the following commands on the terminal to manage respective environments.
 
 I) Install Commands
 
-a.	kob install --environment kobman [--version version_id] [--namespace name_value]       
+a.	
+
              eg:
              	kob install --environment kobman --version 0.0.2 --namespace asa1997
 
 > This command will install versin :'0.0.2' of the environment 'KOBman' from the one of the github contributer's  namespace 'asa1997' 
 > KOBman namespace -> "https://github.com/asa1997/KOBman  
 > KOBman version -> '0.0.2'  
+
+<table>
+	<tr><th>Syntax/Example</th><th>command</th></tr>
+	<tr><td>Syntax</td><td> </t</tr>
+	<tr><td>Example</td><td></td></tr>
+</table>
 
 _________________
 	
@@ -67,6 +74,12 @@ b.	kob install --environment kobman [--version version_id]
 > This command will install versin :'0.0.3' of the environment 'kobman' from the **default github namespace 'hyperlederkochi'** 
 > KOBman namespace -> "https://github.com/hyperledgerkochi/KOBman  
 > KOBman version -> '0.0.3'  
+
+<table>
+	<tr><th>Syntax/Example</th><th>command</th></tr>
+	<tr><td>Syntax</td><td></td></tr>
+	<tr><td>Example</td><td></td></tr>
+</table>
 _________________
 	
 
@@ -78,6 +91,12 @@ c.	kob install --environment kobman [--namespace namespace_value]
 
 > KOBman namespace -> "https://github.com/EtricKombat/KOBman  
 > KOBman version -> '0.0.1'  
+
+<table>
+	<tr><th>Syntax/Example</th><th>command</th></tr>
+	<tr><td>Syntax</td><td></td></tr>
+	<tr><td>Example</td><td></td></tr>
+</table>
 	
 _________________
 	
@@ -90,6 +109,12 @@ d.	kob install --environment kobman
 
 > KOBman namespace -> "https://github.com/hyperledgerkochi/KOBman  
 > KOBman version -> '0.0.1' 
+
+<table>
+	<tr><th>Syntax/Example</th><th>command</th></tr>
+	<tr><td>Syntax</td><td></td></tr>
+	<tr><td>Example</td><td></td></tr>
+</table>
 _____________
 
 e.	Other available hyperledgerkochi environment's 
