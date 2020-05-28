@@ -32,7 +32,7 @@ function __kobman_validate_and_set_version
 	__kobman_validate_version_format "${version}" 
 	if [ "$?" -eq "0" ];
 	then
-        	__kobman_check_and_confirm_existing_version "${enviroment}" "${version}" "${namespace}"  	# should introduce case for mapping kobman->KOBman,tob->TheOrgBook,von->von-network 
+        	__kobman_check_for_existing_version "${enviroment}" "${version}" "${namespace}"  	# should introduce case for mapping kobman->KOBman,tob->TheOrgBook,von->von-network 
         	if [ "$?" -eq "0" ];   									 # check version.txt is empty or not (or version variable is empty or not)
         	then
                 	version_value=$1
@@ -56,7 +56,7 @@ function __kobman_validate_version_format
 
 }
 
-function __kobman_check_and_confirm_existing_version
+function __kobman_check_for_existing_version
 {
 	env=$1
 	version=$2
