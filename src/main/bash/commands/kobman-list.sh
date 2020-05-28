@@ -1,29 +1,19 @@
 #!/bin/bash
 
-# if [[ -z KOBMAN_NAMESPACE ]]; then
-
-#     KOBMAN_NAMESPACE=${KOBMAN_NAMESPACE:-hyperledgerkochi}
-# fi
-
 function __kob_list {
 
-curl -s -L "https://raw.githubusercontent.com/$KOBMAN_NAMESPACE/KOBman/dev/dist/list" > tmp.txt
+curl -s -L "https://raw.githubusercontent.com/$KOBMAN_NAMESPACE/KOBman/master/dist/list.txt" > tmp.txt
 
-envs="Von-Network TheOrgBook greenlight kobman KOBConnect KOBRegistry KochiOrgBook KOBDflow KOBVON"
+# envs="Von-Network,TheOrgBook,greenlight,kobman,KOBConnect,KOBRegistry,KochiOrgBook,KOBDflow,KOBVON"
 echo "Available environments and their respective version numbers"
-echo "-----------------------------------------------------------"
-for i in $envs; do
-    
-    cat tmp.txt | grep -h "^$i [0-9].[0-9].[0-9]" >> tmp1.txt
-done
-cat tmp1.txt
-rm tmp*
+echo "---------------------------------------------------------------"
 # for i in $envs; do
-
-#     cat tmp1.txt | grep -h -w $i >> tmp2.txt
+#     cat tmp.txt | grep "$i" >> tmp1.txt
 # done
-# cat tmp2.txt
+# cat tmp1.txt
+sed 's/,/ /g' tmp.txt > tmp1.txt
+sed 's/,/ /g' tmp.txt | cut -d " " -f 1 > tmp2.txt
+cat tmp1.txt | grep -h -f tmp2.txt > tmp3.txt
+cat tmp3.txt
+rm tmp*
 }
-
-
-
