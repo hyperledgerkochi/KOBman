@@ -2,7 +2,7 @@
 
 function __kob_list {
 
-curl -s -L "https://raw.githubusercontent.com/$KOBMAN_NAMESPACE/KOBman/master/dist/list.txt" > tmp.txt
+__kobman_secure_curl "https://raw.githubusercontent.com/$KOBMAN_NAMESPACE/KOBman/master/dist/list.txt" > tmp.txt
 
 # envs="Von-Network,TheOrgBook,greenlight,kobman,KOBConnect,KOBRegistry,KochiOrgBook,KOBDflow,KOBVON"
 echo "Available environments and their respective version numbers"
