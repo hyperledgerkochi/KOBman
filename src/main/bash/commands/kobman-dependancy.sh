@@ -20,8 +20,18 @@ function __kob_dependancy
 	esac
 }
 
-
-
+function __kobman_create_dev_environment 
+{
+	local environment="$1"	
+	local version_id="$2"	
+	local namespace="$3"	
+	cd ~
+	mkdir -p Dev_"${environment}"
+	cd Dev_"${environment}"
+	export "${environment}"_DEV_DIR=$PWD
+	mkdir -p test/ dependency/
+	__kobman_echo_violet "Dev environment for  ${environment} created successfully"
+}
 	
 function __kobman_install_dependancies {     
 

@@ -77,9 +77,6 @@ if [ -f "${KOBMAN_DIR}/etc/config" ]; then
 	source "${KOBMAN_DIR}/etc/config"
 fi
 
-
-#sudo chmod 777 ${KOBMAN_CANDIDATES_DIR}
-
 #done
 unset OLD_IFS candidate_name candidate_dir
 export PATH

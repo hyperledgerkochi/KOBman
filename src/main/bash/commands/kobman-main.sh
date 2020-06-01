@@ -75,9 +75,63 @@ function kob {
 	# Execute the requested command
 	if [ -n "$CMD_FOUND" ]; then
 		# It's available as a shell function
-		__kob_"$CONVERTED_CMD_NAME" "$DEPLOYMENT_TYPE" "$3" "$4"
-		final_rc=$?
+		if [ "$CONVERTED_CMD_NAME" = "install" ]; then
+			__kobman_identify_parameter
+		else	
+			__kob_"$CONVERTED_CMD_NAME" "$2" "$3" "$4"
+			final_rc=$?
+		fi	
 	fi
 
+}
 
+function __kobman_identify_parameter
+{
+	if [ -z "${argument_[1]}" ];
+	then
+		__kobman_echo_red "Invalid command : Try with --environment/-env "
+        	return  
+	elif [ "${argument_[1]}" == "--environment" ] || [ "${argument_[1]}" == "-env"  ];  
+        then    
+		__kobman_validate_environment "${argument_[2]}"
+                if [ "$?" -eq "0" ]   
+                then
+			case "${argument_[3]}" in    # kob install --environment kobman  <3> 
+	
+				"")
+					__kobman_identified_parameter_passing "${argument_[2]}" "${KOBMAN_VERSION}" "${KOBMAN_NAMESPACE}" 
+				;;
+				--namespace)
+					__kobman_identified_parameter_passing "${argument_[2]}" "${KOBMAN_VERSION}" "${argument_[4]}" 
+				;;
+				--version)
+                                	if [[ "${argument_[5]}" == "--namespace" ]]; 
+                                	then    
+                                        	__kobman_identified_parameter_passing "${argument_[2]}" "${argument_[4]}" "${argument_[6]}"
+                                	elif [[ "${argument_[5]}" == "" ]]; 
+                                	then    
+                                        	__kobman_identified_parameter_passing "${argument_[2]}" "${argument_[4]}" "${KOBMAN_NAMESPACE}" 
+                                	else    
+                                        	return  
+                                	fi
+				;;
+			esac  
+                else
+                        __kobman_echo_debug "Environment name you have entered is not available, please try again!"
+                	return  
+                fi
+   		 
+        fi
+}
+
+
+function __kobman_identified_parameter_passing
+{
+	__kobman_setting_global_variables "$1" "$2" "$3" 
+	__kobman_validate_and_set_version "$1" "$2" "$3" 
+	if [ "$?" -eq "0" ];
+	then	
+		__kob_"$CONVERTED_CMD_NAME" "$1" "$2" "$3" 
+	fi	
+	unset argument_	
 }
