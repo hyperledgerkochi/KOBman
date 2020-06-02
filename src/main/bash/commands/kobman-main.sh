@@ -4,33 +4,32 @@
 
 function kob {
 
-	PARAMETER=( "$@" )
-        ELEMENTS=${#PARAMETER[@]}
-        for (( i=0;i<$ELEMENTS;i++)); do
-                 argument_[${i}]=${PARAMETER[${i}]}
-        done
-
-	COMMAND=${argument_[0]}
-
-	case "$COMMAND" in
+					# kob install --environment KOBman --version 0.0.3 
+	command=$1
+	qualifier1=$2 		# --environment	
+	qualifier2=$3 		# environment value	
+	qualifier3=$4 		# --version	
+	qualifier4=$5 		# version value	
+	
+	case "$command" in
 		-L)
-			COMMAND="list";;
+			command="list";;
 		-H)
-			COMMAND="help";;
+			command="help";;
 		-V | --version)
-			COMMAND="version";;
+			command="version";;
 		-I)
-			COMMAND="install";;
+			command="install";;
 		-U)
-			COMMAND="uninstall";;
+			command="uninstall";;
 		-S)
-			COMMAND="status";;
+			command="status";;
 		-D)
-			COMMAND="deploy";;
+			command="deploy";;
 		-U | self-update)
-			COMMAND="upgrade";;
+			command="upgrade";;
 		-u)
-			COMMAND="update";;
+			command="update";;
 	esac
 	
 	if [ -f "${KOBMAN_DIR}/etc/config" ]; then
@@ -38,26 +37,26 @@ function kob {
 	fi
 
 	# no command provided
-	if [[ -z "$COMMAND" ]]; then
+	if [[ -z "$command" ]]; then
 		__kob_help
 		return 1
 	fi
 
 	# Check if it is a valid command
-	CMD_FOUND=""
-	CMD_TARGET="${KOBMAN_DIR}/src/kobman-${COMMAND}.sh"
-	if [[ -f "$CMD_TARGET" ]]; then
-		CMD_FOUND="$CMD_TARGET"
+	cmd_found=""
+	cmd_target="${KOBMAN_DIR}/src/kobman-${command}.sh"
+	if [[ -f "$cmd_target" ]]; then
+		cmd_found="$cmd_target"
 	fi
 
 	# Check if it is a sourced function
-	CMD_TARGET="${KOBMAN_DIR}/envs/kobman-${COMMAND}.sh"
-	if [[ -f "$CMD_TARGET" ]]; then
-		CMD_FOUND="$CMD_TARGET"
+	cmd_target="${KOBMAN_DIR}/envs/kobman-${command}.sh"
+	if [[ -f "$cmd_target" ]]; then
+		cmd_found="$cmd_target"
 	fi 
 	# couldn't find the command
-	if [[ -z "$CMD_FOUND" ]]; then
-		echo "Invalid command: $COMMAND"
+	if [[ -z "$cmd_found" ]]; then
+		echo "Invalid command: $command"
 		__kob_help
 	fi
 
@@ -67,71 +66,56 @@ function kob {
 	#
 	# NOTE Internal commands use underscores rather than hyphens,
 	# hence the name conversion as the first step here.
-	CONVERTED_CMD_NAME=$(echo "$COMMAND" | tr '-' '_')
+	converted_cmd_name=$(echo "$command" | tr '-' '_')
 
 	# Store the return code of the requested command
 	local final_rc=0
 
 	# Execute the requested command
-	if [ -n "$CMD_FOUND" ]; then
+	if [ -n "$cmd_found" ]; then
 		# It's available as a shell function
-		if [ "$CONVERTED_CMD_NAME" = "install" ]; then
+		if [ "$converted_cmd_name" = "install" ]; then
 			__kobman_identify_parameter
 		else	
-			__kob_"$CONVERTED_CMD_NAME" "$2" "$3" "$4"
+			__kob_"$converted_cmd_name" "$2" "$3" "$4"
 			final_rc=$?
 		fi	
 	fi
 
 }
 
-function __kobman_identify_parameter
-{
-	if [ -z "${argument_[1]}" ];
-	then
-		__kobman_echo_red "Invalid command : Try with --environment/-env "
-        	return  
-	elif [ "${argument_[1]}" == "--environment" ] || [ "${argument_[1]}" == "-env"  ];  
-        then    
-		__kobman_validate_environment "${argument_[2]}"
-                if [ "$?" -eq "0" ]   
-                then
-			case "${argument_[3]}" in    # kob install --environment kobman  <3> 
-	
-				"")
-					__kobman_identified_parameter_passing "${argument_[2]}" "${KOBMAN_VERSION}" "${KOBMAN_NAMESPACE}" 
-				;;
-				--namespace)
-					__kobman_identified_parameter_passing "${argument_[2]}" "${KOBMAN_VERSION}" "${argument_[4]}" 
-				;;
-				--version)
-                                	if [[ "${argument_[5]}" == "--namespace" ]]; 
-                                	then    
-                                        	__kobman_identified_parameter_passing "${argument_[2]}" "${argument_[4]}" "${argument_[6]}"
-                                	elif [[ "${argument_[5]}" == "" ]]; 
-                                	then    
-                                        	__kobman_identified_parameter_passing "${argument_[2]}" "${argument_[4]}" "${KOBMAN_NAMESPACE}" 
-                                	else    
-                                        	return  
-                                	fi
-				;;
-			esac  
-                else
-                        __kobman_echo_debug "Environment name you have entered is not available, please try again!"
-                	return  
-                fi
-   		 
-        fi
-}
 
 
-function __kobman_identified_parameter_passing
-{
-	__kobman_setting_global_variables "$1" "$2" "$3" 
-	__kobman_validate_and_set_version "$1" "$2" "$3" 
-	if [ "$?" -eq "0" ];
-	then	
-		__kob_"$CONVERTED_CMD_NAME" "$1" "$2" "$3" 
-	fi	
-	unset argument_	
-}
+
+function __kobman_identify_parameter 
+
+{ 
+
+	if [ -z "${qualifier1}" ]; then 
+
+		__kobman_echo_red "Invalid command : Try with --environment/-env " 
+		return 1 
+	fi 
+
+	if [ "${qualifier1}" == "--environment" ] || [ "${qualifier1}" == "-env" ]; then  
+
+		__kobman_validate_environment "${qualifier2}" || return 1 
+	fi 
+
+	if [ "${qualifier3}" == "--version" ]; then 
+ 
+		__kobman_validate_version_format "${qualifier4}" || return 1 
+		__kobman_check_if_version_exists "${qualifier2}" "${qualifier4}" || return 1 
+	fi 
+
+
+	if [ -z "${qualifier3}" ]; then 
+		__kobman_validate_version_format "$KOBMAN_VERSION" || return 1 
+		__kobman_check_if_version_exists "${qualifier2}" "$KOBMAN_VERSION" || return 1 
+	fi 
+
+	__kob_"$converted_cmd_name" "${qualifier2}" "${qualifier4}"  
+	unset argument_ 
+
+} 
+

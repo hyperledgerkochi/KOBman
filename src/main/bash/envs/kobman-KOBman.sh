@@ -4,24 +4,27 @@ function __kobman_install_KOBman
 {
 	local environment_name="$1"
 	local version_id="$2"	
-	local namespace="$3"
 	
 	cd ~
 	if [ ! -d "Dev_KOBman" ]; then 
  		__kobman_echo_white "Creating Dev environment for ${environment_name}"
- 		__kobman_echo_white "from https://github.com/${namespace}/${environment_name}"
+ 		__kobman_echo_white "from https://github.com/${KOBMAN_NAMESPACE}/${environment_name}"
  		__kobman_echo_white "version :${version_id} "
-		__kobman_create_dev_environment "${environment_name}" "${version_id}" "${namespace}" 
+		__kobman_create_dev_environment "${environment_name}" "${version_id}"  
+		git clone https://github.com/${KOBMAN_NAMESPACE}/${environment_name} 2> /dev/null	
+		__kobman_echo_violet "Dev environment for ${environment_name} created successfully"
 	else
-               	#__kobman_echo_cyan "Removing existing version "
-               	rm -rf ~/Dev_"${namespace}"	
-	#	__kobman_echo_cyan "version : ${version_id} "
-		__kobman_create_dev_environment "${environment_name}" "${version_id}" "${namespace}" 
+ 		__kobman_echo_white "Removing existing version "
+		rm -rf ~/Dev_"${environment_name}"	
+ 		__kobman_echo_white "Creating Dev environment for ${environment_name}"
+ 		__kobman_echo_white "from https://github.com/${KOBMAN_NAMESPACE}/${environment_name}"
+ 		__kobman_echo_white "version :${version_id} "
+		__kobman_create_dev_environment "${environment_name}" "${version_id}"  
+		git clone https://github.com/${KOBMAN_NAMESPACE}/${environment_name} 2> /dev/null	
+		__kobman_echo_violet "Dev environment for ${environment_name} created successfully"
 	fi		
-	git clone https://github.com/${namespace}/${environment_name} 2> /dev/null	
 
 	cd ~
-
 
 }
 
