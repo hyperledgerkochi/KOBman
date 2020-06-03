@@ -1,17 +1,76 @@
 #!/bin/bash
 
-
-function __kobman_create_dev_environment 
+function __kobman_development_tobvon_dir 
 {
-	local environment="$1"	
+	local namespace="$1"	
 	local version_id="$2"	
 	cd ~
-	mkdir -p Dev_"${environment}"
-	cd Dev_"${environment}"
-	export "${environment}"_DEV_DIR=$PWD
-	mkdir -p test/ dependency/
-}
+	if [ ! -d "${KOBMAN_VON_DEV_DIR}/von-network" ]; then 
+		
+		__kobman_install_dependancies
+		mkdir -p Dev_TOBVON
+		cd Dev_TOBVON
+		export KOBMAN_VON_DEV_DIR=$PWD
+		cd ${KOBMAN_VON_DEV_DIR}
+		mkdir -p test/ dependency/
+               	__kobman_echo_cyan "Copying source code  of https://github.com/${namespace}/von-network to your local system ! "
+	else
+		__kobman_install_dependancies
+		rm -rf  Dev_TOBVON
+		mkdir -p Dev_TOBVON
+		cd Dev_TOBVON
+		export KOBMAN_VON_DEV_DIR=$PWD
+		cd ${KOBMAN_VON_DEV_DIR}
+		mkdir -p test/ dependency/
+               	__kobman_echo_cyan "Removing existing older version & Copying newer Version : "${version_id}" ,  source code from https://github.com/${namespace}/KOBman into your local system ! "
 	
+	fi
+
+
+
+}                                                                                                                          
+function __kobman_install_von-network
+{
+	local kobman_namespace="$1"	
+	local version_id="$2"	
+	cd ~	
+	__kobman_development_tobvon_dir "${kobman_namespace}" "${version_id}"
+
+	git clone https://github.com/${kobman_namespace}/von-network.git
+        von-network/manage rm
+        von-network/manage build
+	cd ~
+}
+function __kobman_start_tobvon
+{
+
+ 	__kobman_echo_white "Deploying Verifiable Organizations Network environment from Github namespace : "	
+	__kobman_echo_green "${kobman_namespace}"
+        cd ${KOBMAN_VON_DEV_DIR} 
+	von-network/manage start
+}
+
+
+
+
+#################newly incorporated code from kobma-dependancy.sh################
+
+
+
+#function __kobman_create_dev_environment 
+#{
+#	local environment="$1"	
+#	local version_id="$2"	
+#	cd ~
+#	mkdir -p Dev_"${environment}"
+#	cd Dev_"${environment}"
+#	export "${environment}"_DEV_DIR=$PWD
+#	mkdir -p test/ dependency/
+#}
+	
+
+
+
 function __kobman_install_dependancies {     
 
 	__kobman_check_proxy
@@ -209,3 +268,39 @@ function __kobman_visual_studio_install {
 	apt install code
 
 }
+
+
+
+
+
+
+################################old codes to refer if required ################
+
+
+
+
+#function __kobman_uninstall_tobvon
+#{
+# 	__kobman_echo_white "Removing Verifiable Organizations Network environment...  "	
+#	cd ${KOBMAN_VON_DEV_DIR} 
+#	rm -rf von-network/ 2> /dev/null	
+#	cd ~
+#	rm -rf Dev_TOBVon/ 2> /dev/null	
+#	rm -rf ${KOBMAN_VON_DEV_DIR} 2> /dev/null	
+# 	__kobman_echo_red "Verifiable Organizations Network environment removed !! "	
+#	cd ~
+#}
+#
+#function __kobman_version_tobvon
+#{
+#	if [ -d "${KOBMAN_TOBVON_DEV_DIR}" ]
+#	then 
+#		kobman_namespace="$1"
+#		cd ${KOBMAN_VON_DEV_DIR} 
+#		cd von-network/	
+#		git show-ref --tag | grep -o v0.0.*
+#		cd ~
+#	else
+# 		__kobman_echo_red " Verifiable Organizations Network environment is not installed in the Local system !"	
+#	fi
+#}
