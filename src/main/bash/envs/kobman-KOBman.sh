@@ -30,12 +30,6 @@ function __kobman_install_KOBman
 
 
 
-
-#################newly incorporated code from kobma-dependancy.sh################
-
-
-
-
 function __kobman_create_dev_environment 
 {
 	local environment="$1"	
@@ -46,44 +40,3 @@ function __kobman_create_dev_environment
 	export "${environment}"_DEV_DIR=$PWD
 	mkdir -p test/ dependency/
 }
-	
-
-
-
-################################old codes to refer if required ################
-
-
-
-
-
-
-
-#function __kobman_uninstall_kobman
-#{
-# 	__kobman_echo_white "Removing KOBman environment..."
-#	cd ${KOBMAN_KOBMAN_DEV_DIR} 
-#	rm -rf KOBman/ 2> /dev/null	
-#	cd ~
-#	rm -rf Dev_KOBman/ 2> /dev/null	
-#	rm -rf ${KOBMAN_KOBMAN_DEV_DIR} 2> /dev/null	
-#        cd ~
-#	__kobman_echo_red "KOBman environment removed !!"	
-#}
-#
-#function __kobman_version_kobman
-#{
-#	if [ -d "${KOBMAN_KOBMAN_DEV_DIR}" ]; then 
-##		namespace="$1"
-##		cd ${KOBMAN_KOBMAN_DEV_DIR} 
-##		cd KOBman/	
-##		git show-ref --tag | grep -o v0.0.*
-# #		cd "${KOBMAN_DIR}"/var
-#		cd "${KOBMAN_DIR}/var"
-#                cat version.txt
-#                cd ~
-#	else
-# 		__kobman_echo_red "KOBman Environment is not installed in the Local system !"	
-#fi
-#
-#}
-#

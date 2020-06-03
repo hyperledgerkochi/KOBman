@@ -37,29 +37,3 @@ function __kobman_start_greenlight
 	${KOBMAN_GREENLIGHT_DEV_DIR}/greenlight/docker/manage start
 }
 
-function __kobman_uninstall_greenlight
-{
- 	__kobman_echo_white "Removing Greenlight environment...  "	
-       	sudo chmod 777 ${KOBMAN_GREENLIGHT_DEV_DIR}
-	cd ${KOBMAN_GREENLIGHT_DEV_DIR} rm 2> /dev/null	
-	greenlight/docker/manage rm 2> /dev/null	
-	rm -rf greenlight/ 2> /dev/null	
-	rm -rf greenlight/ /usr/local/bin/sti /usr/local/bin/s2i source-to-image-v1.1.14-874754de-linux-amd64.tar.gz 2> /dev/null	
-        cd ~
-       	rm -rf ${KOBMAN_GREENLIGHT_DEV_DIR} 2> /dev/null
- 	__kobman_echo_red "Greenlight environment removed !! "	
-        cd ~
-}
-
-function __kobman_version_greenlight
-{
-	if [ -d "${KOBMAN_GREENLIGHT_DEV_DIR}" ]; then 
-		kobman_namespace="$1"
-		cd ${KOBMAN_GREENLIGHT_DEV_DIR} 
-		cd greenlight/	
-		git show-ref --tag | grep -o 0.0.*
-		cd ~
-	else
- 		__kobman_echo_green "Greenlight is not installed ! "	
-	fi
-}

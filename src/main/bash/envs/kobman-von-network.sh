@@ -53,23 +53,6 @@ function __kobman_start_tobvon
 
 
 
-#################newly incorporated code from kobma-dependancy.sh################
-
-
-
-#function __kobman_create_dev_environment 
-#{
-#	local environment="$1"	
-#	local version_id="$2"	
-#	cd ~
-#	mkdir -p Dev_"${environment}"
-#	cd Dev_"${environment}"
-#	export "${environment}"_DEV_DIR=$PWD
-#	mkdir -p test/ dependency/
-#}
-	
-
-
 
 function __kobman_install_dependancies {     
 
@@ -274,33 +257,3 @@ function __kobman_visual_studio_install {
 
 
 
-################################old codes to refer if required ################
-
-
-
-
-#function __kobman_uninstall_tobvon
-#{
-# 	__kobman_echo_white "Removing Verifiable Organizations Network environment...  "	
-#	cd ${KOBMAN_VON_DEV_DIR} 
-#	rm -rf von-network/ 2> /dev/null	
-#	cd ~
-#	rm -rf Dev_TOBVon/ 2> /dev/null	
-#	rm -rf ${KOBMAN_VON_DEV_DIR} 2> /dev/null	
-# 	__kobman_echo_red "Verifiable Organizations Network environment removed !! "	
-#	cd ~
-#}
-#
-#function __kobman_version_tobvon
-#{
-#	if [ -d "${KOBMAN_TOBVON_DEV_DIR}" ]
-#	then 
-#		kobman_namespace="$1"
-#		cd ${KOBMAN_VON_DEV_DIR} 
-#		cd von-network/	
-#		git show-ref --tag | grep -o v0.0.*
-#		cd ~
-#	else
-# 		__kobman_echo_red " Verifiable Organizations Network environment is not installed in the Local system !"	
-#	fi
-#}

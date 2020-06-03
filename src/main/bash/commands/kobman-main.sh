@@ -4,7 +4,6 @@
 
 function kob {
 
-					# kob install --environment KOBman --version 0.0.3 
 	command=$1
 	qualifier1=$2 		# --environment	
 	qualifier2=$3 		# environment value	
@@ -63,7 +62,7 @@ function kob {
 
 
 	# Check whether the command exists as an internal function...
-	#
+	
 	# NOTE Internal commands use underscores rather than hyphens,
 	# hence the name conversion as the first step here.
 	converted_cmd_name=$(echo "$command" | tr '-' '_')
@@ -83,8 +82,6 @@ function kob {
 	fi
 
 }
-
-
 
 
 function __kobman_identify_parameter 

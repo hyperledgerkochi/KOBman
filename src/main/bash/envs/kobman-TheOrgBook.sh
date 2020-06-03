@@ -48,34 +48,7 @@ function __kobman_start_tob
 {
  	__kobman_echo_white "Deploying TheOrgBook environment from Github namespace : "	
 	__kobman_echo_green "${kobman_namespace}"
-#	chmod a+rwx ${KOBMAN_TOB_DEV_DIR}
 	${KOBMAN_TOB_DEV_DIR}/TheOrgBook/docker/manage start seed=the_org_book_0000000000000000000
 
 }
 
-function __kobman_uninstall_tob
-{
- 	__kobman_echo_white "Removing TheOrgBook environment...  "	
-	chmod a+rwx $KOBMAN_TOB_DEV_DIR
-	${KOBMAN_TOB_DEV_DIR}/TheOrgBook/docker/manage rm 2> /dev/null	
-	rm ${KOBMAN_TOB_DEV_DIR}/source-* 2> /dev/null	
-	rm -rf ${KOBMAN_TOB_DEV_DIR}/TheOrgBook/ 2> /dev/null 	
-	rm -rf /usr/local/bin/s2i /usr/local/bin/sti TheOrgBook/ 2> /dev/null	
-	cd ~
-	rm -rf ${KOBMAN_TOB_DEV_DIR} 2> /dev/null
- 	__kobman_echo_red "TheOrgBook environment removed !! "	
-	cd ~
-}	
-
-function __kobman_version_tob
-{
-	if [ ! -d "${KOBMAN_TOB_DEV_DIR}" ]; then 
-		kobman_namespace="$1"
-		cd ${KOBMAN_TOB_DEV_DIR} 
-		cd TheOrgBook/	
-		git show-ref --tag | grep -o 0.0.*
-		cd ~
-	else
- 		__kobman_echo_red "TheOrgBook Environment is not installed in the Local system !"	
-	fi
-}
