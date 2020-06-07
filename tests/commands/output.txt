@@ -1,0 +1,4 @@
+dummyenv
+[1;1mVersion 0.0.2 of https://github.com/asa1997/dummyenv is currently installed in your system [0m
+dummyenv
+[1;1mVersion 0.0.2 of https://github.com/asa1997/dummyenv is currently installed in your system [0m
