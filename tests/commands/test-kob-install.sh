@@ -10,15 +10,10 @@ status="true"
 function __test_kob_run
 {
   __test_kob_init
-  
   __test_kob_execute
   __test_kob_validate || return 1
+  __test_kob_cleanup 
 
-   __test_kob_cleanup 
-
-  __test_kob_install_output
-  
-  
 }
 
 function __test_kob_init {
@@ -74,7 +69,6 @@ function __test_kob_execute {
 
 
 function __test_kob_validate {
-  
   echo "validating install command...."
   . $path_to_kob_env_tests/test-kobman-${kobman_env_name}.sh  > ~/tmp.txt
   
@@ -119,6 +113,12 @@ function __test_kob_validate {
     return 1
   
   fi
+
+
+  status="true"
+  
+  __test_kob_install_output
+  return 0
   
 }
 
@@ -140,9 +140,9 @@ function __test_kob_install_output
 
 function __test_kob_cleanup()
 {
-  
-  rm ~/output.txt ~/tmp.txt $path_to_kob_env_tests/test-kobman-${kobman_env_name}.sh $path_to_kob_envs/kobman-$kobman_env_name.sh $KOBMAN_DIR/var/kobman_env_$kobman_env_name.proc
-  rm -rf ~/Dev_dummyenv 
+
+  rm ~/output.txt ~/tmp.txt  $path_to_kob_envs/kobman-$kobman_env_name.sh $KOBMAN_DIR/var/kobman_env_$kobman_env_name.proc
+  rm -rf ~/Dev_$kobman_env_name
   rm -rf $path_to_kob_envs/kob_env_$kobman_env_name
 
 }
@@ -155,16 +155,8 @@ function __test_kob_install_dummyenv_script(){
 cat <<EOF
 #!/bin/bash
 
+
 function __kobman_install_dummyenv
-{
-  __kobman_install
-  __kobman_uninstall
-  __kobman_update
-  __kobman_upgrade
-  __kobman_start
-  __kobman_stop
-}
-function __kobman_install
 {
   
   cd ~
@@ -180,24 +172,24 @@ function __kobman_install
     
   fi		
 }
-function __kobman_uninstall
+function __kobman_uninstall_dummyenv
 {
-    __kobman_echo_white "uninstalled"
+    __kobman_echo_white "uninstall"
 }
-function __kobman_update
+function __kobman_update_dummyenv
 {
-    __kobman_echo_white "updated"
+    __kobman_echo_white "update"
 }
-function __kobman_upgrade
+function __kobman_upgrade_dummyenv
 {
     __kobman_echo_white "upgraded"
 
 }
-function __kobman_start
+function __kobman_start_dummyenv
 {
     __kobman_echo_white "start"
 }
-function __kobman_stop
+function __kobman_stop_dummyenv
 {
     __kobman_echo_white "stop"
 }
@@ -227,7 +219,7 @@ cat <<EOF
     __test_kob_execute
     
     __test_kob_validate || return 1
-    __test_kob_cleanup
+    __test_kob_dummyenv_cleanup
     __test_kob_output
   }
   function __test_kob_init
@@ -263,7 +255,7 @@ cat <<EOF
     if [[ "$?" != "0" ]]; then
       status="false"
       __test_kob_output
-      __test_kob_cleanup
+      __test_kob_dummyenvcleanup
       return 1
     fi
 
@@ -271,14 +263,29 @@ cat <<EOF
       
       status="false"
       __test_kob_output
-      __test_kob_cleanup
+      __test_kob_dummyenvcleanup
       return 1
 
     fi
-   return 0 
+
+    commands="uninstall update upgrade start stop"
+    for i in $commands; do
+        __kobman_$i_dummyenv | grep $i
+        if [[ "$?" != "0" ]]; then
+            __kobman_echo_white "error with $i"
+            status="false"
+            __test_kob_dummyenvcleanup
+            __test_kob_output
+            return 1
+        fi
+    done
+    status="true"
+    
+    __test_kob_output
+    return 0 
   }
 
-  function __test_kob_cleanup
+  function __test_kob_dummyenv_cleanup
   {
     rm -rf ~/dummy.txt
   }
