@@ -16,7 +16,6 @@ if [ -z "$KOBMAN_DIR" ]; then
 fi
 
 
-
 # infer platform
 KOBMAN_PLATFORM="$(uname)"
 if [[ "$KOBMAN_PLATFORM" == 'Linux' ]]; then
@@ -77,9 +76,5 @@ if [ -f "${KOBMAN_DIR}/etc/config" ]; then
 	source "${KOBMAN_DIR}/etc/config"
 fi
 
-
-#sudo chmod 777 ${KOBMAN_CANDIDATES_DIR}
-
-#done
 unset OLD_IFS candidate_name candidate_dir
 export PATH

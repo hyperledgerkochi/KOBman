@@ -1,13 +1,11 @@
 #!/bin/bash
 
-sudo dpkg --configure -a
+
 #Install: stable
 
 # Global variables
-export KOBMAN_VERSION="0.01"
 KOBMAN_PLATFORM=$(uname)
 export KOBMAN_SERVICE="https://raw.githubusercontent.com"
-export KOBMAN_NAMESPACE="EtricKombat"
 
 
 if [ -z "$KOBMAN_DIR" ]; then
@@ -20,19 +18,17 @@ kobman_src_folder="${KOBMAN_DIR}/src"
 kobman_tmp_folder="${KOBMAN_DIR}/tmp"
 kobman_stage_folder="${kobman_tmp_folder}/stage"
 kobman_zip_file="${kobman_tmp_folder}/kobman-${KOBMAN_VERSION}.zip"
-kobman_zip_tests="${kobman_tmp_folder}/kobman-test.zip"
-kobman_tests_folder="${KOBMAN_DIR}/tests"
 kobman_env_folder="${KOBMAN_DIR}/envs"
 kobman_stage_folder="${kobman_tmp_folder}/stage"
 kobman_etc_folder="${KOBMAN_DIR}/etc"
 kobman_var_folder="${KOBMAN_DIR}/var"
-kobman_archives_folder="${KOBMAN_DIR}/archives"
-kobman_candidates_folder="${KOBMAN_DIR}/candidates"
 kobman_config_file="${kobman_etc_folder}/config"
 kobman_bash_profile="${HOME}/.bash_profile"
 kobman_profile="${HOME}/.profile"
 kobman_bashrc="${HOME}/.bashrc"
 kobman_zshrc="${HOME}/.zshrc"
+
+
 
 kobman_init_snippet=$( cat << EOF
 #THIS MUST BE AT THE END OF THE FILE FOR KOBMAN TO WORK!!!
@@ -169,8 +165,7 @@ mkdir -p "$kobman_stage_folder"
 mkdir -p "$kobman_env_folder"
 mkdir -p "$kobman_etc_folder"
 mkdir -p "$kobman_var_folder"
-mkdir -p "$kobman_archives_folder"
-mkdir -p "$kobman_candidates_folder"
+
 
 
 echo "Prime the config file..."
@@ -187,7 +182,7 @@ echo "kobman_colour_enable=true" >> "$kobman_config_file"
 echo "Download script archive..."
 
 # once move to kobman namespace needs to update kobman-latest.zip 
-curl --location --progress-bar "${KOBMAN_SERVICE}/${KOBMAN_NAMESPACE}/KOBman/master/dist/kobman-latest.zip" > "$kobman_zip_file"
+curl -sL --location --progress-bar "${KOBMAN_SERVICE}/${KOBMAN_NAMESPACE}/KOBman/${KOBMAN_DIST_BRANCH}/dist/kobman-latest.zip" > "$kobman_zip_file"
 
 ARCHIVE_OK=$(unzip -qt "$kobman_zip_file" | grep 'No errors detected in compressed data')
 if [[ -z "$ARCHIVE_OK" ]]; then
@@ -244,10 +239,10 @@ if [[ -z $(grep 'kobman-init.sh' "$kobman_zshrc") ]]; then
     echo "Updated existing ${kobman_zshrc}"
 fi
 
-sudo chmod a+rwx .
-sudo chmod u+xr ${KOBMAN_DIR}/candidates 
-sudo chmod go+x /
-sudo chmod go+x /root
+#sudo chmod a+rwx .
+#sudo chmod u+xr ${KOBMAN_DIR}/candidates 
+#sudo chmod go+x /
+#sudo chmod go+x /root
 echo -e "\n\n\nAll done!\n\n"
 
 echo "Please open a new terminal, or run the following in the existing one:"

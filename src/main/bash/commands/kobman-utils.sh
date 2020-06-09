@@ -105,6 +105,20 @@ function __kobman_echo_cyan {
 	__kobman_echo "36m" "$1"
 }
 
+function __kobman_echo_white {
+	__kobman_echo "1m" "$1"
+}
+
+function __kobman_echo_blue {
+	__kobman_echo "34m" "$1"
+}
+
+function __kobman_echo_violet {
+	__kobman_echo "35m" "$1"
+}
+
+
+
 function __kobman_echo_confirm {
 	if [[ "$kobman_colour_enable" == 'false' ]]; then
 		echo -n "$1"
