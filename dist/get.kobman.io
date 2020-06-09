@@ -192,6 +192,7 @@ echo "Download script archive..."
 # once move to kobman namespace needs to update kobman-latest.zip 
 curl -sL --location --progress-bar "${KOBMAN_SERVICE}/${KOBMAN_NAMESPACE}/KOBman/${KOBMAN_DIST_BRANCH}/dist/kobman-${KOBMAN_VERSION}.zip" > "$kobman_zip_file"
 
+
 ARCHIVE_OK=$(unzip -qt "$kobman_zip_file" | grep 'No errors detected in compressed data')
 if [[ -z "$ARCHIVE_OK" ]]; then
 	echo "Downloaded zip archive corrupt. Are you connected to the internet?"
