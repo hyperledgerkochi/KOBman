@@ -3,8 +3,8 @@
 
 function __kob_status {
 file=($(find $KOBMAN_DIR/envs/ -name "kob_env_*" -print))
-echo "Installed environments and their version"
-echo "---------------------------------------------"
+__kobman_echo_white "Installed environments and their version"
+__kobman_echo_white "---------------------------------------------"
 for f in "${file[@]}"; do
 	
     n=${f##*_}
