@@ -5,8 +5,8 @@ function __kob_list {
 __kobman_secure_curl "https://raw.githubusercontent.com/$KOBMAN_NAMESPACE/KOBman/master/dist/list.txt" > tmp.txt
 
 # envs="Von-Network,TheOrgBook,greenlight,kobman,KOBConnect,KOBRegistry,KochiOrgBook,KOBDflow,KOBVON"
-echo "Available environments and their respective version numbers"
-echo "---------------------------------------------------------------"
+__kobman_echo_white "Available environments and their respective version numbers"
+__kobman_echo_white "---------------------------------------------------------------"
 # for i in $envs; do
 #     cat tmp.txt | grep "$i" >> tmp1.txt
 # done
