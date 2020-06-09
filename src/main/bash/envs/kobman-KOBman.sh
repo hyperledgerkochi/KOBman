@@ -28,7 +28,6 @@ function __kobman_install_KOBman
 
 }
 
-<<<<<<< HEAD
 function __kobman_create_dev_environment
 =======
 
