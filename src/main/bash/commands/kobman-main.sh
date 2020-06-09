@@ -5,11 +5,11 @@
 function kob {
 
 	command=$1
-	qualifier1=$2 		# --environment	
-	qualifier2=$3 		# environment value	
-	qualifier3=$4 		# --version	
-	qualifier4=$5 		# version value	
-	
+	qualifier1=$2 		# --environment
+	qualifier2=$3 		# environment value
+	qualifier3=$4 		# --version
+	qualifier4=$5 		# version value
+
 	case "$command" in
 		-L)
 			command="list";;
@@ -30,7 +30,7 @@ function kob {
 		-u)
 			command="update";;
 	esac
-	
+
 	if [ -f "${KOBMAN_DIR}/etc/config" ]; then
 		source "${KOBMAN_DIR}/etc/config"
 	fi
@@ -52,7 +52,7 @@ function kob {
 	cmd_target="${KOBMAN_DIR}/envs/kobman-${command}.sh"
 	if [[ -f "$cmd_target" ]]; then
 		cmd_found="$cmd_target"
-	fi 
+	fi
 	# couldn't find the command
 	if [[ -z "$cmd_found" ]]; then
 		echo "Invalid command: $command"
@@ -62,7 +62,7 @@ function kob {
 
 
 	# Check whether the command exists as an internal function...
-	
+	#
 	# NOTE Internal commands use underscores rather than hyphens,
 	# hence the name conversion as the first step here.
 	converted_cmd_name=$(echo "$command" | tr '-' '_')
@@ -75,44 +75,42 @@ function kob {
 		# It's available as a shell function
 		if [ "$converted_cmd_name" = "install" ]; then
 			__kobman_identify_parameter
-		else	
+		else
 			__kob_"$converted_cmd_name" "$2" "$3" "$4"
 			final_rc=$?
-		fi	
+		fi
 	fi
 
 }
 
+function __kobman_identify_parameter
 
-function __kobman_identify_parameter 
+{
 
-{ 
+	if [ -z "${qualifier1}" ]; then
 
-	if [ -z "${qualifier1}" ]; then 
+		__kobman_echo_red "Invalid command : Try with --environment/-env "
+		return 1
+	fi
 
-		__kobman_echo_red "Invalid command : Try with --environment/-env " 
-		return 1 
-	fi 
+	if [ "${qualifier1}" == "--environment" ] || [ "${qualifier1}" == "-env" ]; then
 
-	if [ "${qualifier1}" == "--environment" ] || [ "${qualifier1}" == "-env" ]; then  
+		__kobman_validate_environment "${qualifier2}" || return 1
+	fi
 
-		__kobman_validate_environment "${qualifier2}" || return 1 
-	fi 
+	if [ "${qualifier3}" == "--version" ]; then
 
-	if [ "${qualifier3}" == "--version" ]; then 
- 
-		__kobman_validate_version_format "${qualifier4}" || return 1 
-		__kobman_check_if_version_exists "${qualifier2}" "${qualifier4}" || return 1 
-	fi 
+		__kobman_validate_version_format "${qualifier4}" || return 1
+		__kobman_check_if_version_exists "${qualifier2}" "${qualifier4}" || return 1
+	fi
 
 
-	if [ -z "${qualifier3}" ]; then 
-		__kobman_validate_version_format "$KOBMAN_VERSION" || return 1 
-		__kobman_check_if_version_exists "${qualifier2}" "$KOBMAN_VERSION" || return 1 
-	fi 
+	if [ -z "${qualifier3}" ]; then
+		__kobman_validate_version_format "$KOBMAN_VERSION" || return 1
+		__kobman_check_if_version_exists "${qualifier2}" "$KOBMAN_VERSION" || return 1
+	fi
 
-	__kob_"$converted_cmd_name" "${qualifier2}" "${qualifier4}"  
-	unset argument_ 
+	__kob_"$converted_cmd_name" "${qualifier2}" "${qualifier4}"
+	 
 
-} 
-
+}
