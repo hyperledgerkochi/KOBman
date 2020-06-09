@@ -182,7 +182,7 @@ echo "kobman_colour_enable=true" >> "$kobman_config_file"
 echo "Download script archive..."
 
 # once move to kobman namespace needs to update kobman-latest.zip 
-curl -sL --location --progress-bar "${KOBMAN_SERVICE}/${KOBMAN_NAMESPACE}/KOBman/${KOBMAN_DIST_BRANCH}/dist/kobman-latest.zip" > "$kobman_zip_file"
+curl -sL --location --progress-bar "${KOBMAN_SERVICE}/${KOBMAN_NAMESPACE}/KOBman/${KOBMAN_DIST_BRANCH}/dist/kobman-0.0.1.zip" > "$kobman_zip_file"
 
 ARCHIVE_OK=$(unzip -qt "$kobman_zip_file" | grep 'No errors detected in compressed data')
 if [[ -z "$ARCHIVE_OK" ]]; then
