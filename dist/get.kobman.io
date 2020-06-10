@@ -225,6 +225,7 @@ done
 rm tmp.txt
 mv "${kobman_stage_folder}/kobman-init.sh" "$kobman_bin_folder"
 mv "$kobman_stage_folder"/kobman-* "$kobman_src_folder"
+mv "$kobman_stage_folder"/list.txt "$kobman_var_folder"
 
 echo "Set version to $KOBMAN_VERSION ..."
 echo "$KOBMAN_VERSION" > "${KOBMAN_DIR}/var/version.txt"
