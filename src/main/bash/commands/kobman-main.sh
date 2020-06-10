@@ -4,11 +4,14 @@
 
 function kob {
 
-	COMMAND="$1"
-	DEPLOYMENT_TYPE="$2"
-	ENVIRONMENT_TYPE="$3"
-	PARAMETER_TYPE="$4"
-	NAME_SPACE=${5:-EtricKombat}
+	PARAMETER=( "$@" )
+        ELEMENTS=${#PARAMETER[@]}
+        for (( i=0;i<$ELEMENTS;i++)); do
+                 argument_[${i}]=${PARAMETER[${i}]}
+        done
+
+	COMMAND=${argument_[0]}
+
 	case "$COMMAND" in
 		-L)
 			COMMAND="list";;

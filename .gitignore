@@ -1,3 +1,6 @@
-tests/
-README.md
-tests/*
+scripts/tmpl/README.md.tmpl
+scripts/Readme.md
+build/
+dist/
+Dockerfile
+.travis.yml

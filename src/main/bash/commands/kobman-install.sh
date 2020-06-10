@@ -3,440 +3,148 @@
 
 function __kob_install {
 
-	local command deployment_type environment_type parameter_type name_space 
+#Latest version check and assignment should happen here (if latest has been released )
 
-	command=$COMMAND
-	deployment_type=$DEPLOYMENT_TYPE
-	environment_type=$ENVIRONMENT_TYPE
-	parameter_type=$PARAMETER_TYPE
-	name_space=$NAME_SPACE 
-	
-	if [ "$command" = "install" ]
-	then
-        	case $deployment_type in
-                --environment | -env)
-                        if [ "$environment_type" = "all" ]
-                        then
-                                echo "working all parameter"
-                        elif [ "$environment_type" = "kobvon" ]
-                        then
-                                echo "Building kobvon..."
-                        elif [ "$environment_type" = "kob" ]
-                        then
-                                echo "Building kob..."
-                        elif [ "$environment_type" = "kobdflow" ]
-                        then
-                                echo "Building kobdflow..."
-                        elif [ "$environment_type" = "kobconnect" ]
-                        then
-                                echo "Building kobconnect..."
-                        elif [ "$environment_type" = "kobregistory" ]
-                        then
-                                echo "Building kobregistory..."
-                        elif [ "$environment_type" = "tobvon" ]
-                        then
-				__kobman_check_proxy
-                                __kobman_ubuntu_update_upgrade
-                                __kobman_git_install
-                                __kobman_python_install
-                                __kobman_docker_install
-                                __kobman_npm_install
-     				__kobman_visual_studio_install
-				if [ "$parameter_type" = "--namespace" ]
-                        	then
- 					__kobman_install_tobvon "$name_space"
-				else
-					echo "Try with parameter '--namespace'"		
-				fi	
-			elif [ "$environment_type" = "tob" ]
-                        then
-				if [ ! -d "${KOBMAN_VON_DEV_DIR}/von-network" ]
-				then
-                                         __kobman_check_proxy
-                                         __kobman_ubuntu_update_upgrade
-                                         __kobman_git_install
-                                         __kobman_python_install
-                                         __kobman_docker_install
-                                         __kobman_npm_install
-                                         __kobman_visual_studio_install
-                                fi
-				if [ "$parameter_type" = "--namespace" ]
-                        	then
- 					__kobman_install_tob "$name_space"
-				else
-					echo "Try with parameter '--namespace'"		
-				fi	
-                        elif [ "$environment_type" = "greenlight" ]
-                        then
-				if [ ! -d "${KOBMAN_VON_DEV_DIR}/von-network" ]
-				then
-                                         __kobman_check_proxy
-                                         __kobman_ubuntu_update_upgrade
-                                         __kobman_git_install
-                                         __kobman_python_install
-                                         __kobman_docker_install
-                                         __kobman_npm_install
-                                         __kobman_visual_studio_install
-                                fi
-				if [ "$parameter_type" = "--namespace" ]
-                        	then
- 					__kobman_install_greenlight "$name_space"
-				else
-					echo "Try with parameter '--namespace'"		
-				fi	
-                        elif [ "$environment_type" = "kobman" ]
-                        then
-                               __kobman_install_kobman "$name_space"
-				cd ~	
-			else
-                                echo "verifiy your command and try again"
-                        fi
-                ;;
-                --deploy)
-                        if [ "$environment_type" = "kobvon" ]
-                        then
-                                echo "Starting kobvon..."
-                        elif [ "$environment_type" = "kob" ]
-                        then
-                                echo "starting kob..."
-                        elif [ "$environment_type" = "kobdflow" ]
-                        then
-                                echo "Starting kobdflow..."
-                        elif [ "$environment_type" = "kobconnect" ]
-                        then
-                                echo "Starting kobconnect..."
-                        elif [ "$environment_type" = "kobregistory" ]
-                        then
-                                echo "Starting kobregistory..."
- 			elif [ "$environment_type" = "tobvon" ]
-                        then
-				if [ ! -d "${KOBMAN_VON_DEV_DIR}/von-network" ]
-
-				then
-                                         __kobman_check_proxy
-                                         __kobman_ubuntu_update_upgrade
-                                         __kobman_git_install
-                                         __kobman_python_install
-                                         __kobman_docker_install
-                                         __kobman_npm_install
-                                         __kobman_visual_studio_install
-                                fi
-                        	__kobman_install_tobvon "$name_space"
-                                __kobman_start_tobvon
-			elif [ "$environment_type" = "tob" ]
-                        then
-				if [ ! -d "${KOBMAN_VON_DEV_DIR}/von-network" ]
-				then
-                                         __kobman_check_proxy
-                                         __kobman_ubuntu_update_upgrade
-                                         __kobman_git_install
-                                         __kobman_python_install
-                                         __kobman_docker_install
-                                         __kobman_npm_install
-                                         __kobman_visual_studio_install
-                                fi
-                                __kobman_install_tob "$name_space"
-                                __kobman_start_tob
-                         elif [ "$environment_type" = "greenlight" ]
-                         then
-				if [ ! -d "${KOBMAN_VON_DEV_DIR}/von-network" ]
-				then
-                                         __kobman_check_proxy
-                                         __kobman_ubuntu_update_upgrade
-                                         __kobman_git_install
-                                         __kobman_python_install
-                                         __kobman_docker_install
-                                         __kobman_npm_install
-                                         __kobman_visual_studio_install
-                                fi
-                                 __kobman_install_greenlight "$name_space"
-                                 __kobman_start_greenlight
-                         else
-                                 echo "verifiy your command and try again"
-                         fi
-                 ;;
-
-                *)
-                        if [ -z $deployment_type ]
-                        then
-                                echo "Default Projects are tobvon,tob,greenlight"
-                        fi
-                ;;
-
-       		 esac
-
-	fi
-
-}
-
-
-
-function __kobman_download {
-	local candidate version archives_folder
-
-	candidate="$1"
-	version="$2"
-
-	archives_folder="${KOBMAN_DIR}/archives"
-	if [ ! -f "${archives_folder}/${candidate}-${version}.zip" ]; then
-
-		local platform_parameter="$(echo $KOBMAN_PLATFORM | tr '[:upper:]' '[:lower:]')"
-		local download_url="${KOBMAN_CANDIDATES_API}/broker/download/${candidate}/${version}/${platform_parameter}"
-		local base_name="${candidate}-${version}"
-		local zip_archive_target="${KOBMAN_DIR}/archives/${candidate}-${version}.zip"
-
-		#pre-installation hook: implements function __kobman_pre_installation_hook
-		local pre_installation_hook="${KOBMAN_DIR}/tmp/hook_pre_${candidate}_${version}.sh"
-		__kobman_echo_debug "Get pre-installation hook: ${KOBMAN_CANDIDATES_API}/hooks/pre/${candidate}/${version}/${platform_parameter}"
-		__kobman_secure_curl "${KOBMAN_CANDIDATES_API}/hooks/pre/${candidate}/${version}/${platform_parameter}" > "$pre_installation_hook"
-		__kobman_echo_debug "Copy remote pre-installation hook: $pre_installation_hook"
-		source "$pre_installation_hook"
-		__kobman_pre_installation_hook || return 1
-		__kobman_echo_debug "Completed pre-installation hook..."
-
-		export local binary_input="${KOBMAN_DIR}/tmp/${base_name}.bin"
-		export local zip_output="${KOBMAN_DIR}/tmp/$base_name.zip"
-
-		echo ""
-		echo "Downloading: ${candidate} ${version}"
-		echo ""
-		echo "In progress..."
-		echo ""
-
-		#download binary
-		__kobman_secure_curl_download "${download_url}" --output "${binary_input}"
-		__kobman_echo_debug "Downloaded binary to: ${binary_input}"
-
-		#post-installation hook: implements function __kobman_post_installation_hook
-		#responsible for taking `binary_input` and producing `zip_output`
-		local post_installation_hook="${KOBMAN_DIR}/tmp/hook_post_${candidate}_${version}.sh"
-		__kobman_echo_debug "Get post-installation hook: ${KOBMAN_CANDIDATES_API}/hooks/post/${candidate}/${version}/${platform_parameter}"
-		__kobman_secure_curl "${KOBMAN_CANDIDATES_API}/hooks/post/${candidate}/${version}/${platform_parameter}" > "$post_installation_hook"
-		__kobman_echo_debug "Copy remote pre-installation hook: $pre_installation_hook"
-		source "$post_installation_hook"
-		__kobman_post_installation_hook || return 1
-
-		__kobman_echo_debug "Processed binary as: $zip_output"
-
-		__kobman_echo_debug "Completed post-installation hook..."
-
-		mv "$zip_output" "$zip_archive_target"
-		__kobman_echo_debug "Moved to archive folder: $zip_archive_target"
-	else
-		echo ""
-		echo "Found a previously downloaded ${candidate} ${version} archive. Not downloading it again..."
-	fi
-	__kobman_validate_zip "${archives_folder}/${candidate}-${version}.zip" || return 1
-	echo ""
-}
-
-function __kobman_validate_zip {
-	local zip_archive zip_ok
-
-	zip_archive="$1"
-	zip_ok=$(unzip -t "$zip_archive" | grep 'No errors detected in compressed data')
-	if [ -z "$zip_ok" ]; then
-		rm "$zip_archive"
-		echo ""
-		__kobman_echo_red "Stop! The archive was corrupt and has been removed! Please try installing again."
-		return 1
-	fi
-
-}
-
-
-
-function __kobman_vim_fix {
-	
-	__kobman_echo_yellow "Configuring VIM" 
-	sudo cd
-        sudo echo "set nocompatible" > /root/.vimrc
-
-}
-
-function __kobman_ubuntu_update_upgrade {
-	__kobman_echo_yellow "Upgrading/Updating Ubuntu"
-	sudo apt-get update -y
-        sudo apt-get dist-upgrade -y
-	sudo apt-get -y install build-essential nghttp2 libnghttp2-dev libssl-dev -y
-}
-
-function __kobman_proxy_environment {
-	__kobman_echo_yellow "Unsetting Proxy"
-	unset http_proxy
-        unset ftp_proxy
-        unset https_proxy
-        unset socks_proxy
-        unset SOCKS_PROXY
-        unset FTP_PROXY
-        unset HTTPS_PROXY
-        unset HTTP_PROXY
-        export HTTPS_PROXY=http://${uname}:${pword}@${prox}:${port}/
-        export HTTP_PROXY=http://${uname}:${pword}@${prox}:${port}/
-        export FTP_PROXY=ftp://${uname}:${pword}@${prox}:${port}/
-        export SOCKS_PROXY=socks://${uname}:${pword}@${prox}:${port}/
-
-        export http_proxy=http://${uname}:${pword}@${prox}:${port}/
-        export https_proxy=http://${uname}:${pword}@${prox}:${port}/
-        export ftp_proxy=ftp://${uname}:${pword}@${prox}:${port}/
-        export socks_proxy=socks://${uname}:${pword}@${prox}:${port}/
-        env | grep -i proxy
-
-
-}
-
-function __kobman_check_proxy {
-
-	__kobman_echo_red "================================="
-	read -p "Behind Proxy ?! [y/n]" reply 
-	__kobman_echo_red "================================="
-        if [ "$reply" = "y" ] || [ "$reply" = "Y" ] || [ "$reply" = "yes" ] || [ "$reply" = "YES" ] 
-	then
-		proxychk=1
-		sudo dpkg --configure -a
-		__kobman_echo_red "By passing proxy server requires listed values\n"
-		read -p "Enter the proxy?[eg: Kochin.dummy.com..etc] : " prox
-        	sudo echo -e "\n"
-         	read -p "Enter the port?[eg :8980,443..etc]          : " port
-         	sudo echo -e "\n"
-         	read -p "Enter proxy user name                       : " uname
-         	sudo echo -e "\n"
-         	read  -p "Enter proxy password?[your login password] : " pword
-         	__kobman_echo_red "Configure github username/email"
-         	read -p "Enter github user name                      : " git_uname
-         	sudo echo -e "\n"
-         	read -p "Enter github email ID?                      : " emil
-         	sudo echo -e "\n"
-         	__kobman_proxy_environment
-        for proto in http https ftp socks;
-        do
-                if [ "$proto" = "https" ];
-                then
-                  	sudo printf 'Acquire::%s::proxy "http://%s:%s@%s:%u/";\n' "$proto" "$uname" "$pword" "$prox" "$port"
-                else
-                        sudo printf 'Acquire::%s::proxy "%s://%s:%s@%s:%u/";\n' "$proto" "$proto" "$uname" "$pword" "$prox" "$port"
-                fi
-
-        done | sudo tee -a /etc/apt/apt.conf > /dev/null
-        sudo mkdir -p /etc/systemd/system/docker.service.d/
-        sudo touch /etc/systemd/system/docker.service.d/https-proxy.conf
-        sudo chmod 777 /etc/systemd/system/docker.service.d/https-proxy.conf
-        sudo echo -e "[Service]\nEnvironment="HTTPS_PROXY=http://${uname}:${pword}@${prox}:${port}"">>/etc/systemd/system/docker.service.d/https-proxy.conf
-
-        sudo echo "**********************"
-        sudo git config --global user.name "${git_uname}"
-        sudo git config --global user.email "${emil}"
-	sudo apt install ca-certificates -y
-        sudo git config --global http.sslVerify false
-        sudo git config --global http.proxy http://${uname}:${pword}@${prox}:${port}
-
-else 
-       sudo echo "Skipping the proxy settings"
-fi
-
-}
-
-
-
-
-function __kobman_git_install {
-
-__kobman_echo_yellow "Installing Git"
-sudo apt install git -y
-
-}
-
-function __kobman_python_install {
-	
-	__kobman_echo_yellow "Installing Python"
-	sudo apt install software-properties-common -y
-        sudo apt install Python3.7 -y
-        sudo apt install python-pip -y
-	pip install --upgrade pip
-	sudo ln -sfn /usr/bin/python3.7 /usr/bin/python
-}
-
-function __kobman_docker_install {
-
-          sudo apt-get remove docker docker-engine docker-ce docker-ce-cli docker.io -y
-	__kobman_echo_yellow "Installing Docker"	
-	sudo apt-get update -y
-        sudo apt install docker.io -y
-	__kobman_echo_yellow "Package permission : Allowing apt to use repository over HTTPS"
-
-        sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common -y
-
-	__kobman_echo_yellow "Adding docker official key"
-	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-	__kobman_echo_yellow "Verifying apt key fingerprint"
-	sudo apt-key fingerprint 0EBFCD88
-
-	__kobman_echo_yellow "Setting up $(lsb_release -is) $(lsb_release -cs) docker-stable repository"
-        sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs) stable"
-	__kobman_echo_yellow "Installing Docker-Engine"
-	sudo apt-get update -y
-        sudo apt-get install docker-ce docker-ce-cli containerd.io -y
-        sudo docker run hello-world
-	__kobman_echo_yellow "Installing Docker-Compose"
-	sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-
-        sudo chmod +x /usr/local/bin/docker-compose
-        sudo systemctl start docker
-        sudo systemctl enable docker
-	__kobman_echo_yellow "Docker Version"
-        sudo docker --version
-	__kobman_echo_yellow "Docker-Compose Version"
-        sudo docker-compose --version
-	__kobman_echo_red "Docker Login"
-	sudo rm -rf /root/.docker/
-        >/etc/systemd/system/docker.service.d/https-proxy.conf > /dev/null
-	sudo docker login
-
-        if [[ "$proxychk" -eq 1 ]]
+if [ -z "${argument_[1]}" ];
         then
-		__kobman_echo_red "Docker proxy setting up @ /root/.docker/config.json"
-                sudo sed -i '$ d' /root/.docker/config.json
-                sudo echo -e ",\n "\""proxies"\"": {\n\t "\""default"\"": {\n\t\t "\""httpProxy"\"": "\""http://${uname}:${pword}@${prox}:${port}"\"",\n\t\t "\""httpsProxy"\"": "\""https://${uname}:${pword}@${prox}:${port}"\"",\n\t\t "\""noProxy"\"": "\""localhost,127.0.0.0/8,*.local,host.docker.internal"\"" \n\t\t}\n\t}\n}">>/root/.docker/config.json
+                __kobman_echo_no_colour "Invalid command : Try with --environment/-env "
+                return  
+        elif [ "${argument_[1]}" == "--environment" ] || [ "${argument_[1]}" == "-env"  ];  
+        then    
+		__kobman_validate_set_environment "${argument_[2]}"
+                if [ "$?" -eq "0" ]   
+                then
+                      	environment_value=${argument_[2]}
+			
+			case "${argument_[3]}" in
+			--version)
+                                if [[ "${argument_[5]}" == "--namespace" && $version_value != "" ]]; 
+                                then    
+                                        __kobman_setting_global_variables "${argument_[6]}" "${argument_[4]}"
+					__kobman_validate_and_set_version "${version_value}" "${namespace_value}"
+					if [ "$?" -eq "0" ];
+					then	
+						__kobman_create_environment_directory "$environment_value" "$version_value" "$namespace_value" 
+					fi	
+                                elif [[ "${argument_[5]}" == "" && $version_value != "" ]]; 
+                                then    
+                                        __kobman_setting_global_variables "${KOBMAN_NAMESPACE}" "${argument_[4]}"
+					__kobman_validate_and_set_version "${version_value}" "${namespace_value}"
+					if [ "$?" -eq "0" ];
+					then	
+						__kobman_create_environment_directory "$environment_value" "$version_value" "$namespace_value" 
+					fi	
+					
+                                else    
+                                        return  
+                                fi
+			;;
+			--namespace)
+                                __kobman_setting_global_variables "${argument_[4]}" "${KOBMAN_VERSION}" 
+				__kobman_validate_and_set_version "${version_value}" "${namespace_value}"
+				if [ "$?" -eq "0" ];
+				then	
+					__kobman_create_environment_directory "$environment_value" "$version_value" "$namespace_value" 
+				fi	
+			;;
 
+
+			"")
+                                __kobman_setting_global_variables "${KOBMAN_NAMESPACE}" "${KOBMAN_VERSION}" 
+				__kobman_validate_and_set_version "${version_value}" "${namespace_value}"
+				if [ "$?" -eq "0" ];
+				then	
+					__kobman_create_environment_directory "$environment_value" "$version_value" "$namespace_value" 
+				fi	
+			;;
+		
+			esac  
+                else
+                        __kobman_echo_red "Environemt not available ."
+                return  
+                fi
+    
+        fi
+}
+
+function __kobman_validate_set_environment
+{
+	curl -sL "https://raw.githubusercontent.com/${KOBMAN_NAMESPACE}/KOBman/master/dist/list" | grep -i "$1" > /dev/null
+}
+
+
+function __kobman_setting_global_variables
+{
+     	namespace_value=$1
+        version_value=$2
+}
+
+function __kobman_validate_and_set_version
+{
+	version=$1
+	namespace=$2	
+	__kobman_validate_version_format "${version}" 
+	if [ "$?" -eq "0" ];
+	then
+        	__kobman_check_and_confirm_existing_version "${namespace}" "${version}"
+        	if [ "$?" -eq "0" ];    # check version.txt is empty or not (or version variable is empty or not)
+        	then
+                	version_value=$1
+        		return 0	
+		else
+                	__kobman_echo_red "version not available"
+			return 1 
+		fi
+	else
+        	__kobman_echo_red "invalid version format"
+		return 2  
 	fi
-}
-
-function __kobman_npm_install {
 	
-	__kobman_echo_yellow "Purging existing NPM components"
-	npm config rm proxy
-        npm config rm proxy --global
 
-        npm config rm https-proxy
-        npm config rm https-proxy --global
+}
 
-        npm config rm registry
-        npm cache clean
+function __kobman_validate_version_format
+{
+	__kobman_echo_no_colour "$1" | grep -w '[0-9]*\.[0-9]*\.[0-9]*' > /dev/null
 
-        sudo sudo apt-get remove nodejs nodejs-dev node-gyp libssl1.0-dev npm -y
- 
-	__kobman_echo_yellow "Installing NPM"
-        sudo sudo apt-get install nodejs nodejs-dev node-gyp libssl1.0-dev npm -y
+}
 
-        npm config set https-proxy http://${uname}:${pword}@${prox}:${port}--global
-        npm config set https-proxy http://${uname}:${pword}@${prox}:${port}
-
-        npm config set proxy http://${uname}:${pword}@${prox}:${port}--global
-        npm config set proxy http://${uname}:${pword}@${prox}:${port}
-
-        npm config set registry http://registry.npmjs.org
-        npm config set strict-ssl false
-
+function __kobman_check_and_confirm_existing_version
+{
+       	git ls-remote --tags "https://github.com/${1}/KOBman" | grep -w 'refs/tags/[0-9]*\.[0-9]*\.[0-9]*' | sort -r | head | grep -o '[^\/]*$' | grep -w "$2" > /dev/null
 
 }
 
 
-function __kobman_visual_studio_install {
+function __kobman_create_environment_directory
+{
 
-	__kobman_echo_yellow "Installing Visual-Studio"	
-	sudo apt install software-properties-common apt-transport-https wget
-	wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
-	sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-	sudo apt install code
-
+		environment_name=$1
+		version_id=$2 
+        	namespace_name=$3
+		
+		__kobman_echo_red "Directory Structure creation of :"  
+               	__kobman_echo_white "Environment 		: ${environment_name} " 
+               	__kobman_echo_white "Version 		: ${version_id}" 
+               	__kobman_echo_white "Namespace		: ${namespace_name}" 
+		
+		cd "${KOBMAN_DIR}/envs"
+                mkdir -p kob_env_"${environment_name}"
+                cd kob_env_"${environment_name}"
+                touch current
+		destdir="${KOBMAN_DIR}/envs/kob_env_${environment_name}/current"
+                if [ -f "$destdir" ]
+                then
+                	__kobman_echo_no_colour "$version_id" > "$destdir"
+                fi
+                mkdir -p $version_id
+                cd $version_id
+      #Needs to be refactored identify the latest version 
+                
+      		cp "${KOBMAN_DIR}/envs/kobman-${environment_name}.sh" .
+                source "${KOBMAN_DIR}/envs/kob_env_${environment_name}/${version_id}/kobman-${environment_name}.sh"
+		__kobman_echo_no_colour "${environment_name} installation has been completed -> SUCCESSFULLY"		
+		cd ~
 }
+
+

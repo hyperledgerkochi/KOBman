@@ -7,8 +7,12 @@ function __kobman_development_greenlight_dir {
 	export KOBMAN_GREENLIGHT_DEV_DIR=$PWD
        	sudo chmod 777 ${KOBMAN_GREENLIGHT_DEV_DIR}
 	cd ${KOBMAN_GREENLIGHT_DEV_DIR}
-	echo  $KOBMAN_GREENLIGHT_DEV_DIR
+	
 	sudo mkdir -p test/ dependency/
+	if [ ! -d "${KOBMAN_VON_DEV_DIR}/von-network" ]
+	then
+		__kobman_install_dependancies
+        fi
 }
 
 function __kobman_install_greenlight

@@ -9,6 +9,10 @@ function __kobman_development_tobvon_dir
 	sudo chmod 777 ${KOBMAN_VON_DEV_DIR}
 	cd ${KOBMAN_VON_DEV_DIR}
 	sudo mkdir -p test/ dependency/
+	if [ ! -d "${KOBMAN_VON_DEV_DIR}/von-network" ]
+	then
+		__kobman_install_dependancies
+        fi
 }                                                                                                                          
 function __kobman_install_tobvon
 {
