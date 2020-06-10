@@ -12,8 +12,7 @@ function __kobman_validate_environment
 {
 	local environment_name=$1
 	echo ${environment_name} > $KOBMAN_DIR/var/current
-	__kobman_secure_curl "https://raw.githubusercontent.com/${KOBMAN_NAMESPACE}/KOBman/master/dist/list.txt" | grep -w "$1" > /dev/null
-
+	cat $KOBMAN_DIR/var/list.txt | grep -w "$environment_name" > /dev/null	
 	if [ "$?" != "0" ]; then
 
 		__kobman_echo_debug "environment does not exist"
@@ -37,8 +36,7 @@ function __kobman_check_if_version_exists
 {
 	local environment_name=$1
 	local version=$2
-	__kobman_secure_curl "https://raw.githubusercontent.com/${KOBMAN_NAMESPACE}/KOBman/master/dist/list.txt" | grep -w "${environment_name}" | grep -q ${version}
-
+	cat $KOBMAN_DIR/var/list.txt | grep -w "${environment_name}" | grep -q ${version}
 	if [ "$?" != "0" ]; then
 
 		__kobman_echo_debug "version does not exist"
