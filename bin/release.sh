@@ -17,9 +17,9 @@ if [[ -z $KOB_ARCHIVE_DOWNLOAD_REPO ]];
         KOB_ARCHIVE_DOWNLOAD_REPO={KOB_ARCHIVE_DOWNLOAD_REPO:-KOBman}
 fi
 
-if [[ -z $KOB_NAMESPACE ]];
+if [[ -z $KOBMAN_NAMESPACE ]];
     then
-        KOB_NAMESPACE={KOB_NAMESPACE:-hyperledgerkochi}
+        KOBMAN_NAMESPACE={KOBMAN_NAMESPACE:-hyperledgerkochi}
 fi
 
 # prepare branch
@@ -36,7 +36,7 @@ for file in ~/KOBman/scripts/*.tmpl;
 do
     sed -i "s/@KOB_VERSION@/$kob_version/g" $file
     sed -i "s/@KOB_ARCHIVE_DOWNLOAD_REPO@/$KOB_ARCHIVE_DOWNLOAD_REPO/g" $file
-    sed -i "s/@KOB_NAMESPACE@/$KOB_NAMESPACE/g" $file
+    sed -i "s/@KOB_NAMESPACE@/$KOBMAN_NAMESPACE/g" $file
     # renaming to remove .tmpl extension
     mv "$file" "${file//.tmpl/}"
 done
