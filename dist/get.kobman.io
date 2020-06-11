@@ -189,7 +189,7 @@ echo "kobman_colour_enable=true" >> "$kobman_config_file"
 
 echo "Download script archive..."
 
-# once move to kobman namespace needs to update kobman-latest.zip 
+# once move to kobman namespace needs to update kobman-latest.zip
 curl -sL --location --progress-bar "${KOBMAN_SERVICE}/${KOBMAN_NAMESPACE}/KOBman/${KOBMAN_DIST_BRANCH}/dist/kobman-${KOBMAN_VERSION}.zip" > "$kobman_zip_file"
 
 
@@ -215,13 +215,13 @@ unzip -qo "$kobman_zip_file" -d "$kobman_stage_folder"
 
 echo "Install scripts..."
 # TODO need to replace asa1997 with KOBMAN_NAMESPACE
-curl -sL "https://raw.githubusercontent.com/asa1997/KOBman/dev/dist/environments" > tmp.txt
-sed -i 's/,/ /g' tmp.txt 
+curl -sL "https://raw.githubusercontent.com/${KOBMAN_NAMESPACE}/KOBman/master/dist/environments" > tmp.txt
+sed -i 's/,/ /g' tmp.txt
 environments=$(<tmp.txt)
 for i in $environments;
 do
 	mv "$kobman_stage_folder"/kobman-$i.sh "$kobman_env_folder"
-done 
+done
 rm tmp.txt
 mv "${kobman_stage_folder}/kobman-init.sh" "$kobman_bin_folder"
 mv "$kobman_stage_folder"/kobman-* "$kobman_src_folder"
