@@ -12,7 +12,7 @@ function __kobman_validate_environment
 {
 	local environment_name=$1
 	echo ${environment_name} > $KOBMAN_DIR/var/current
-	cat $KOBMAN_DIR/var/list.txt | grep -w "$environment_name" > /dev/null	
+	cat $KOBMAN_DIR/var/list.txt | grep -w "$environment_name" > /dev/null
 	if [ "$?" != "0" ]; then
 
 		__kobman_echo_debug "environment does not exist"
@@ -23,7 +23,6 @@ function __kobman_validate_environment
 function __kobman_validate_version_format
 {
 	__kobman_echo_no_colour "$1" | grep -w '[0-9].[0-9].[0-9]' > /dev/null
-
 	if [ "$?" != "0" ]; then
 
 		__kobman_echo_debug "Version format you have entered is incorrect"
