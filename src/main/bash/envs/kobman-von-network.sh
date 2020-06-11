@@ -15,13 +15,10 @@ function __kobman_install_von-network
 		cd ~
 		mkdir -p Dev_"${environment_name}"
 		cd Dev_"${environment_name}"
-
-
 		mkdir -p test/ dependency/
 		git clone https://github.com/${KOBMAN_NAMESPACE}/${environment_name} 2> /dev/null
 		__kobman_install_dependancies
-
-        	sudo ~/Dev_von-network/von-network/manage build
+  	sudo ~/Dev_von-network/von-network/manage build
 		 __kobman_echo_violet "Dev environment for ${environment_name} created successfully"
 	else
  		__kobman_echo_white "Removing existing version "
