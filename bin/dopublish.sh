@@ -19,11 +19,13 @@ git checkout $branch
 mkdir -p build/tmp
 
 # making of zip files
-zip -r build/tmp/kobman-latest.zip ~/KOBman/src/
-cp build/tmp/kobman-latest.zip build/tmp/kobman-$kob_rel_version.zip
+zip -rj ~/KOBman/build/tmp/kobman-latest.zip ~/KOBman/dist/list.txt ~/KOBman/src/main/bash/kobman-* ~/KOBman/src/main/bash/envs/kobman-* ~/KOBman/src/main/bash/commands/kobman-*
+
+#zip -r build/tmp/kobman-latest.zip ~/KOBman/src/
+cp ~/KOBman/build/tmp/kobman-latest.zip ~/KOBman/build/tmp/kobman-$kob_rel_version.zip
 
 # moving get.kobman.io to tmp/
-mv ~/KOBman/scripts/get.kobman.io build/tmp/
+mv ~/KOBman/scripts/get.kobman.io ~/KOBman/build/tmp/
 
 # moving into dist branch
 git checkout $dist_branch
@@ -33,12 +35,12 @@ git checkout $branch -- ~/KOBman/build/tmp/* &> /dev/null
 
 mkdir dist &> /dev/null
 # moving of latest files from tmp/ to dist/
-mv build/tmp/* dist/
+mv ~/KOBman/build/tmp/* ~/KOBman/dist/
 
 # saving changes and pushing
-git add dist/*
+git add ~/KOBman/dist/*
 git commit -m "Released the version $kob_rel_version"
 git push origin -f $dist_branch
 
 #checkout back to master
-git checkout master
+git checkout Demo_hyperledgerkochi_2
