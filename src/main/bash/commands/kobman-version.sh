@@ -3,7 +3,6 @@
 
 function __kob_version {
 
-
   local environment_parameter=$1
   local environment_value=$2
 

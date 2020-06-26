@@ -25,7 +25,7 @@ function __test_kob_init
          __kobman_echo_no_colour "Please re-install and try again"
          __kobman_echo_no_colour "Exiting!!!"
          test_status="failed"
-         exit 
+         exit
     else
          __kobman_echo_no_colour "version file found "
          __kobman_echo_no_colour "Proceeding with the test..."
@@ -45,7 +45,7 @@ function __test_kob_validate
 
     __kobman_echo_no_colour "Validating...."
 
-    cat tmp.txt | grep -qw "KOBman version [0-9].[0-9].[0-9]" 
+    cat tmp.txt | grep -qw "KOBman version [0-9].[0-9].[0-9]"
     if [[ "$?" != "0" ]]; then
         __kobman_echo_no_colour "no version details available"
         test_status="failed"
@@ -61,7 +61,7 @@ function __test_kob_cleanup
 function __test_kob_run
 {
     test_status="success"
-    
+
     __test_kob_init
     __test_kob_execute
     __test_kob_validate
