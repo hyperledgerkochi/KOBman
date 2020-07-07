@@ -8,7 +8,7 @@ KOBMAN_PLATFORM=$(uname)
 export KOBMAN_SERVICE="https://raw.githubusercontent.com"
 
 KOBMAN_NAMESPACE="asa1997"
-KOBMAN_VERSION="tag85"
+KOBMAN_VERSION="tag81"
 
 # KOBMAN_DIST_BRANCH=${KOBMAN_DIST_BRANCH:-REL-${KOBMAN_VERSION}}
 
@@ -71,7 +71,7 @@ echo "Setting up "
 # Sanity checks
 
 echo "Looking for a previous installation of KOBMAN..."
-if [ -d "$KOBMAN_DIR" ]; then
+if [ -d $KOBMAN_DIR/bin ]; then
 	echo "KOBMAN found."
 	echo ""
 	echo "======================================================================================================"
