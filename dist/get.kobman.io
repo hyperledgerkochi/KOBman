@@ -64,10 +64,9 @@ esac
 
 
 
-echo "KOBman "
-echo "Setting up "
-
-
+figlet Setting up KOBman >> kobman.txt
+cat kobman.txt
+rm kobman.txt
 # Sanity checks
 
 echo "Looking for a previous installation of KOBMAN..."
