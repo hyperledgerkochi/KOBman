@@ -8,7 +8,7 @@ KOBMAN_PLATFORM=$(uname)
 export KOBMAN_SERVICE="https://raw.githubusercontent.com"
 
 KOBMAN_NAMESPACE="hyperledgerkochi"
-KOBMAN_VERSION="test-tag61"
+KOBMAN_VERSION="0.0.1"
 
 # KOBMAN_DIST_BRANCH=${KOBMAN_DIST_BRANCH:-REL-${KOBMAN_VERSION}}
 
@@ -64,14 +64,13 @@ esac
 
 
 
-echo "KOBman "
-echo "Setting up "
-
-
+figlet Setting up KOBman >> kobman.txt
+cat kobman.txt
+rm kobman.txt
 # Sanity checks
 
 echo "Looking for a previous installation of KOBMAN..."
-if [ -d "$KOBMAN_DIR" ]; then
+if [ -d $KOBMAN_DIR/bin ]; then
 	echo "KOBMAN found."
 	echo ""
 	echo "======================================================================================================"
