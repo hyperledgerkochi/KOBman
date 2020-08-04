@@ -24,7 +24,7 @@ fi
 
 # prepare branch
 cd ~/KOBman
-git checkout master
+git checkout cleanup
 git branch -D $branch
 git checkout -b $branch
 
@@ -53,4 +53,4 @@ git tag -a $kob_version -m "Releasing version $kob_version"
 git push origin $kob_version
 
 #checkout to dev
-git checkout master
+git checkout cleanup
