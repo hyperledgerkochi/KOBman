@@ -214,7 +214,7 @@ unzip -qo "$kobman_zip_file" -d "$kobman_stage_folder"
 echo "Install scripts..."
 
 
-curl -sL "https://raw.githubusercontent.com/${KOBMAN_NAMESPACE}/KOBman/master/dist/environments" > tmp.txt
+curl -sL "https://raw.githubusercontent.com/${KOBMAN_NAMESPACE}/KOBman/cleanup/dist/environments" > tmp.txt
 sed -i 's/,/ /g' tmp.txt 
 environments=$(<tmp.txt)
 for i in $environments;
