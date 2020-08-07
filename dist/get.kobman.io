@@ -7,8 +7,8 @@
 KOBMAN_PLATFORM=$(uname)
 export KOBMAN_SERVICE="https://raw.githubusercontent.com"
 
-KOBMAN_NAMESPACE="asa1997"
-KOBMAN_VERSION="1.3.6"
+KOBMAN_NAMESPACE="hyperledgerkochi"
+KOBMAN_VERSION="0.5.0"
 
 # KOBMAN_DIST_BRANCH=${KOBMAN_DIST_BRANCH:-REL-${KOBMAN_VERSION}}
 
@@ -29,7 +29,6 @@ kobman_stage_folder="${kobman_tmp_folder}/stage"
 kobman_etc_folder="${KOBMAN_DIR}/etc"
 kobman_var_folder="${KOBMAN_DIR}/var"
 kobman_config_file="${kobman_etc_folder}/config"
-kobman_user_config_file="${kobman_etc_folder}/user-config.CFG"
 kobman_bash_profile="${HOME}/.bash_profile"
 kobman_profile="${HOME}/.profile"
 kobman_bashrc="${HOME}/.bashrc"
@@ -186,14 +185,6 @@ echo "kobman_beta_channel=false" >> "$kobman_config_file"
 echo "kobman_debug_mode=true" >> "$kobman_config_file"
 echo "kobman_colour_enable=true" >> "$kobman_config_file"
 
-echo "Setting up user configs"
-touch "$kobman_user_config_file"
-echo "KOBMAN_USER_NAMESPACE=" >> "$kobman_user_config_file"
-echo "KOBMAN_ENV_ROOT=$HOME/KOBman_env" >> "$kobman_user_config_file"
-echo "KOBMAN_NAMESPACE=hyperledgerkochi" >> "$kobman_user_config_file"
-echo "KOBMAN_INTERACTIVE_USER_MODE=true" >> "$kobman_user_config_file"
-echo "KOBMAN_DIR=$HOME/.kobman" >> "$kobman_user_config_file"
-
 echo "Download script archive..."
 
 # once move to kobman namespace needs to update kobman-latest.zip 
@@ -223,7 +214,7 @@ unzip -qo "$kobman_zip_file" -d "$kobman_stage_folder"
 echo "Install scripts..."
 
 
-curl -sL "https://raw.githubusercontent.com/${KOBMAN_NAMESPACE}/KOBman/master/dist/environments" > tmp.txt
+curl -sL "https://raw.githubusercontent.com/${KOBMAN_NAMESPACE}/KOBman/aries/dist/environments" > tmp.txt
 sed -i 's/,/ /g' tmp.txt 
 environments=$(<tmp.txt)
 for i in $environments;
