@@ -7,8 +7,8 @@
 KOBMAN_PLATFORM=$(uname)
 export KOBMAN_SERVICE="https://raw.githubusercontent.com"
 
-KOBMAN_NAMESPACE="hyperledgerkochi"
-KOBMAN_VERSION="tag16"
+KOBMAN_NAMESPACE="{KOBMAN_NAMESPACE:-hyperledgerkochi}"
+KOBMAN_VERSION="tag7"
 
 # KOBMAN_DIST_BRANCH=${KOBMAN_DIST_BRANCH:-REL-${KOBMAN_VERSION}}
 
@@ -223,7 +223,7 @@ unzip -qo "$kobman_zip_file" -d "$kobman_stage_folder"
 echo "Install scripts..."
 
 
-curl -sL "https://raw.githubusercontent.com/${KOBMAN_NAMESPACE}/KOBman/master/dist/environments" > tmp.txt
+curl -sL "https://raw.githubusercontent.com/${KOBMAN_NAMESPACE}/KOBman/aries/dist/environments" > tmp.txt
 sed -i 's/,/ /g' tmp.txt 
 environments=$(<tmp.txt)
 for i in $environments;
