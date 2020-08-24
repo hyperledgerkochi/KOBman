@@ -7,8 +7,8 @@
 KOBMAN_PLATFORM=$(uname)
 export KOBMAN_SERVICE="https://raw.githubusercontent.com"
 
-KOBMAN_NAMESPACE="{KOBMAN_NAMESPACE:-hyperledgerkochi}"
-KOBMAN_VERSION="taga4"
+KOBMAN_NAMESPACE="asa1997"
+KOBMAN_VERSION="taga5"
 
 # KOBMAN_DIST_BRANCH=${KOBMAN_DIST_BRANCH:-REL-${KOBMAN_VERSION}}
 
@@ -242,7 +242,6 @@ echo "$KOBMAN_VERSION" > "${KOBMAN_DIR}/var/version.txt"
 
 # __kobman_echo_white "Downloading environments from external repos"
 env_repos=$(echo $KOBMAN_ENV_REPOS | sed 's/,/ /g')
-environment_files namespace repo_name trimmed_file_name environment zip_stage_folder
 cached_list=$KOBMAN_DIR/var/list.txt
 zip_stage_folder=$HOME/zip_stage_folder
 mkdir -p $zip_stage_folder
