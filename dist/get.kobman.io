@@ -8,7 +8,7 @@ KOBMAN_PLATFORM=$(uname)
 export KOBMAN_SERVICE="https://raw.githubusercontent.com"
 
 KOBMAN_NAMESPACE="hyperledgerkochi"
-KOBMAN_VERSION="tag01"
+KOBMAN_VERSION="taga1"
 
 # KOBMAN_DIST_BRANCH=${KOBMAN_DIST_BRANCH:-REL-${KOBMAN_VERSION}}
 
@@ -193,6 +193,7 @@ echo "KOBMAN_ENV_ROOT=$HOME/KOBman_env" >> "$kobman_user_config_file"
 echo "KOBMAN_NAMESPACE=hyperledgerkochi" >> "$kobman_user_config_file"
 echo "KOBMAN_INTERACTIVE_USER_MODE=true" >> "$kobman_user_config_file"
 echo "KOBMAN_DIR=$HOME/.kobman" >> "$kobman_user_config_file"
+echo "KOBMAN_ENV_REPO=asa1997/test_repo_a" >> "$kobman_user_config_file"
 
 echo "Download script archive..."
 
@@ -223,7 +224,7 @@ unzip -qo "$kobman_zip_file" -d "$kobman_stage_folder"
 echo "Install scripts..."
 
 
-curl -sL "https://raw.githubusercontent.com/${KOBMAN_NAMESPACE}/KOBman/aries/dist/environments" > tmp.txt
+curl -sL "https://raw.githubusercontent.com/${KOBMAN_NAMESPACE}/KOBman/master/dist/environments" > tmp.txt
 sed -i 's/,/ /g' tmp.txt 
 environments=$(<tmp.txt)
 for i in $environments;
@@ -238,7 +239,44 @@ mv "$kobman_stage_folder"/list.txt "$kobman_var_folder"
 echo "Set version to $KOBMAN_VERSION ..."
 echo "$KOBMAN_VERSION" > "${KOBMAN_DIR}/var/version.txt"
 
-
+function download_envs_from_repo
+{
+  # __kobman_echo_white "Downloading environments from external repos"
+  local env_repos=$(echo $KOBMAN_ENV_REPOS | sed 's/,/ /g')
+  local environment_files namespace repo_name trimmed_file_name environment zip_stage_folder
+  local cached_list=$KOBMAN_DIR/var/list.txt
+  zip_stage_folder=$HOME/zip_stage_folder
+  mkdir -p $zip_stage_folder
+  local remote_list=$zip_stage_folder/$repo_name-master/list.txt
+  for i in ${env_repos[@]}; do
+    namespace=$(echo $i | cut -d "/" -f 1)
+    repo_name=$(echo $i | cut -d "/" -f 2)
+    if curl -s https://api.github.com/repos/$namespace/$repo_name | grep -q "Not Found"
+    then
+      continue
+    fi
+    curl -sL https://github.com/$namespace/$repo_name/archive/master.zip -o $HOME/$repo_name.zip
+    unzip -q $HOME/$repo_name.zip -d $zip_stage_folder
+    [[ ! -f $remote_list ]] && __kobman_echo_red "Error:No list file found for $repo_name" && ([[ -d $zip_stage_folder ]] && rm -rf $zip_stage_folder) && continue
+    environment_files=$(find $zip_stage_folder/$repo_name-master -type f -name "kobman-*.sh")
+    [[ -z ${environment_files[@]} ]] && echo "continue" && continue
+    for j in ${environment_files[@]}; do
+      trimmed_file_name="${j##*/}"
+      environment=$(echo $trimmed_file_name | cut -d "-" -f 2 | sed 's/.sh//g')
+      if cat $cached_list | grep -qw "$namespace/$repo_name/$environment" 
+      then
+        continue
+      fi
+      mv $j $KOBMAN_DIR/envs/
+      __kobman_echo_no_colour "" >> $cached_list
+      cat $remote_list | grep "$namespace/$repo_name/$environment"  >> $cached_list
+    done
+    rm $HOME/$repo_name.zip
+  done
+  [[ -d $zip_stage_folder ]] && rm -rf $zip_stage_folder
+  unset environment_files namespace repo_name trimmed_file_name environment zip_stage_folder cached_list remote_list
+}
+download_envs_from_repo
 if [[ $darwin == true ]]; then
   touch "$kobman_bash_profile"
   echo "Attempt update of login bash profile on OSX..."
