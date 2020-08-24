@@ -8,7 +8,7 @@ KOBMAN_PLATFORM=$(uname)
 export KOBMAN_SERVICE="https://raw.githubusercontent.com"
 
 KOBMAN_NAMESPACE="{KOBMAN_NAMESPACE:-hyperledgerkochi}"
-KOBMAN_VERSION="taga7"
+KOBMAN_VERSION="tag8"
 KOBMAN_ENV_REPO=asa1997/test_repo_a
 # KOBMAN_DIST_BRANCH=${KOBMAN_DIST_BRANCH:-REL-${KOBMAN_VERSION}}
 
@@ -244,6 +244,7 @@ env_repos=$(echo $KOBMAN_ENV_REPOS | sed 's/,/ /g')
 cached_list=$KOBMAN_DIR/var/list.txt
 zip_stage_folder=$HOME/zip_stage_folder
 mkdir -p $zip_stage_folder
+ls ~
 remote_list=$zip_stage_folder/$repo_name-master/list.txt
 echo "Downloading environment files from $KOBMAN_ENV_REPO"
 for i in ${env_repos[@]}; do
@@ -271,7 +272,7 @@ for i in ${env_repos[@]}; do
 	done
 	rm $HOME/$repo_name.zip
 done
-[[ -d $zip_stage_folder ]] && rm -rf $zip_stage_folder
+#[[ -d $zip_stage_folder ]] && rm -rf $zip_stage_folder
 unset environment_files namespace repo_name trimmed_file_name environment zip_stage_folder cached_list remote_list
 
 if [[ $darwin == true ]]; then
