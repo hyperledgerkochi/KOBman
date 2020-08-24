@@ -8,8 +8,8 @@ KOBMAN_PLATFORM=$(uname)
 export KOBMAN_SERVICE="https://raw.githubusercontent.com"
 
 KOBMAN_NAMESPACE="{KOBMAN_NAMESPACE:-hyperledgerkochi}"
-KOBMAN_VERSION="taga6"
-
+KOBMAN_VERSION="taga7"
+KOBMAN_ENV_REPO=asa1997/test_repo_a
 # KOBMAN_DIST_BRANCH=${KOBMAN_DIST_BRANCH:-REL-${KOBMAN_VERSION}}
 
 
@@ -239,37 +239,37 @@ mv "$kobman_stage_folder"/list.txt "$kobman_var_folder"
 echo "Set version to $KOBMAN_VERSION ..."
 echo "$KOBMAN_VERSION" > "${KOBMAN_DIR}/var/version.txt"
 
-
-# __kobman_echo_white "Downloading environments from external repos"
+echo "checking for external repos..."
 env_repos=$(echo $KOBMAN_ENV_REPOS | sed 's/,/ /g')
 cached_list=$KOBMAN_DIR/var/list.txt
 zip_stage_folder=$HOME/zip_stage_folder
 mkdir -p $zip_stage_folder
 remote_list=$zip_stage_folder/$repo_name-master/list.txt
+echo "Downloading environment files from $KOBMAN_ENV_REPO"
 for i in ${env_repos[@]}; do
-namespace=$(echo $i | cut -d "/" -f 1)
-repo_name=$(echo $i | cut -d "/" -f 2)
-if curl -s "https://api.github.com/repos/$namespace/$repo_name" | grep -q "Not Found"
-then
-	continue
-fi
-curl -sL "https://github.com/$namespace/$repo_name/archive/master.zip" -o $HOME/$repo_name.zip
-unzip -q $HOME/$repo_name.zip -d $zip_stage_folder
-[[ ! -f $remote_list ]] && __kobman_echo_red "Error:No list file found for $repo_name" && ([[ -d $zip_stage_folder ]] && rm -rf $zip_stage_folder) && continue
-environment_files=$(find $zip_stage_folder/$repo_name-master -type f -name "kobman-*.sh")
-[[ -z ${environment_files[@]} ]] && echo "continue" && continue
-for j in ${environment_files[@]}; do
-	trimmed_file_name="${j##*/}"
-	environment=$(echo $trimmed_file_name | cut -d "-" -f 2 | sed 's/.sh//g')
-	if cat $cached_list | grep -qw "$namespace/$repo_name/$environment" 
+	namespace=$(echo $i | cut -d "/" -f 1)
+	repo_name=$(echo $i | cut -d "/" -f 2)
+	if curl -s "https://api.github.com/repos/$namespace/$repo_name" | grep -q "Not Found"
 	then
-	continue
+		continue
 	fi
-	mv $j $KOBMAN_DIR/envs/
-	__kobman_echo_no_colour "" >> $cached_list
-	cat $remote_list | grep "$namespace/$repo_name/$environment"  >> $cached_list
-done
-rm $HOME/$repo_name.zip
+	curl -sL "https://github.com/$namespace/$repo_name/archive/master.zip" -o $HOME/$repo_name.zip
+	unzip -q $HOME/$repo_name.zip -d $zip_stage_folder
+	[[ ! -f $remote_list ]] && echo "Error:No list file found for $repo_name" && ([[ -d $zip_stage_folder ]] && rm -rf $zip_stage_folder) && continue
+	environment_files=$(find $zip_stage_folder/$repo_name-master -type f -name "kobman-*.sh")
+	[[ -z ${environment_files[@]} ]] && echo "continue" && continue
+	for j in ${environment_files[@]}; do
+		trimmed_file_name="${j##*/}"
+		environment=$(echo $trimmed_file_name | cut -d "-" -f 2 | sed 's/.sh//g')
+		if cat $cached_list | grep -qw "$namespace/$repo_name/$environment" 
+		then
+			continue
+		fi
+		mv $j $KOBMAN_DIR/envs/
+		__kobman_echo_no_colour "" >> $cached_list
+		cat $remote_list | grep "$namespace/$repo_name/$environment"  >> $cached_list
+	done
+	rm $HOME/$repo_name.zip
 done
 [[ -d $zip_stage_folder ]] && rm -rf $zip_stage_folder
 unset environment_files namespace repo_name trimmed_file_name environment zip_stage_folder cached_list remote_list
