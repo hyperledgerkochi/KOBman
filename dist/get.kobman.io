@@ -7,8 +7,8 @@
 KOBMAN_PLATFORM=$(uname)
 export KOBMAN_SERVICE="https://raw.githubusercontent.com"
 
-KOBMAN_NAMESPACE="asa1997"
-KOBMAN_VERSION="taga5"
+KOBMAN_NAMESPACE="{KOBMAN_NAMESPACE:-hyperledgerkochi}"
+KOBMAN_VERSION="taga6"
 
 # KOBMAN_DIST_BRANCH=${KOBMAN_DIST_BRANCH:-REL-${KOBMAN_VERSION}}
 
@@ -249,11 +249,11 @@ remote_list=$zip_stage_folder/$repo_name-master/list.txt
 for i in ${env_repos[@]}; do
 namespace=$(echo $i | cut -d "/" -f 1)
 repo_name=$(echo $i | cut -d "/" -f 2)
-if curl -s https://api.github.com/repos/$namespace/$repo_name | grep -q "Not Found"
+if curl -s "https://api.github.com/repos/$namespace/$repo_name" | grep -q "Not Found"
 then
 	continue
 fi
-curl -sL https://github.com/$namespace/$repo_name/archive/master.zip -o $HOME/$repo_name.zip
+curl -sL "https://github.com/$namespace/$repo_name/archive/master.zip" -o $HOME/$repo_name.zip
 unzip -q $HOME/$repo_name.zip -d $zip_stage_folder
 [[ ! -f $remote_list ]] && __kobman_echo_red "Error:No list file found for $repo_name" && ([[ -d $zip_stage_folder ]] && rm -rf $zip_stage_folder) && continue
 environment_files=$(find $zip_stage_folder/$repo_name-master -type f -name "kobman-*.sh")
