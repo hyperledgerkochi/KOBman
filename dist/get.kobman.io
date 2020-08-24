@@ -7,8 +7,8 @@
 KOBMAN_PLATFORM=$(uname)
 export KOBMAN_SERVICE="https://raw.githubusercontent.com"
 
-KOBMAN_NAMESPACE="hyperledgerkochi"
-KOBMAN_VERSION="taga1"
+KOBMAN_NAMESPACE="{KOBMAN_NAMESPACE:-hyperledgerkochi}"
+KOBMAN_VERSION="taga2"
 
 # KOBMAN_DIST_BRANCH=${KOBMAN_DIST_BRANCH:-REL-${KOBMAN_VERSION}}
 
@@ -238,8 +238,8 @@ mv "$kobman_stage_folder"/list.txt "$kobman_var_folder"
 
 echo "Set version to $KOBMAN_VERSION ..."
 echo "$KOBMAN_VERSION" > "${KOBMAN_DIR}/var/version.txt"
-
-function download_envs_from_repo
+download_envs_from_repo
+download_envs_from_repo()
 {
   # __kobman_echo_white "Downloading environments from external repos"
   local env_repos=$(echo $KOBMAN_ENV_REPOS | sed 's/,/ /g')
@@ -276,7 +276,6 @@ function download_envs_from_repo
   [[ -d $zip_stage_folder ]] && rm -rf $zip_stage_folder
   unset environment_files namespace repo_name trimmed_file_name environment zip_stage_folder cached_list remote_list
 }
-download_envs_from_repo
 if [[ $darwin == true ]]; then
   touch "$kobman_bash_profile"
   echo "Attempt update of login bash profile on OSX..."
