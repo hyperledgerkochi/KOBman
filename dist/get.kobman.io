@@ -8,7 +8,7 @@ KOBMAN_PLATFORM=$(uname)
 export KOBMAN_SERVICE="https://raw.githubusercontent.com"
 
 KOBMAN_NAMESPACE="hyperledgerkochi"
-KOBMAN_VERSION="0.0.2"
+KOBMAN_VERSION="taga12"
 KOBMAN_ENV_REPOS="$KOBMAN_NAMESPACE/kobman_env_repo"
 # KOBMAN_DIST_BRANCH=${KOBMAN_DIST_BRANCH:-REL-${KOBMAN_VERSION}}
 
@@ -188,6 +188,7 @@ echo "kobman_colour_enable=true" >> "$kobman_config_file"
 
 echo "Setting up user configs"
 touch "$kobman_user_config_file"
+echo "KOBMAN_VERSION=$KOBMAN_VERSION" >> "$kobman_user_config_file"
 echo "KOBMAN_USER_NAMESPACE=" >> "$kobman_user_config_file"
 echo "KOBMAN_ENV_ROOT=$HOME/KOBman_env" >> "$kobman_user_config_file"
 echo "KOBMAN_NAMESPACE=hyperledgerkochi" >> "$kobman_user_config_file"
