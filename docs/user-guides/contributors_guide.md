@@ -20,7 +20,7 @@ Pull requests are the best way to propose changes to the codebase (we use [Githu
 2. If you've added code that should be tested, add tests.
 3. Ensure the test suite passes.
 4. Make sure your code lints.
-5. Issue that pull request!
+5. Issue raised related to the same should be mentioned in pull request!
 
 ___________________________________________________
 
@@ -34,7 +34,10 @@ After accepting a new feature or confirming that a bug was found, an Issue may b
 
 ### Process to add new feature
 
-
+ - Explain the development requirements with the KOBman community
+ - Start writing automation 
+ - Ensure that the entire community is aware of it to avoid duplication of your effort, by publishing your feature request in [ Kanban board](https://github.com/orgs/hyperledgerkochi/projects/3)
+ - 
 _____________________________________
 
 
