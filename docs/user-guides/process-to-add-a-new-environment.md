@@ -10,7 +10,7 @@
 - Fork the repo & clone and work from it. 
 - Make a new branch. 
 - Commit & push the new branch to your fork on GitHub. 
-- Submit a pull request from the new branch to the hyperledgerkochi/KOBman master repo (PR)
+- Submit a pull request from the new branch to the hyperledgerkochi/KOBman master repo 
 
 
 
