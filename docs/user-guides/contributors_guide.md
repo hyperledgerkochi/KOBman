@@ -6,12 +6,14 @@ We love your input! We want to make contributing to this project as easy and tra
 - Proposing new features
 - Becoming a maintainer
 
+___________________________________________________
+
+
 ## We Develop with Github
 We use github to host code, to track issues and feature requests, as well as accept pull requests.
 
-## We Use [Github Flow](https://guides.github.com/introduction/flow/index.html), So All Code Changes Happen Through Pull Requests
+### We Use [Github Flow](https://guides.github.com/introduction/flow/index.html), So All Code Changes Happen Through Pull Requests
 Pull requests are the best way to propose changes to the codebase (we use [Github Flow](https://guides.github.com/introduction/flow/index.html)). We actively welcome your pull requests:
-
 
 
 1. [Fork the repo](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) and create your branch from `master`.
@@ -20,23 +22,37 @@ Pull requests are the best way to propose changes to the codebase (we use [Githu
 4. Make sure your code lints.
 5. Issue that pull request!
 
-## Report bugs using Github's [issues](https://github.com/hyperledgerkochi/KOBman/issues)
+___________________________________________________
+
+## Bugs and New Features
+
+We keep a distinction between New Features and Bugs/Issues. We try to minimise the noise in our Github Issues stream by first having a conversation on approprate media (eg:  [KochiOrgBook! Whatsapp Group](https://chat.whatsapp.com/El6d3aAc6pYLEDEdQPVABY). ) New Features or Enhancements can be discussed here
+
+### Report bugs using Github's [issues](https://github.com/hyperledgerkochi/KOBman/issues)
 We use GitHub issues to track public bugs. Report a bug by [opening a new issue](https://github.com/hyperledgerkochi/KOBman/issues); it's that easy!
-
-
-### Bugs and New Features
-
-We keep a distinction between New Features and Bugs/Issues. We try to minimise the noise in our Github Issues stream by first having a conversation on approprate media (eg:  [KochiOrgBook! Whatsapp Group](https://chat.whatsapp.com/El6d3aAc6pYLEDEdQPVABY). ) 
-
-- User Issues can be raised in our [issues section](https://github.com/hyperledgerkochi/KOBman/issues).
-- New Features or Enhancements can be discussed in our issue section.
-
 After accepting a new feature or confirming that a bug was found, an Issue may be raised filling in the provided issue template on the KOBman issue tracker.
+
+### Process to add new feature
+
+
+_____________________________________
+
+
+## Processes expected to follow by each contributors:
+
+- [Process for pull request](https://github.com/hyperledgerkochi/KOBman/blob/master/docs/user-guides/process-to-raise-a-pull-request.md)
+
+- [Process for issues](https://github.com/hyperledgerkochi/KOBman/blob/master/docs/user-guides/process-to-raise-an-issue.md)
+
+_______________________________________
 
 **Unfortunately we will close any Github Issues that have not followed this process of prior discussion.**
 
 ## Write bug reports with detail, background, and sample code
 [This is an example](https://github.com/asa1997/KOBman/issues/8) of a bug reported by a contributor .
+
+
+_______________________________
 
 **Great Bug Reports** tend to have:
 
@@ -51,21 +67,18 @@ After accepting a new feature or confirming that a bug was found, an Issue may b
 People *love* thorough bug reports. 
 
 
-## Processes expected to follow by each contributors:
-
-- [Process for pull request](https://github.com/hyperledgerkochi/KOBman/blob/master/docs/user-guides/process-to-raise-a-pull-request.md)
-
-- [Process for issues](https://github.com/hyperledgerkochi/KOBman/blob/master/docs/user-guides/process-to-raise-an-issue.md)
-
+________________________________________
 
 
 ## Use a Consistent Coding Style
 You must follow the coding standard described in the [KOBman review Checklist](https://github.com/hyperledgerkochi/KOBman/blob/master/docs/KOBman%20Script%20Review%20Checklist.md).
 
-## Any contributions you make will be under the Apache License 2.0 Software License
-In short, when you submit code changes, your submissions are understood to be under the same [Apache License 2.0](https://github.com/hyperledgerkochi/KOBman/blob/master/LICENSE) that covers the project. Feel free to contact the maintainers if that's a concern.
+__________________________________
 
 ## License
-By contributing, you agree that your contributions will be licensed under its Apache License 2.0.
+By contributing, you agree that your contributions will be licensed under its Apache License 2.0.In short, when you submit code changes, your submissions are understood to be under the same [Apache License 2.0](https://github.com/hyperledgerkochi/KOBman/blob/master/LICENSE) that covers the project. Feel free to contact the maintainers if that's a concern.
+
+
+
 
 
