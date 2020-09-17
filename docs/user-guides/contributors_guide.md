@@ -35,9 +35,9 @@ After confirming the bug was found, an Issue may be raised filling in the provid
 ### Process to add new feature
 
  - Explain the development requirements with the KOBman community
- - Start writing automation 
- - Ensure that the entire community is aware of it to avoid duplication of your effort, by publishing your feature request in [ Kanban board](https://github.com/orgs/hyperledgerkochi/projects/3)
- - 
+ - Start writing automation , by adding the new feature code and it's test script. 
+ - Ensure that the entire community is aware of it to avoid duplication of your effort, by publishing your feature request in [Kanban board](https://github.com/orgs/hyperledgerkochi/projects/3) , [Issue Section](https://github.com/hyperledgerkochi/KOBman/issues)
+
 _____________________________________
 
 
