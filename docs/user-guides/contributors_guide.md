@@ -52,7 +52,7 @@ _______________________________________
 **Unfortunately we will close any Github Issues that have not followed this process of prior discussion.**
 
 ## Write bug reports with detail, background, and sample code
-[This is an example](https://github.com/asa1997/KOBman/issues/8) of a bug reported by a contributor .
+This is an [example](https://github.com/hyperledgerkochi/KOBman/issues/144) of a bug reported by a contributor .
 
 
 _______________________________
@@ -62,7 +62,7 @@ _______________________________
 - A quick summary and/or background
 - Steps to reproduce
   - Be specific!
-  - Give sample code snapshots if you can. [This contributor sample issue](https://github.com/asa1997/KOBman/issues/33) includes sample code snapshots that *anyone* can understand
+  - Give sample code snapshots if you can. This contributor [sample issue](https://github.com/hyperledgerkochi/KOBman/issues/144) includes sample code snapshots that *anyone* can understand
 - What you expected would happen
 - What actually happens
 - Notes (possibly including why you think this might be happening, or stuff you tried that didn't work)
