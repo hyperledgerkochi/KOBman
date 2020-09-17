@@ -47,9 +47,10 @@ _____________________________________
 
 - [Process for issues](https://github.com/hyperledgerkochi/KOBman/blob/master/docs/user-guides/process-to-raise-an-issue.md)
 
-_______________________________________
 
 **Unfortunately we will close any Github Issues that have not followed this process of prior discussion.**
+
+_______________________________________
 
 ## Write bug reports with detail, background, and sample code
 This is an [example](https://github.com/hyperledgerkochi/KOBman/issues/144) of a bug reported by a contributor .
