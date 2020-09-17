@@ -26,11 +26,11 @@ ___________________________________________________
 
 ## Bugs and New Features
 
-We keep a distinction between New Features and Bugs/Issues. We try to minimise the noise in our Github Issues stream by first having a conversation on approprate media (eg:  [KochiOrgBook! Whatsapp Group](https://chat.whatsapp.com/El6d3aAc6pYLEDEdQPVABY). ) New Features or Enhancements can be discussed here
+We keep a distinction between New Features and Bugs/Issues. We try to minimise the noise in our Github Issues stream by first having a conversation on approprate media (eg:  [KochiOrgBook! Whatsapp Group](https://chat.whatsapp.com/El6d3aAc6pYLEDEdQPVABY). ) Initial discussion of new features or enhancements can be discussed in this whatsapp channel
 
-### Report bugs using Github's [issues](https://github.com/hyperledgerkochi/KOBman/issues)
+### Report bugs using Github's issues
 We use GitHub issues to track public bugs. Report a bug by [opening a new issue](https://github.com/hyperledgerkochi/KOBman/issues); it's that easy!
-After accepting a new feature or confirming that a bug was found, an Issue may be raised filling in the provided issue template on the KOBman issue tracker.
+After confirming the bug was found, an Issue may be raised filling in the provided issue template on the KOBman issue tracker.
 
 ### Process to add new feature
 
