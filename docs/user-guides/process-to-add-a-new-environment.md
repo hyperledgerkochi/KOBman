@@ -1,7 +1,7 @@
 # How to add a new environment to KOBman? 
 
 - Explain the environment and its relevance with the KOBman community
-- Choose a environment name . 
+- Choose your environment's name . 
 - Read up on the contributing [rules](https://github.com/hyperledgerkochi/KOBman/blob/master/docs/user-guides/contributors_guide.md).
 - Submit a feature proposal.
 - Ensure that the entire community is aware of it to avoid duplication of effort, by publishing  feature request in [Kanban board](https://github.com/orgs/hyperledgerkochi/projects/3) , [Issue Section](https://github.com/hyperledgerkochi/KOBman/issues)
