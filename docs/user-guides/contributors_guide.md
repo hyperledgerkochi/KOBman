@@ -32,11 +32,6 @@ We keep a distinction between New Features and Bugs/Issues. We try to minimise t
 We use GitHub issues to track public bugs. Report a bug by [opening a new issue](https://github.com/hyperledgerkochi/KOBman/issues); it's that easy!
 After confirming the bug was found, an Issue may be raised filling in the provided issue template on the KOBman issue tracker.
 
-### Process to add new feature
-
- - Explain the development requirements with the KOBman community
- - Start writing automation , by adding the new feature code and it's test script. 
- - Ensure that the entire community is aware of it to avoid duplication of your effort, by publishing your feature request in [Kanban board](https://github.com/orgs/hyperledgerkochi/projects/3) , [Issue Section](https://github.com/hyperledgerkochi/KOBman/issues)
 
 _____________________________________
 
@@ -46,6 +41,8 @@ _____________________________________
 - [Process for pull request](https://github.com/hyperledgerkochi/KOBman/blob/master/docs/user-guides/process-to-raise-a-pull-request.md)
 
 - [Process for issues](https://github.com/hyperledgerkochi/KOBman/blob/master/docs/user-guides/process-to-raise-an-issue.md)
+
+- [Process for issues](https://github.com/hyperledgerkochi/KOBman/blob/master/docs/user-guides/process-to-add-a-new-environment.md)
 
 
 **Unfortunately we will close any Github Issues that have not followed this process of prior discussion.**
