@@ -8,7 +8,7 @@ KOBMAN_PLATFORM=$(uname)
 export KOBMAN_SERVICE="https://raw.githubusercontent.com"
 
 KOBMAN_NAMESPACE="hyperledgerkochi"
-KOBMAN_VERSION="0.0.2"
+KOBMAN_VERSION="0.0.3"
 KOBMAN_ENV_REPOS="$KOBMAN_NAMESPACE/kobman_env_repo"
 # KOBMAN_DIST_BRANCH=${KOBMAN_DIST_BRANCH:-REL-${KOBMAN_VERSION}}
 
@@ -34,6 +34,7 @@ kobman_bash_profile="${HOME}/.bash_profile"
 kobman_profile="${HOME}/.profile"
 kobman_bashrc="${HOME}/.bashrc"
 kobman_zshrc="${HOME}/.zshrc"
+
 
 
 
@@ -188,6 +189,7 @@ echo "kobman_colour_enable=true" >> "$kobman_config_file"
 
 echo "Setting up user configs"
 touch "$kobman_user_config_file"
+echo "KOBMAN_VERSION=$KOBMAN_VERSION" >> "$kobman_user_config_file"
 echo "KOBMAN_USER_NAMESPACE=" >> "$kobman_user_config_file"
 echo "KOBMAN_ENV_ROOT=$HOME/KOBman_env" >> "$kobman_user_config_file"
 echo "KOBMAN_NAMESPACE=hyperledgerkochi" >> "$kobman_user_config_file"
@@ -224,17 +226,26 @@ unzip -qo "$kobman_zip_file" -d "$kobman_stage_folder"
 echo "Install scripts..."
 
 
-curl -sL "https://raw.githubusercontent.com/${KOBMAN_NAMESPACE}/KOBman/master/dist/environments" > tmp.txt
-sed -i 's/,/ /g' tmp.txt 
-environments=$(<tmp.txt)
-for i in $environments;
-do
-	mv "$kobman_stage_folder"/kobman-$i.sh "$kobman_env_folder"
-done 
-rm tmp.txt
-mv "${kobman_stage_folder}/kobman-init.sh" "$kobman_bin_folder"
-mv "$kobman_stage_folder"/kobman-* "$kobman_src_folder"
-mv "$kobman_stage_folder"/list.txt "$kobman_var_folder"
+#curl -sL "https://raw.githubusercontent.com/${KOBMAN_NAMESPACE}/KOBman/master/dist/environments" > tmp.txt
+#sed -i 's/,/ /g' tmp.txt 
+#environments=$(<tmp.txt)
+#for i in $environments;
+#do
+#	mv "$kobman_stage_folder"/kobman-$i.sh "$kobman_env_folder"
+#done 
+#rm tmp.txt
+mv "${kobman_stage_folder}"/home/$USER/KOBman/dist/list.txt "$kobman_var_folder"
+mv "${kobman_stage_folder}"/home/$USER/KOBman/src/main/bash/kobman-init.sh "$kobman_bin_folder"
+mv "${kobman_stage_folder}"/home/$USER/KOBman/src/main/bash/commands/* "$kobman_src_folder"
+mv "${kobman_stage_folder}"/home/$USER/KOBman/src/main/bash/envs/* "$kobman_env_folder"
+mv "${kobman_stage_folder}"/home/$USER/KOBman/src/main/bash/kobman-main.sh "$kobman_src_folder"
+mv "${kobman_stage_folder}"/home/$USER/KOBman/src/main/bash/kobman-utils.sh "$kobman_src_folder"
+mv "${kobman_stage_folder}"/home/$USER/KOBman/src/main/bash/kobman-env-helpers.sh "$kobman_src_folder"
+mv "${kobman_stage_folder}"/home/$USER/KOBman/src/services "$kobman_src_folder"
+#mv "${kobman_stage_folder}/kobman-init.sh" "$kobman_bin_folder"
+#mv "$kobman_stage_folder"/kobman-* "$kobman_src_folder"
+#mv "$kobman_stage_folder"/list.txt "$kobman_var_folder"
+[[ -d "${kobman_stage_folder}" ]] && rm -rf "${kobman_stage_folder}"/*
 
 echo "Set version to $KOBMAN_VERSION ..."
 echo "$KOBMAN_VERSION" > "${KOBMAN_DIR}/var/version.txt"

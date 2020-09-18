@@ -5,7 +5,7 @@
 |A.2|All Environment files will have a prefix kobman-XXXXX.sh and XXXXX  must be the environment name|
 |A.3|All Internal kobman functions that will be called in other kob scripts must begin with __kob|
 |A.4|All function names should have meaningful names which denote what they are intended to do|
-|A.5|All KOBman  environment scripts should have standard set of functions included in them and follow the following naming convention <br> <br>__kob_XXXX_YYYY() function  where XXXX is the corresponding command and YYYY is the environment name <br> <br> For example, if the environment name is "yyyy", then the corresponding commands would look like:- <br> <br> __kobman_install_yyyy() <br> __kobman_uninstall_yyyy() <br> __kobman_update_yyyy() <br> __kobman_upgrade_yyyy() <br> __kobman_validate_yyyy() <br> __kobman_start_yyyy() <br> __kobman_stop_yyyy()     
+|[A.5](#)|All KOBman  environment scripts should have standard set of functions included in them and follow the following naming convention <br> <br>__kob_XXXX_YYYY() function  where XXXX is the corresponding command and YYYY is the environment name <br> <br> For example, if the environment name is "yyyy", then the corresponding commands would look like:- <br> <br> __kobman_install_yyyy() <br> __kobman_uninstall_yyyy() <br> __kobman_update_yyyy() <br> __kobman_upgrade_yyyy() <br> __kobman_validate_yyyy() <br> __kobman_start_yyyy() <br> __kobman_stop_yyyy()     
 | **B** | <p align=center>**Variable definition & Scoping**</p> |
 |B.1|All environment variables should be in caps (eg KOBMAN_VERSION)|
 |B.2|All export variables used in a script should be initiatlized in kobman-init.sh|

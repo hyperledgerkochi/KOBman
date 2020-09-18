@@ -5,7 +5,7 @@ kob_version="$1"
 branch="Release"
 
 # sanity check
-if [[ -z "$kob_version" ]]; 
+if [[ -z "$kob_version" ]];
     then
         echo "Usage: release.sh <version>"
         exit 0
@@ -23,16 +23,16 @@ if [[ -z $KOBMAN_NAMESPACE ]];
 fi
 
 # prepare branch
-cd ~/KOBman
+cd $HOME/KOBman
 git checkout master
 git branch -D $branch
 git checkout -b $branch
 
 
-#copy the tmpl file to /scripts 
-cp ~/KOBman/scripts/tmpl/*.tmpl ~/KOBman/scripts/
-# replacing @xxx@ variables with acutal values. 
-for file in ~/KOBman/scripts/*.tmpl;
+#copy the tmpl file to /scripts
+cp $HOME/KOBman/scripts/tmpl/*.tmpl $HOME/KOBman/scripts/
+# replacing @xxx@ variables with acutal values.
+for file in $HOME/KOBman/scripts/*.tmpl;
 do
     sed -i "s/@KOB_VERSION@/$kob_version/g" $file
     sed -i "s/@KOB_ARCHIVE_DOWNLOAD_REPO@/$KOB_ARCHIVE_DOWNLOAD_REPO/g" $file
@@ -42,13 +42,13 @@ do
 done
 
 # committing the changes
-git add ~/KOBman/scripts/*.*
+git add $HOME/KOBman/scripts/*.*
 git commit -m "Update version of $branch to $kob_version"
 
 #push release branch
 git push -f -u origin $branch
 
-#Push tag 
+#Push tag
 git tag -a $kob_version -m "Releasing version $kob_version"
 git push origin $kob_version
 
