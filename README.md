@@ -32,7 +32,11 @@ See documentation on the [KOBMAN! website](https://kobman.github.io).
 
 Open your favourite terminal and enter the following:
 
+<<<<<<< HEAD
     $ curl -L https://raw.githubusercontent.com/hyperledgerkochi/KOBman/dist/dist/get.kobman.io | bash
+=======
+    $ curl -L https://raw.githubusercontent.com/kobman/KOBman/dist/dist/get.kobman.io | bash
+>>>>>>> 39673071963cf6b896b6a386e15a8e3a7883c7c1
 
 If the environment needs tweaking for KOBMAN to be installed, the installer will prompt you accordingly and ask you to restart.
 
