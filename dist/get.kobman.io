@@ -7,8 +7,8 @@
 KOBMAN_PLATFORM=$(uname)
 export KOBMAN_SERVICE="https://raw.githubusercontent.com"
 
-KOBMAN_NAMESPACE="asa1997"
-KOBMAN_VERSION="tag0a1"
+KOBMAN_NAMESPACE="hyperledgerkochi"
+KOBMAN_VERSION="tag0a2"
 KOBMAN_ENV_REPOS="$KOBMAN_NAMESPACE/kobman_env_repo"
 # KOBMAN_DIST_BRANCH=${KOBMAN_DIST_BRANCH:-REL-${KOBMAN_VERSION}}
 
@@ -224,6 +224,7 @@ unzip -qo "$kobman_zip_file" -d "$kobman_stage_folder"
 
 
 echo "Install scripts..."
+
 
 #curl -sL "https://raw.githubusercontent.com/${KOBMAN_NAMESPACE}/KOBman/master/dist/environments" > tmp.txt
 #sed -i 's/,/ /g' tmp.txt 
