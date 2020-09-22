@@ -225,7 +225,7 @@ unzip -qo "$kobman_zip_file" -d "$kobman_stage_folder"
 
 echo "Install scripts..."
 
-
+tree #kobman_stage_folder
 #curl -sL "https://raw.githubusercontent.com/${KOBMAN_NAMESPACE}/KOBman/master/dist/environments" > tmp.txt
 #sed -i 's/,/ /g' tmp.txt 
 #environments=$(<tmp.txt)
