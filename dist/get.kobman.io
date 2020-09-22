@@ -225,7 +225,7 @@ unzip -qo "$kobman_zip_file" -d "$kobman_stage_folder"
 
 echo "Install scripts..."
 
-tree $kobman_stage_folder
+
 #curl -sL "https://raw.githubusercontent.com/${KOBMAN_NAMESPACE}/KOBman/master/dist/environments" > tmp.txt
 #sed -i 's/,/ /g' tmp.txt 
 #environments=$(<tmp.txt)
@@ -234,14 +234,14 @@ tree $kobman_stage_folder
 #	mv "$kobman_stage_folder"/kobman-$i.sh "$kobman_env_folder"
 #done 
 #rm tmp.txt
-mv "${kobman_stage_folder}"/dist/list.txt "$kobman_var_folder"
-mv "${kobman_stage_folder}"/src/main/bash/kobman-init.sh "$kobman_bin_folder"
-mv "${kobman_stage_folder}"/src/main/bash/commands/* "$kobman_src_folder"
-mv "${kobman_stage_folder}"/src/main/bash/envs/* "$kobman_env_folder"
-mv "${kobman_stage_folder}"/src/main/bash/kobman-main.sh "$kobman_src_folder"
-mv "${kobman_stage_folder}"/src/main/bash/kobman-utils.sh "$kobman_src_folder"
-mv "${kobman_stage_folder}"/src/main/bash/kobman-env-helpers.sh "$kobman_src_folder"
-mv "${kobman_stage_folder}"/src/services "$kobman_src_folder"
+mv "${kobman_stage_folder}/dist/list.txt" "$kobman_var_folder"
+mv "${kobman_stage_folder}/src/main/bash/kobman-init.sh" "$kobman_bin_folder"
+mv "${kobman_stage_folder}/src/main/bash/commands/*" "$kobman_src_folder"
+mv "${kobman_stage_folder}/src/main/bash/envs/*" "$kobman_env_folder"
+mv "${kobman_stage_folder}/src/main/bash/kobman-main.sh" "$kobman_src_folder"
+mv "${kobman_stage_folder}/src/main/bash/kobman-utils.sh" "$kobman_src_folder"
+mv "${kobman_stage_folder}/src/main/bash/kobman-env-helpers.sh" "$kobman_src_folder"
+mv "${kobman_stage_folder}/src/services" "$kobman_src_folder"
 #mv "${kobman_stage_folder}/kobman-init.sh" "$kobman_bin_folder"
 #mv "$kobman_stage_folder"/kobman-* "$kobman_src_folder"
 #mv "$kobman_stage_folder"/list.txt "$kobman_var_folder"
