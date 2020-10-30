@@ -2,7 +2,7 @@
 
 kob_version="$1"
 
-branch="Release"
+branch="release"
 
 # sanity check
 if [[ -z "$kob_version" ]];
