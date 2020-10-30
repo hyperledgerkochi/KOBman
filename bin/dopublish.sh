@@ -1,7 +1,7 @@
 #!/bin/bash
 
 kob_rel_version=$1
-branch="Release"
+branch="release"
 dist_branch="dist"
 
 #sanity
@@ -43,5 +43,5 @@ git add $HOME/KOBman/dist/*
 git commit -m "Released the version $kob_rel_version"
 git push origin -f -u $dist_branch
 
-#checkout back to cleanin_up
-git checkout cleanin_up
+#checkout back to master
+git checkout master

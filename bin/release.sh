@@ -2,7 +2,7 @@
 
 kob_version="$1"
 
-branch="Release"
+branch="release"
 
 # sanity check
 if [[ -z "$kob_version" ]];
@@ -24,7 +24,7 @@ fi
 
 # prepare branch
 cd $HOME/KOBman
-git checkout cleanin_up
+git checkout master
 git branch -D $branch
 git checkout -b $branch
 
@@ -52,5 +52,5 @@ git push -f -u origin $branch
 git tag -a $kob_version -m "Releasing version $kob_version"
 git push origin $kob_version
 
-#checkout to cleanin_up
-git checkout cleanin_up
+#checkout to master
+git checkout master
