@@ -19,7 +19,7 @@ mkdir -p build/tmp
 
 # making of zip files
 
-zip -r $HOME/KOBman/build/tmp/kobman-latest.zip dist/list.txt src
+zip -rj $HOME/KOBman/build/tmp/kobman-latest.zip $HOME/KOBman/dist/list.txt $HOME/KOBman/src/main/bash/kobman-* $HOME/KOBman/src/main/bash/envs/kobman-* $HOME/KOBman/src/main/bash/commands/kobman-*
 
 #zip -r build/tmp/kobman-latest.zip $HOME/KOBman/src/
 cp $HOME/KOBman/build/tmp/kobman-latest.zip $HOME/KOBman/build/tmp/kobman-$kob_rel_version.zip
@@ -41,7 +41,7 @@ mv $HOME/KOBman/build/tmp/* $HOME/KOBman/dist/
 # saving changes and pushing
 git add $HOME/KOBman/dist/*
 git commit -m "Released the version $kob_rel_version"
-git push origin -f $dist_branch
+git push origin -f -u $dist_branch
 
-#checkout back to master
-git checkout master
+#checkout back to cleanin_up
+git checkout cleanin_up

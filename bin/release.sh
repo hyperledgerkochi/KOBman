@@ -24,7 +24,7 @@ fi
 
 # prepare branch
 cd $HOME/KOBman
-git checkout master
+git checkout cleanin_up
 git branch -D $branch
 git checkout -b $branch
 
@@ -52,5 +52,5 @@ git push -f -u origin $branch
 git tag -a $kob_version -m "Releasing version $kob_version"
 git push origin $kob_version
 
-#checkout to master
-git checkout master
+#checkout to cleanin_up
+git checkout cleanin_up
