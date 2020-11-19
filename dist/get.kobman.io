@@ -9,7 +9,7 @@ export KOBMAN_SERVICE="https://raw.githubusercontent.com"
 
 KOBMAN_NAMESPACE="asa1997"
 KOBMAN_VERSION="tagb3"
-KOBMAN_ENV_REPOS="$KOBMAN_NAMESPACE/kobman_env_repo"
+KOBMAN_ENV_REPOS="asa1997/test_repo_a"
 # KOBMAN_DIST_BRANCH=${KOBMAN_DIST_BRANCH:-REL-${KOBMAN_VERSION}}
 
 
